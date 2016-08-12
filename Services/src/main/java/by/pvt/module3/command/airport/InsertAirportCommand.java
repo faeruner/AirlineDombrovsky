@@ -12,7 +12,6 @@ import by.pvt.module3.resource.ConfigurationManager;
 
 public class InsertAirportCommand implements ActionCommand {
 
-	@Override
 	public String execute(HttpServletRequest request) {
 		Airport air = new Airport();
 		air.setName(request.getParameter(Airport.NAME).trim());
@@ -20,7 +19,7 @@ public class InsertAirportCommand implements ActionCommand {
 			AirportDAO.getInstance().addAirport(air);
 
 			List<Airport> list = AirportDAO.getInstance().getAllAirports();
-			request.setAttribute("by/pvt/module3/command/airport", list);
+			request.setAttribute("airport", list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

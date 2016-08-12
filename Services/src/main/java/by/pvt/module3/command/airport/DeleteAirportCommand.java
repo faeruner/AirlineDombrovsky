@@ -18,7 +18,7 @@ public class DeleteAirportCommand implements ActionCommand {
 			AirportDAO.getInstance().deleteAirport(Integer.parseInt(request.getParameter(Airport.ID).trim()));
 			
 			List<Airport> list = AirportDAO.getInstance().getAllAirports();
-			request.setAttribute("by/pvt/module3/command/airport", list);
+			request.setAttribute("airport", list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

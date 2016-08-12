@@ -12,7 +12,6 @@ import by.pvt.module3.resource.ConfigurationManager;
 
 public class SelectAirportCommand implements ActionCommand {
 
-	@Override
 	public String execute(HttpServletRequest request) {
 		String page = null;
 		try {
@@ -22,12 +21,12 @@ public class SelectAirportCommand implements ActionCommand {
 				if (id > 0) {
 					air.setId(id);
 					air = AirportDAO.getInstance().getAirport(air.getId());
-					request.setAttribute("by/pvt/module3/command/airport", air);
+					request.setAttribute("airport", air);
 				}
 				page = ConfigurationManager.getProperty("path.page.edit_airport");
 			} else {
 				List<Airport> list = AirportDAO.getInstance().getAllAirports();
-				request.setAttribute("by/pvt/module3/command/airport", list);
+				request.setAttribute("airport", list);
 				page = ConfigurationManager.getProperty("path.page.airports");
 			}
 

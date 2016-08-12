@@ -21,7 +21,6 @@ import by.pvt.module3.resource.ConfigurationManager;
 
 public class SelectFlightCommand implements ActionCommand {
 
-	@Override
 	public String execute(HttpServletRequest request) {
 		String page = null;
 		try {
@@ -46,7 +45,7 @@ public class SelectFlightCommand implements ActionCommand {
 				request.setAttribute("arrival", listArrival);
 
 				List<Airline> listAirline = AirlineDAO.getInstance().getAllAirlines();
-				request.setAttribute("by/pvt/module3/command/airline", listAirline);
+				request.setAttribute("airline", listAirline);
 
 				List<Crew> listCrew = CrewDAO.getInstance().getAllCrews();
 				request.setAttribute("crew", listCrew);

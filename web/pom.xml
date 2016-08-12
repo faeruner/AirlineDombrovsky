@@ -8,8 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>web</artifactId>
     <packaging>war</packaging>
-    <name>web Maven Webapp</name>
-
+    <name>webapp Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -19,18 +18,29 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <artifactId>services</artifactId>
+            <groupId>by.pvt</groupId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <artifactId>services</artifactId>
-            <groupId>by.pvt</groupId>
-            <version>1.0</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
     <build>
         <finalName>web</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration><source>1.6</source><target>1.6</target></configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

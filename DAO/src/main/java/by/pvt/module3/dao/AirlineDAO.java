@@ -23,16 +23,20 @@ public class AirlineDAO extends DAO {
 		return instance;
 	}
 
-	public void addAirline(Airline airline) throws SQLException {
+	public Integer addAirline(Airline airline) throws SQLException {
 		Connection connection = poolInstance.getConnection();
 		String query = sqlManager.getProperty(SqlManager.SQL_ADD_AIRLINE);
 		PreparedStatement ps = null;
 
 		ps = connection.prepareStatement(query);
 		ps.setString(1, airline.getName());
+		//connection.setAutoCommit(false);
 		ps.executeUpdate();
 
+		Integer id = getLastID(connection);
+		//connection.commit();
 		poolInstance.freeConnection(connection);
+		return id;
 	}
 
 	public void deleteAirline(Integer id) throws SQLException {

@@ -21,7 +21,7 @@ public class UpdateAirlineCommand implements ActionCommand {
             AirlineDAO.getInstance().updateAirline(air);
 
 			List<Airline> list = AirlineDAO.getInstance().getAllAirlines();
-			request.setAttribute("by/pvt/module3/command/airline", list);
+			request.setAttribute("airline", list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

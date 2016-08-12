@@ -136,9 +136,9 @@
 								<label class="col-xs-1 control-label">Airline</label>
 								<div class="col-xs-5">
 									<select class="c-select form-control" name="airline_id">
-										<c:forEach var="item" items="${requestScope.by.pvt.module3.command.airline}">
+										<c:forEach var="item" items="${requestScope.airline}">
 											<c:choose>
-												<c:when test="${flight.by.pvt.module3.command.airline.id eq item.id}">
+												<c:when test="${flight.airline.id eq item.id}">
 													<option selected value="${item.id}">${item.name}</option>
 												</c:when>
 												<c:otherwise>

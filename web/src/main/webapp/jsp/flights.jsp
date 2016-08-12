@@ -86,7 +86,7 @@
 									<td><fmt:formatDate value="${flight.createDate}" pattern="dd.MM.yyyy" /></td>
 									<td>${flight.arrival.name}</td>
 									<td>${flight.departure.name}</td>
-									<td>${flight.by.pvt.module3.command.airline.name}</td>
+									<td>${flight.airline.name}</td>
 									<td>${flight.crew.id}</td>
 									<td>${flight.user.name} ${flight.user.surname}</td>
 								</tr>

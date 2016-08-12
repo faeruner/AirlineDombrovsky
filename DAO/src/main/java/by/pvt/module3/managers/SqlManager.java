@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
  */
 public class SqlManager {
 
+	public static final String SQL_GET_LAST_ID = "SQL_GET_LAST_ID";
 	private static SqlManager instance;
 	private static ResourceBundle bundle;
 

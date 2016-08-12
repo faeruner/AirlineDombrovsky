@@ -12,13 +12,12 @@ import by.pvt.module3.resource.ConfigurationManager;
 
 public class DeleteAirlineCommand implements ActionCommand {
 
-    @Override
     public String execute(HttpServletRequest request) {
         try {
             AirlineDAO.getInstance().deleteAirline(Integer.parseInt(request.getParameter(Airline.ID).trim()));
             
             List<Airline> list = AirlineDAO.getInstance().getAllAirlines();
-            request.setAttribute("by/pvt/module3/command/airline", list);
+            request.setAttribute("airline", list);
         } catch (SQLException e) {
             e.printStackTrace();
         }

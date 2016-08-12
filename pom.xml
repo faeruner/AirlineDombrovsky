@@ -12,8 +12,7 @@
         <module>Entity</module>
         <module>DAO</module>
         <module>Services</module>
-        <module>Web</module>
-        <module>Web</module>
+        <module>web</module>
     </modules>
 
 

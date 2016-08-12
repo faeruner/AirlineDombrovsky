@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Airports</title>
+<title>Airlines</title>
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </head>
@@ -14,15 +14,15 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-primary">
-					<div class="panel-heading"><h3>Airport List</h3></div>
+					<div class="panel-heading"><h3>Airline List</h3></div>
 					<div class="panel-body">
 						<form class="form-inline" action="controller" method="post">
 							<div class="form-group">
 								<input type="hidden" name="id" value="0"> 
-								<input type="hidden" name="command" value="sel_airport">
+								<input type="hidden" name="command" value="sel_airline">
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary">Insert Airport</button>
+								<button type="submit" class="btn btn-primary">Insert Airline</button>
 							</div>
 							<div class="form-group">
 								<a class="btn btn-primary" href="controller?command=main">Main Page</a>
@@ -38,25 +38,25 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="by.pvt.module3.command.airport" items="${requestScope.by.pvt.module3.command.airport}">
+							<c:forEach var="airline" items="${requestScope.airline}">
 								<tr>
-									<td>${by.pvt.module3.command.airport.id}</td>
-									<td>${by.pvt.module3.command.airport.name}</td>
+									<td>${airline.id}</td>
+									<td>${airline.name}</td>
 									<td>
 										<table>
 											<thead>
 												<tr>
 													<td>
 														<form class="form-inline" action="controller" method="post">
-															<input type="hidden" name="id" value="${by.pvt.module3.command.airport.id}">
-															<input type="hidden" name="command" value="sel_airport">
+															<input type="hidden" name="id" value="${airline.id}">
+															<input type="hidden" name="command" value="sel_airline">
 															<button type="submit" class="btn btn-secondary btn-xs">edit</button>
 														</form>
 													</td>
 													<td>
 														<form class="form-inline" action="controller" method="post">
-															<input type="hidden" name="id" value="${by.pvt.module3.command.airport.id}">
-															<input type="hidden" name="command" value="del_airport">
+															<input type="hidden" name="id" value="${airline.id}">
+															<input type="hidden" name="command" value="del_airline">
 															<button type="submit" class="btn btn-secondary btn-xs">delete</button>
 														</form>
 													</td>
