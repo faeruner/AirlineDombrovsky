@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="by.pvt.module3.entity" auto-import="false" catalog="airline">
+    <class name="Crew" table="crew">
+        <id name="id" type="int" column="id">
+            <generator class="increment"/>
+        </id>
+
+        <property name="createDate" column="create_date" type="date"/>
+        <property name="ready" column="ready" type="int"/>
+        <many-to-one name="user" column="users_id"
+                     class="User" not-null="true"/>
+
+        <set name="members" table="member"
+             inverse="false" lazy="true" fetch="select" cascade="all" >
+            <key>
+                <column name="crew_id" not-null="true" />
+            </key>
+            <many-to-many class="Staff">
+                <column name="staff_id" not-null="true" />
+            </many-to-many>
+        </set>
+
+    </class>
+</hibernate-mapping>

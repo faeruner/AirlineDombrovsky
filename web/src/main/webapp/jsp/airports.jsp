@@ -18,7 +18,7 @@
 					<div class="panel-body">
 						<form class="form-inline" action="controller" method="post">
 							<div class="form-group">
-								<input type="hidden" name="id" value="0"> 
+								<input type="hidden" name="id" value="0">
 								<input type="hidden" name="command" value="sel_airport">
 							</div>
 							<div class="form-group">
@@ -68,6 +68,22 @@
 							</c:forEach>
 						</tbody>
 					</table>
+                    <form action="controller" method="post">
+                        <input type="hidden" name="command" value="sel_airport">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <c:forEach var="numPage" items="${requestScope.numPages}">
+                                <c:choose>
+                                    <c:when test="${numPage eq requestScope.current_page}">
+                                        <button type="submit" name="page_num" value="${numPage}" class="btn btn-primary btn-xs">${numPage}</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <button type="submit" name="page_num" value="${numPage}" class="btn btn-secondary btn-xs">${numPage}</button>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </div>
+                    </form>
+                    <div>Page: ${requestScope.current_page}/${requestScope.numPages.size()}</div>
 				</div>
 			</div>
 		</div>

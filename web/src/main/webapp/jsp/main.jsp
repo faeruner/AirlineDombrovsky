@@ -35,6 +35,7 @@
 									</td>
 									<td>
 										<form name="airportForm" method="POST" action="controller">
+											<input type="hidden" name="page_num" value="1" />
 											<input type="hidden" name="command" value="sel_airport" />
 											<button class="btn btn-primary" type="submit">Airports</button>
 										</form>

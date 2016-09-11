@@ -19,4 +19,9 @@
 	<session-config>
 		<session-timeout>1</session-timeout>
 	</session-config>
+	<listener>
+		<listener-class>
+			by.pvt.module3.servlet.RequestListener
+		</listener-class>
+	</listener>
 </web-app>

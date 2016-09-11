@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.pvt.module3.command.ActionCommand;
 import by.pvt.module3.command.factory.ActionFactory;
+import by.pvt.module3.hibernate.HibernateUtil;
 import by.pvt.module3.resource.ConfigurationManager;
 import by.pvt.module3.resource.MessageManager;
 
@@ -32,6 +33,7 @@ public class Controller extends HttpServlet {
 		ActionFactory client = new ActionFactory();
 		ActionCommand command = client.defineCommand(request);
 		page = command.execute(request);
+//		HibernateUtil.closeSession();
 		if (page != null) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
 			dispatcher.forward(request, response);

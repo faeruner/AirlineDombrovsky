@@ -7,6 +7,18 @@ public class Airport {
 	Integer id;
 	String name;
 
+	public Airport() {
+	}
+
+	public Airport(Integer id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+	public Airport(String name) {
+		this.name = name;
+	}
+
 	public Integer getId() {
 		return id;
 	}

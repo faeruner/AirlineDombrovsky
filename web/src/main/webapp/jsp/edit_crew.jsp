@@ -112,7 +112,7 @@
 									</div>
 									<div class="col-xs-1">
 										<c:if test="${not empty requestScope.staff}">
-											<input type="hidden" name="crew_id" value="${crew.id}">
+											<input type="hidden" name="id" value="${crew.id}">
 											<input type="hidden" name="command" value="ins_member" />
 											<button type="submit" class="btn btn-primary">Insert Staff</button>
 										</c:if>
@@ -139,7 +139,7 @@
 										<td>${staff.surname}</td>
 										<td>
 											<form class="form-inline" action="controller" method="post">
-												<input type="hidden" name="crew_id" value="${crew.id}">
+												<input type="hidden" name="id" value="${crew.id}">
 												<input type="hidden" name="staff_id" value="${staff.id}">
 												<input type="hidden" name="command" value="del_member">
 												<button type="submit" class="btn btn-secondary btn-xs">delete</button>

@@ -7,6 +7,18 @@ public class Airline {
 	Integer id;
 	String name;
 
+	public Airline() {
+	}
+
+	public Airline(String name) {
+		this.name = name;
+	}
+
+	public Airline(Integer id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}

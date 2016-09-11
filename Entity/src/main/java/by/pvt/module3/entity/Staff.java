@@ -1,11 +1,14 @@
 package by.pvt.module3.entity;
 
+import java.util.Set;
+
 public class Staff {
 
 	Integer id;
 	String name;
 	String surname;
 	MemberType member;
+	private Set<Crew> crews;
 
 	public static final String ID = "id";
 	public static final String NAME = "name";
@@ -69,4 +72,11 @@ public class Staff {
 		return true;
 	}
 
+	public Set<Crew> getCrews() {
+		return crews;
+	}
+
+	public void setCrews(Set<Crew> crews) {
+		this.crews = crews;
+	}
 }

@@ -67,12 +67,29 @@
 												</tr>
 											</thead>
 										</table>
+
 									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
+				<form action="controller" method="post">
+					<input type="hidden" name="command" value="sel_staff">
+					<div class="btn-group" role="group" aria-label="...">
+						<c:forEach var="numPage" items="${requestScope.numPages}">
+							<c:choose>
+								<c:when test="${numPage eq requestScope.current_page}">
+									<button type="submit" name="page_num" value="${numPage}" class="btn btn-primary btn-xs">${numPage}</button>
+								</c:when>
+								<c:otherwise>
+									<button type="submit" name="page_num" value="${numPage}" class="btn btn-secondary btn-xs">${numPage}</button>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</div>
+				</form>
+				<div>Page: ${requestScope.current_page}/${requestScope.numPages.size()}</div>
 			</div>
 		</div>
 	</div>
