@@ -2,6 +2,7 @@ package by.pvt.module3.command.airline;
 
 import by.pvt.module3.dao.CommonDAO;
 import by.pvt.module3.entity.Airline;
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import javax.servlet.*;
@@ -10,12 +11,9 @@ import java.io.*;
 import java.security.Principal;
 import java.util.*;
 
-/**
- * Created by v on 01.09.2016.
- */
 public class SelectAirlineCommandTest extends TestCase {
-    HttpServletRequest request;
-    Integer id;
+    private HttpServletRequest request;
+//    private Integer id;
 
     public void setUp() throws Exception {
         request = new HttpServletRequest ()
@@ -314,6 +312,12 @@ public class SelectAirlineCommandTest extends TestCase {
 //        CommonDAO<Airline> daoAirline = new CommonDAO<Airline>(Airline.class);
 //        if(id != null)
 //            daoAirline.delete(id);
+    }
+
+    public void testExecute(){
+        String pageExist = (new SelectAirlineCommand()).execute(request);
+        String pageWaiting = "/jsp/airlines.jsp";
+        Assert.assertEquals(pageExist, pageWaiting);
     }
 
 
