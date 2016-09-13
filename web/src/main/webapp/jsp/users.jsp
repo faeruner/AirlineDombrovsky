@@ -41,7 +41,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="user" items="${requestScope.user}">
+							<c:forEach var="user" items="${requestScope.entities}">
 								<tr>
 									<td>${user.id}</td>
 									<td>${user.name}</td>

@@ -25,7 +25,7 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<c:choose>
-							<c:when test="${empty staff.id}">
+							<c:when test="${empty entity.id}">
 								<h3>Insert Staff</h3>
 							</c:when>
 							<c:otherwise>
@@ -38,13 +38,13 @@
 							<div class="form-group row">
 								<label class="col-xs-1 control-label">Id</label>
 								<div class="col-xs-5">
-									<input type="text" class="form-control" name="viewId" value="${staff.id}" disabled="disabled" />
+									<input type="text" class="form-control" name="viewId" value="${entity.id}" disabled="disabled" />
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-xs-1 control-label">Name</label>
 								<div class="col-xs-5">
-									<input type="text" class="form-control" name="name" value="${staff.name}">
+									<input type="text" class="form-control" name="name" value="${entity.name}">
 								</div>
 							</div>
 							<div class="form-group row">
@@ -60,7 +60,7 @@
 									<select class="c-select form-control" name="member_type_id">
 										<c:forEach var="item" items="${requestScope.member_type}">
 											<c:choose>
-												<c:when test="${staff.member.id eq item.id}">
+												<c:when test="${entity.member.id eq item.id}">
 													<option selected value="${item.id}">${item.name}</option>
 												</c:when>
 												<c:otherwise>
@@ -74,12 +74,12 @@
 							<div class="form-group row">
 								<div class="col-xs-2 col-xs-offset-1">
 									<c:choose>
-										<c:when test="${empty staff.id}">
+										<c:when test="${empty entity.id}">
 											<input type="hidden" name="command" value="ins_staff" />
 											<button type="submit" class="btn btn-primary btn-block">Insert</button>
 										</c:when>
 										<c:otherwise>
-											<input type="hidden" name="id" value="${staff.id}" />
+											<input type="hidden" name="id" value="${entity.id}" />
 											<input type="hidden" name="command" value="upd_staff" />
 											<button type="submit" class="btn btn-primary btn-block">Save</button>
 										</c:otherwise>

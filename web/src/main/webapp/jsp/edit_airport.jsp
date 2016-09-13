@@ -16,7 +16,7 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<c:choose>
-							<c:when test="${empty airport.id}">
+							<c:when test="${empty entity.id}">
 								<h3>Insert Airport</h3>
 							</c:when>
 							<c:otherwise>
@@ -30,7 +30,7 @@
 								<label for="inputId" class="col-xs-1 form-control-label">Id</label>
 								<div class="col-xs-11">
 									<input type="text" class="form-control" id="inputId"
-										value="${airport.id}" disabled="disabled">
+										value="${entity.id}" disabled="disabled">
 								</div>
 							</div>
 							<div class="form-group row">
@@ -38,19 +38,19 @@
 									class="col-xs-1 form-control-label text-xs-right">Name</label>
 								<div class="col-xs-11">
 									<input type="text" class="form-control" id="inputName"
-										name="name" value="${airport.name}">
+										name="name" value="${entity.name}">
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-xs-1"></div>
 								<div class="col-xs-2">
 									<c:choose>
-										<c:when test="${empty airport.id}">
+										<c:when test="${empty entity.id}">
 											<input type="hidden" name="command" value="ins_airport" />
 											<button type="submit" class="btn btn-primary btn-block">Insert</button>
 										</c:when>
 										<c:otherwise>
-											<input type="hidden" name="id" value="${airport.id}" />
+											<input type="hidden" name="id" value="${entity.id}" />
 											<input type="hidden" name="command" value="upd_airport" />
 											<button type="submit" class="btn btn-primary btn-block">Save</button>
 										</c:otherwise>

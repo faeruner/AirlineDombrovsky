@@ -4,8 +4,8 @@ public class MemberType {
 	public static final String ID = "id";
 	public static final String NAME = "name";
 
-	Integer id;
-	String name;
+	private Integer id;
+	private String name;
 
 	public Integer getId() {
 		return id;

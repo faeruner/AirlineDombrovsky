@@ -38,7 +38,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="airport" items="${requestScope.airport}">
+							<c:forEach var="airport" items="${requestScope.entities}">
 								<tr>
 									<td>${airport.id}</td>
 									<td>${airport.name}</td>

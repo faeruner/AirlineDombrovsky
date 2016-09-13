@@ -18,10 +18,9 @@ import org.hibernate.Transaction;
 
 public class InsertAirportCommand extends AirportCommand {
 
+    @Override
     public String execute(HttpServletRequest request) {
-        CommonService serviceAirport = new ServiceAirport();
-        serviceAirport.add(new Airport(request.getParameter(Airport.NAME).trim()));
-
-        return getPage(request, serviceAirport);
+        getService().add(new Airport(request.getParameter(Airport.NAME).trim()));
+        return getPage(request);
     }
 }

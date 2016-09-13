@@ -1,56 +1,21 @@
 package by.pvt.module3.command.client;
 
-import by.pvt.module3.command.*;
-import by.pvt.module3.command.crew.DeleteCrewCommand;
-import by.pvt.module3.command.crew.InsertCrewCommand;
-import by.pvt.module3.command.crew.SelectCrewCommand;
-import by.pvt.module3.command.crew.UpdateCrewCommand;
-import by.pvt.module3.command.flight.DeleteFlightCommand;
-import by.pvt.module3.command.flight.InsertFlightCommand;
-import by.pvt.module3.command.flight.SelectFlightCommand;
-import by.pvt.module3.command.flight.UpdateFlightCommand;
-import by.pvt.module3.command.member.DeleteMemberCommand;
-import by.pvt.module3.command.member.InsertMemberCommand;
-import by.pvt.module3.command.staff.DeleteStaffCommand;
-import by.pvt.module3.command.staff.InsertStaffCommand;
-import by.pvt.module3.command.staff.UpdateStaffCommand;
-import by.pvt.module3.command.user.DeleteUserCommand;
-import by.pvt.module3.command.user.InsertUserCommand;
-import by.pvt.module3.command.user.SelectUserCommand;
-import by.pvt.module3.command.user.UpdateUserCommand;
+import by.pvt.module3.command.airport.*;
+import by.pvt.module3.command.crew.*;
+import by.pvt.module3.command.flight.*;
+import by.pvt.module3.command.crew.DeleteMemberCommand;
+import by.pvt.module3.command.crew.InsertMemberCommand;
+import by.pvt.module3.command.staff.*;
+import by.pvt.module3.command.user.*;
 import by.pvt.module3.command.ActionCommand;
 import by.pvt.module3.command.AdminCommand;
 import by.pvt.module3.command.DispCommand;
 import by.pvt.module3.command.LoginCommand;
 import by.pvt.module3.command.LogoutCommand;
 import by.pvt.module3.command.airline.*;
-import by.pvt.module3.command.airport.*;
-import by.pvt.module3.command.flight.DeleteFlightCommand;
-import by.pvt.module3.command.flight.InsertFlightCommand;
-import by.pvt.module3.command.flight.SelectFlightCommand;
-import by.pvt.module3.command.flight.UpdateFlightCommand;
-import by.pvt.module3.command.member.DeleteMemberCommand;
-import by.pvt.module3.command.member.InsertMemberCommand;
 import by.pvt.module3.command.airline.DeleteAirlineCommand;
 import by.pvt.module3.command.airline.InsertAirlineCommand;
-import by.pvt.module3.command.airline.SelectAirlineCommand;
 import by.pvt.module3.command.airline.UpdateAirlineCommand;
-import by.pvt.module3.command.airport.DeleteAirportCommand;
-import by.pvt.module3.command.airport.InsertAirportCommand;
-import by.pvt.module3.command.airport.SelectAirportCommand;
-import by.pvt.module3.command.airport.UpdateAirportCommand;
-import by.pvt.module3.command.crew.DeleteCrewCommand;
-import by.pvt.module3.command.crew.InsertCrewCommand;
-import by.pvt.module3.command.crew.SelectCrewCommand;
-import by.pvt.module3.command.crew.UpdateCrewCommand;
-import by.pvt.module3.command.staff.DeleteStaffCommand;
-import by.pvt.module3.command.staff.InsertStaffCommand;
-import by.pvt.module3.command.staff.SelectStaffCommand;
-import by.pvt.module3.command.staff.UpdateStaffCommand;
-import by.pvt.module3.command.user.DeleteUserCommand;
-import by.pvt.module3.command.user.InsertUserCommand;
-import by.pvt.module3.command.user.SelectUserCommand;
-import by.pvt.module3.command.user.UpdateUserCommand;
 
 public enum CommandEnum {
     LOGIN {
@@ -75,7 +40,7 @@ public enum CommandEnum {
     },
     SEL_AIRPORT {
         {
-            this.command = new SelectAirportCommand();
+            this.command = new AirportCommand();
         }
     },
     INS_AIRPORT {
@@ -95,7 +60,7 @@ public enum CommandEnum {
     },
     SEL_AIRLINE {
         {
-            this.command = new SelectAirlineCommand();
+            this.command = new AirlineCommand();
         }
     },
     INS_AIRLINE {
@@ -115,7 +80,7 @@ public enum CommandEnum {
     },
     SEL_USER {
         {
-            this.command = new SelectUserCommand();
+            this.command = new UserCommand();
         }
     },
     INS_USER {
@@ -135,7 +100,7 @@ public enum CommandEnum {
     },
     SEL_STAFF {
         {
-            this.command = new SelectStaffCommand();
+            this.command = new StaffCommand();
         }
     },
     INS_STAFF {
@@ -155,7 +120,7 @@ public enum CommandEnum {
     },
     SEL_FLIGHT {
         {
-            this.command = new SelectFlightCommand();
+            this.command = new FlightCommand();
         }
     },
     INS_FLIGHT {
@@ -175,7 +140,7 @@ public enum CommandEnum {
     },
     SEL_CREW {
         {
-            this.command = new SelectCrewCommand();
+            this.command = new CrewCommand();
         }
     },
     INS_CREW {

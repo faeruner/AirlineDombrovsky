@@ -8,10 +8,7 @@ public class DispCommand implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		String page = null;
-		page = ConfigurationManager.getProperty("path.page.user");
-		return page;
+		return ConfigurationManager.getProperty("path.page.user");
 
 	}
-
 }

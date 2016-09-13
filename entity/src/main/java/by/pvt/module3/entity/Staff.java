@@ -4,10 +4,10 @@ import java.util.Set;
 
 public class Staff {
 
-	Integer id;
-	String name;
-	String surname;
-	MemberType member;
+	private Integer id;
+	private String name;
+	private String surname;
+	private MemberType member;
 	private Set<Crew> crews;
 
 	public static final String ID = "id";

@@ -1,7 +1,6 @@
 package by.pvt.module3.entity;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 public class Crew {
@@ -12,11 +11,11 @@ public class Crew {
 	public static final String CREW_ID = "crew_id";
 	public static final String STAFF_ID = "staff_id";
 
-	Integer id;
-	Date createDate;
-	Integer ready;
-	User user;
-	Set<Staff> members;
+	private Integer id;
+	private Date createDate;
+	private Integer ready;
+	private User user;
+	private Set<Staff> members;
 
 	public Set<Staff> getMembers() {
 		return members;

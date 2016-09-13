@@ -1,18 +1,16 @@
 package by.pvt.module3.servlet;
 
-import java.io.IOException;
+import by.pvt.module3.command.ActionCommand;
+import by.pvt.module3.command.factory.ActionFactory;
+import by.pvt.module3.resource.ConfigurationManager;
+import by.pvt.module3.resource.MessageManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import by.pvt.module3.command.ActionCommand;
-import by.pvt.module3.command.factory.ActionFactory;
-import by.pvt.module3.hibernate.HibernateUtil;
-import by.pvt.module3.resource.ConfigurationManager;
-import by.pvt.module3.resource.MessageManager;
+import java.io.IOException;
 
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 2947647124621648551L;
@@ -29,11 +27,10 @@ public class Controller extends HttpServlet {
 
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String page = null;
+		String page;
 		ActionFactory client = new ActionFactory();
 		ActionCommand command = client.defineCommand(request);
 		page = command.execute(request);
-//		HibernateUtil.closeSession();
 		if (page != null) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
 			dispatcher.forward(request, response);

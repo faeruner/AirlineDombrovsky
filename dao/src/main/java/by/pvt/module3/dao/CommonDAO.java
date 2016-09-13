@@ -1,16 +1,10 @@
 package by.pvt.module3.dao;
 
-import by.pvt.module3.hibernate.HibernateUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
-import java.lang.reflect.ParameterizedType;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CommonDAO<T> {
     protected static final Logger log = LogManager.getRootLogger();
@@ -41,14 +35,10 @@ public class CommonDAO<T> {
     }
 
     public T getById(Integer id) {
-        T entity = null;
-        entity = (T) session.get(getPersistentClass(), id);
-        return entity;
+        return (T) session.get(getPersistentClass(), id);
     }
 
     public ArrayList<T> getAll() {
-        ArrayList<T> entities = new ArrayList<T>();
-        entities = (ArrayList<T>) session.createCriteria(getPersistentClass()).list();
-        return entities;
+        return (ArrayList<T>) session.createCriteria(getPersistentClass()).list();
     }
 }

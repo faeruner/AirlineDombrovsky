@@ -25,7 +25,7 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<c:choose>
-							<c:when test="${empty flight.id}">
+							<c:when test="${empty entity.id}">
 								<h3>Insert Flight</h3>
 							</c:when>
 							<c:otherwise>
@@ -38,20 +38,20 @@
 							<div class="form-group row">
 								<label class="col-xs-1 control-label">Id</label>
 								<div class="col-xs-5">
-									<input type="text" class="form-control" name="viewId" value="${flight.id}" disabled="disabled" />
+									<input type="text" class="form-control" name="viewId" value="${entity.id}" disabled="disabled" />
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-xs-1 control-label">Code</label>
 								<div class="col-xs-5">
-									<input type="text" class="form-control" name="code" value="${flight.code}">
+									<input type="text" class="form-control" name="code" value="${entity.code}">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-xs-1 control-label">DepDate</label>
 								<div class="col-xs-3 date">
 									<div class="input-group input-append date" id="inputDepDate">
-										<fmt:formatDate value="${flight.depDate}" pattern="dd.MM.yyyy" var="depDate"/>
+										<fmt:formatDate value="${entity.depDate}" pattern="dd.MM.yyyy" var="depDate"/>
 	                    				<input type='text' class="form-control" name="departure" value="${depDate}" />
 	                    				<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
 	                				</div>
@@ -68,7 +68,7 @@
 								<label class="col-xs-1 control-label">ReturnDate</label>
 								<div class="col-xs-3 date">
 									<div class="input-group input-append date" id="inputReturnDate">
-										<fmt:formatDate value="${flight.returnDate}" pattern="dd.MM.yyyy" var="retDate"/>
+										<fmt:formatDate value="${entity.returnDate}" pattern="dd.MM.yyyy" var="retDate"/>
 	                    				<input type='text' class="form-control" name="return_date" value="${retDate}" />
 	                    				<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
 	                				</div>
@@ -85,7 +85,7 @@
 								<label class="col-xs-1 control-label">CreateDate</label>
 								<div class="col-xs-3 date">
 									<div class="input-group input-append date" id="inputCreateDate">
-										<fmt:formatDate value="${flight.createDate}" pattern="dd.MM.yyyy" var="creDate"/>
+										<fmt:formatDate value="${entity.createDate}" pattern="dd.MM.yyyy" var="creDate"/>
 	                    				<input type='text' class="form-control" name="create_date" value="${creDate}" />
 	                    				<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
 	                				</div>
@@ -104,7 +104,7 @@
 									<select class="c-select form-control" name="airport_arv_id">
 										<c:forEach var="item" items="${requestScope.arrival}">
 											<c:choose>
-												<c:when test="${flight.arrival.id eq item.id}">
+												<c:when test="${entity.arrival.id eq item.id}">
 													<option selected value="${item.id}">${item.name}</option>
 												</c:when>
 												<c:otherwise>
@@ -121,7 +121,7 @@
 									<select class="c-select form-control" name="airport_dep_id">
 										<c:forEach var="item" items="${requestScope.departure}">
 											<c:choose>
-												<c:when test="${flight.departure.id eq item.id}">
+												<c:when test="${entity.departure.id eq item.id}">
 													<option selected value="${item.id}">${item.name}</option>
 												</c:when>
 												<c:otherwise>
@@ -138,7 +138,7 @@
 									<select class="c-select form-control" name="airline_id">
 										<c:forEach var="item" items="${requestScope.airline}">
 											<c:choose>
-												<c:when test="${flight.airline.id eq item.id}">
+												<c:when test="${entity.airline.id eq item.id}">
 													<option selected value="${item.id}">${item.name}</option>
 												</c:when>
 												<c:otherwise>
@@ -155,7 +155,7 @@
 									<select class="c-select form-control" name="crew_id">
 										<c:forEach var="item" items="${requestScope.crew}">
 											<c:choose>
-												<c:when test="${flight.crew.id eq item.id}">
+												<c:when test="${entity.crew.id eq item.id}">
 													<option selected value="${item.id}">${item.id}</option>
 												</c:when>
 												<c:otherwise>
@@ -169,18 +169,18 @@
 							<div class="form-group row">
 								<label class="col-xs-1 control-label">User</label>
 								<div class="col-xs-5">
-									<input type="text" class="form-control" name="user" value="${flight.user.login}" disabled="disabled" />
+									<input type="text" class="form-control" name="user" value="${entity.user.login}" disabled="disabled" />
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-xs-2 col-xs-offset-1">
 									<c:choose>
-										<c:when test="${empty flight.id}">
+										<c:when test="${empty entity.id}">
 											<input type="hidden" name="command" value="ins_flight" />
 											<button type="submit" class="btn btn-primary btn-block">Insert</button>
 										</c:when>
 										<c:otherwise>
-											<input type="hidden" name="id" value="${flight.id}" />
+											<input type="hidden" name="id" value="${entity.id}" />
 											<input type="hidden" name="command" value="upd_flight" />
 											<button type="submit" class="btn btn-primary btn-block">Save</button>
 										</c:otherwise>

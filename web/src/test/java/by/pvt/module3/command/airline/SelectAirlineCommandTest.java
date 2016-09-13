@@ -315,7 +315,7 @@ public class SelectAirlineCommandTest extends TestCase {
     }
 
     public void testExecute(){
-        String pageExist = (new SelectAirlineCommand()).execute(request);
+        String pageExist = (new AirlineCommand()).execute(request);
         String pageWaiting = "/jsp/airlines.jsp";
         Assert.assertEquals(pageExist, pageWaiting);
     }

@@ -32,7 +32,9 @@ public class UserDAO extends DAO {
 			entity = (User) criteria.uniqueResult();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			if (session != null) {
+				session.getTransaction().rollback();
+			}
 			log.error(e);
 		}
 		return entity;

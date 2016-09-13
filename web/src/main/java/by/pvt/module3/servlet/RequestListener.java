@@ -13,7 +13,6 @@ public class RequestListener implements ServletRequestListener {
     }
 
     public void requestInitialized(ServletRequestEvent event) {
-        ;
     }
 
 }

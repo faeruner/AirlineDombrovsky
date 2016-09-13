@@ -25,7 +25,7 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<c:choose>
-							<c:when test="${empty crew.id}">
+							<c:when test="${empty entity.id}">
 								<h3>Insert Crew</h3>
 							</c:when>
 							<c:otherwise>
@@ -38,14 +38,14 @@
 							<div class="form-group row">
 								<label class="col-xs-1 control-label">Id</label>
 								<div class="col-xs-5">
-									<input type="text" class="form-control" name="viewId" value="${crew.id}" disabled="disabled" />
+									<input type="text" class="form-control" name="viewId" value="${entity.id}" disabled="disabled" />
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-xs-1 control-label">CreateDate</label>
 								<div class="col-xs-3 date">
 									<div class="input-group input-append date" id="inputCreateDate">
-										<fmt:formatDate value="${crew.createDate}" pattern="dd.MM.yyyy" var="createDate"/>
+										<fmt:formatDate value="${entity.createDate}" pattern="dd.MM.yyyy" var="createDate"/>
 	                    				<input type='text' class="form-control" name="create_date" value="${createDate}" />
 	                    				<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
 	                				</div>
@@ -72,18 +72,18 @@
 							<div class="form-group row">
 								<label class="col-xs-1 control-label">User</label>
 								<div class="col-xs-5">
-									<input type="text" class="form-control" name="user" value="${crew.user.name} ${crew.user.surname}" disabled="disabled" />
+									<input type="text" class="form-control" name="user" value="${entity.user.name} ${entity.user.surname}" disabled="disabled" />
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-xs-2 col-xs-offset-1">
 									<c:choose>
-										<c:when test="${empty crew.id}">
+										<c:when test="${empty entity.id}">
 											<input type="hidden" name="command" value="ins_crew" />
 											<button type="submit" class="btn btn-primary btn-block">Insert</button>
 										</c:when>
 										<c:otherwise>
-											<input type="hidden" name="id" value="${crew.id}" />
+											<input type="hidden" name="id" value="${entity.id}" />
 											<input type="hidden" name="command" value="upd_crew" />
 											<button type="submit" class="btn btn-primary btn-block">Save</button>
 										</c:otherwise>
@@ -96,7 +96,7 @@
 						</form>
 					</div>
 				</div>
-				<c:if test="${not empty crew.id}">
+				<c:if test="${not empty entity.id}">
 					<div class="panel panel-primary">
 						<div class="panel-heading"><h3 class="panel-title">Member List</h3></div>
 						<div class="panel-body">
@@ -112,7 +112,7 @@
 									</div>
 									<div class="col-xs-1">
 										<c:if test="${not empty requestScope.staff}">
-											<input type="hidden" name="id" value="${crew.id}">
+											<input type="hidden" name="id" value="${entity.id}">
 											<input type="hidden" name="command" value="ins_member" />
 											<button type="submit" class="btn btn-primary">Insert Staff</button>
 										</c:if>
@@ -131,7 +131,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="staff" items="${requestScope.crew.members}">
+								<c:forEach var="staff" items="${requestScope.entity.members}">
 									<tr>
 										<td>${staff.id}</td>
 										<td>${staff.member.name}</td>
@@ -139,7 +139,7 @@
 										<td>${staff.surname}</td>
 										<td>
 											<form class="form-inline" action="controller" method="post">
-												<input type="hidden" name="id" value="${crew.id}">
+												<input type="hidden" name="id" value="${entity.id}">
 												<input type="hidden" name="staff_id" value="${staff.id}">
 												<input type="hidden" name="command" value="del_member">
 												<button type="submit" class="btn btn-secondary btn-xs">delete</button>

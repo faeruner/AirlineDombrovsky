@@ -1,21 +1,29 @@
 package by.pvt.module3.entity;
 
-public class Airport {
+public class Airline {
 	public static final String ID = "id";
 	public static final String NAME = "name";
 
-	Integer id;
-	String name;
+	private Integer id;
+	private String name;
 
-	public Airport() {
+	public Airline() {
 	}
 
-	public Airport(Integer id, String name) {
+	public Airline(String name) {
+		this.name = name;
+	}
+
+	public Airline(Integer id, String name) {
 		this.id = id;
 		this.name = name;
 	}
 
-	public Airport(String name) {
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -27,11 +35,4 @@ public class Airport {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 }

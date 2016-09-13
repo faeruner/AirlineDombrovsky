@@ -55,7 +55,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="flight" items="${requestScope.flight}">
+							<c:forEach var="flight" items="${requestScope.entities}">
 								<tr>
 									<td>
 										<table>

@@ -1,19 +1,19 @@
 package by.pvt.module3.entity;
 
 public class User {
-	Integer id;
-	String name;
-	String surname;
-	String login;
-	String password;
-	UserRole role;
-
 	public static final String ID = "id";
 	public static final String NAME = "name";
 	public static final String SURNAME = "surname";
 	public static final String LOGIN = "login";
 	public static final String PASSWORD = "password";
 	public static final String USER_ROLE_ID = "user_role_id";
+
+	private Integer id;
+	private String name;
+	private String surname;
+	private String login;
+	private String password;
+	private UserRole role;
 
 	public Integer getId() {
 		return id;

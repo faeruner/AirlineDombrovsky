@@ -1,22 +1,37 @@
 package by.pvt.module3.command.staff;
 
-import by.pvt.module3.command.ActionCommand;
 import by.pvt.module3.command.BaseCommand;
+import by.pvt.module3.entity.MemberType;
 import by.pvt.module3.entity.Staff;
-import by.pvt.module3.resource.ConfigurationManager;
+import by.pvt.module3.service.BaseService;
 import by.pvt.module3.service.CommonService;
-import by.pvt.module3.service.ServiceStaff;
+import by.pvt.module3.service.ServiceMemberType;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * Created by v on 08.09.2016.
  */
-public abstract class StaffCommand extends BaseCommand<Staff> {
+public class StaffCommand extends BaseCommand<Staff> {
 
-    public String getPage(HttpServletRequest request, CommonService service) {
-        request.setAttribute("staff", preparePagination(request, service));
-        return ConfigurationManager.getProperty("path.page.staff");
+    private static final String LIST_MEMBER_TYPE = "member_type";
+
+    public StaffCommand() {
+        super(new BaseService<Staff>(Staff.class), "path.page.edit_staff", "path.page.staff");
     }
+
+    @Override
+    protected void initEditAttributes(Staff staff, HttpServletRequest request) {
+        CommonService<MemberType> serviceMemberType = new ServiceMemberType();
+        request.setAttribute(LIST_MEMBER_TYPE, serviceMemberType.getAll());
+    }
+
+    protected void updateEntity(Staff staff, HttpServletRequest request){
+        CommonService<MemberType> serviceMemberType = new ServiceMemberType();
+
+        staff.setName(request.getParameter(Staff.NAME).trim());
+        staff.setSurname(request.getParameter(Staff.SURNAME).trim());
+        staff.setMember(serviceMemberType.getById(Integer.parseInt(request.getParameter(Staff.MEMBER_TYPE_ID).trim())));
+    }
+
 }

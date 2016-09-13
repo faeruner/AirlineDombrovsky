@@ -1,6 +1,7 @@
 package by.pvt.module3.command;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import by.pvt.module3.entity.User;
 import by.pvt.module3.filter.UserType;
 import by.pvt.module3.resource.ConfigurationManager;
 import by.pvt.module3.resource.MessageManager;
+import by.pvt.module3.service.ServiceUser;
 
 public class LoginCommand implements ActionCommand {
 	private static final String PARAM_NAME_LOGIN = "login";

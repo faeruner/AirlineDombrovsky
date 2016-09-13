@@ -40,7 +40,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="staff" items="${requestScope.staff}">
+							<c:forEach var="staff" items="${requestScope.entities}">
 								<tr>
 									<td>${staff.id}</td>
 									<td>${staff.name}</td>

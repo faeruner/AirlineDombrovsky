@@ -15,16 +15,16 @@ public class Flight {
 	public static final String CREW_ID = "crew_id";
 	public static final String USER_ID = "users_id";
 
-	Integer id; // id
-	String code; // code
-	Date depDate; // departure
-	Date returnDate; // return_date
-	Date createDate; // create_date
-	Airport arrival; // airport_arv_id
-	Airport departure; // airport_dep_id
-	Airline airline; // airline_id
-	Crew crew; // crew_id
-	User user; // users_id
+	private Integer id; // id
+	private String code; // code
+	private Date depDate; // departure
+	private Date returnDate; // return_date
+	private Date createDate; // create_date
+	private Airport arrival; // airport_arv_id
+	private Airport departure; // airport_dep_id
+	private Airline airline; // airline_id
+	private Crew crew; // crew_id
+	private User user; // users_id
 
 	public Integer getId() {
 		return id;
