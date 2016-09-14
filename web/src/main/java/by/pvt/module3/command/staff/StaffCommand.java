@@ -6,6 +6,7 @@ import by.pvt.module3.entity.Staff;
 import by.pvt.module3.service.BaseService;
 import by.pvt.module3.service.CommonService;
 import by.pvt.module3.service.ServiceMemberType;
+import by.pvt.module3.service.ServiceStaff;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,17 +18,17 @@ public class StaffCommand extends BaseCommand<Staff> {
     private static final String LIST_MEMBER_TYPE = "member_type";
 
     public StaffCommand() {
-        super(new BaseService<Staff>(Staff.class), "path.page.edit_staff", "path.page.staff");
+        super(new ServiceStaff(), "path.page.edit_staff", "path.page.staff");
     }
 
     @Override
     protected void initEditAttributes(Staff staff, HttpServletRequest request) {
-        CommonService<MemberType> serviceMemberType = new ServiceMemberType();
+        ServiceMemberType serviceMemberType = new ServiceMemberType();
         request.setAttribute(LIST_MEMBER_TYPE, serviceMemberType.getAll());
     }
 
     protected void updateEntity(Staff staff, HttpServletRequest request){
-        CommonService<MemberType> serviceMemberType = new ServiceMemberType();
+        ServiceMemberType serviceMemberType = new ServiceMemberType();
 
         staff.setName(request.getParameter(Staff.NAME).trim());
         staff.setSurname(request.getParameter(Staff.SURNAME).trim());

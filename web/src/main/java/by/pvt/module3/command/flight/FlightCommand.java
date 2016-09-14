@@ -23,7 +23,7 @@ public class FlightCommand extends BaseCommand<Flight> {
     private static final String LIST_CREW = "crew";
 
     public FlightCommand() {
-        super(new BaseService<Flight>(Flight.class), "path.page.edit_flight", "path.page.flights");
+        super(new ServiceFlight(), "path.page.edit_flight", "path.page.flights");
     }
 
     @Override
@@ -42,15 +42,15 @@ public class FlightCommand extends BaseCommand<Flight> {
 
     @Override
     protected void initEditAttributes(Flight entity, HttpServletRequest request) {
-        CommonService<Airport> serviceAirport = new ServiceAirport();
+        ServiceAirport serviceAirport = new ServiceAirport();
         List<Airport> listAirports = serviceAirport.getAll();
         request.setAttribute(LIST_DEPARTURE, listAirports);
         request.setAttribute(LIST_ARRIVAL, listAirports);
 
-        CommonService<Airline> serviceAirline = new ServiceAirline();
+        ServiceAirline serviceAirline = new ServiceAirline();
         request.setAttribute(LIST_AIRLINE, serviceAirline.getAll());
 
-        CommonService<Crew> serviceCrew = new ServiceCrew();
+        ServiceCrew serviceCrew = new ServiceCrew();
         request.setAttribute(LIST_CREW, serviceCrew.getAll());
     }
 
@@ -64,9 +64,9 @@ public class FlightCommand extends BaseCommand<Flight> {
             log.error(e);
         }
 
-        CommonService<Airport> serviceAirport = new ServiceAirport();
-        CommonService<Airline> serviceAirline = new ServiceAirline();
-        CommonService<Crew> serviceCrew = new ServiceCrew();
+        ServiceAirport serviceAirport = new ServiceAirport();
+        ServiceAirline serviceAirline = new ServiceAirline();
+        ServiceCrew serviceCrew = new ServiceCrew();
 
         flight.setArrival(serviceAirport.
                 getById(Integer.parseInt(request.getParameter(Flight.AIRPORT_ARV_ID).trim())));

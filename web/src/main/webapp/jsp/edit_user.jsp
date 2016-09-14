@@ -54,7 +54,7 @@
 								<label for="inputRole"
 									class="col-xs-1 form-control-label text-xs-right">Role</label>
 								<div class="col-xs-11">
-									<select class="c-select form-control" name="user_role_id">
+									<select id="inputRole" class="c-select form-control" name="user_role_id">
 										<c:forEach var="item" items="${requestScope.user_roles}">
 											<c:choose>
 												<c:when test="${entity.role.id eq item.id}">
