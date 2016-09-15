@@ -5,7 +5,7 @@
 <html>
 <head><title>Edit Airline</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/airline.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-footer p">
+                    <div class="panel-footer panel-footer-custom">
                         <div class="row">
                             <div class="col-md-10 btn-toolbar" role="toolbar">
                                     <button type="submit" class="btn btn-primary">

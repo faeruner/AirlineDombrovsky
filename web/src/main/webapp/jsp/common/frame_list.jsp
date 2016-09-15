@@ -11,7 +11,7 @@
 <html>
 <head><title>AirlineDombrovsky: <%= entity_name %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/airline.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -39,7 +39,7 @@
                     <jsp:param name="command_select" value="<%= command_select %>"/>
                     <jsp:param name="command_delete" value="<%= command_delete %>"/>
                 </jsp:include>
-                <div class="panel-footer">
+                <div class="panel-footer panel-footer-custom">
                     <form action="controller" method="post">
                         <input type="hidden" name="command" value="<%= command_select %>">
                         <div class="btn-group" role="group" aria-label="...">
