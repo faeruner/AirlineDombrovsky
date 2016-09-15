@@ -49,20 +49,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-footer">
+                    <div class="panel-footer p">
                         <div class="row">
                             <div class="col-md-10 btn-toolbar" role="toolbar">
-                                <div class="btn-group" role="group">
-                                    <button type="submit" class="btn btn-primary btn-default">
+                                    <button type="submit" class="btn btn-primary">
                                         <c:choose>
                                             <c:when test="${empty entity.id}">Insert</c:when>
                                             <c:otherwise>Save</c:otherwise>
                                         </c:choose>
                                     </button>
-                                </div>
-                                <div class="btn-group" role="group">
-                                    <a class="btn btn-primary" href="controller?command=sel_airline">Close</a>
-                                </div>
+                                    <a class="btn btn-default" href="controller?command=sel_airline">Close</a>
                             </div>
                         </div>
                     </div>

@@ -9,12 +9,10 @@
 %>
 <form action="controller" method="post">
     <input type="hidden" name="id" value="<%= entity_id %>">
-    <div class="btn-group" role="group" aria-label="...">
-        <button type="submit" name="command" value="<%= command_select %>"
-                class="btn btn-primary btn-xs">edit
-        </button>
-        <button type="submit" name="command" value="<%= command_delete %>"
-                class="btn btn-danger btn-xs">delete
-        </button>
-    </div>
+    <button type="submit" name="command" value="<%= command_select %>"
+            class="btn btn-default btn-xs">edit
+    </button>
+    <button type="submit" name="command" value="<%= command_delete %>"
+            class="btn btn-default btn-xs">delete
+    </button>
 </form>

@@ -24,7 +24,7 @@
                     <form class="form-inline" action="controller" method="post">
                         <div class="form-group">
                             <input type="hidden" name="id" value="0">
-                            <input type="hidden" name="command" value="<%= entity_name %>">
+                            <input type="hidden" name="command" value="<%= command_select %>">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Insert <%= entity_name %>
@@ -51,7 +51,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <button type="submit" name="page_num" value="${numPage}"
-                                                class="btn btn-secondary btn-xs">${numPage}</button>
+                                                class="btn btn-default btn-xs">${numPage}</button>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
