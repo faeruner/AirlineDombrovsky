@@ -1,17 +1,15 @@
 package by.pvt.module3.command;
 
-import java.sql.SQLException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import by.pvt.module3.command.airline.AirlineCommand;
 import by.pvt.module3.dao.UserDAO;
 import by.pvt.module3.entity.User;
 import by.pvt.module3.filter.UserType;
 import by.pvt.module3.resource.ConfigurationManager;
 import by.pvt.module3.resource.MessageManager;
-import by.pvt.module3.service.ServiceUser;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 
 public class LoginCommand implements ActionCommand {
 	private static final String PARAM_NAME_LOGIN = "login";
@@ -32,7 +30,7 @@ public class LoginCommand implements ActionCommand {
 				session.setAttribute("user_id", user.getId());
 				if (UserType.ADMINISTRATOR.getId().equals(user.getRole().getId())) {
 					session.setAttribute("userType", UserType.ADMINISTRATOR);
-					page = ConfigurationManager.getProperty("path.page.main");
+					page = (new AirlineCommand()).getPage(request);
 				} else if (UserType.DISPATCHER.getId().equals(user.getRole().getId())) {
 					session.setAttribute("userType", UserType.DISPATCHER);
 					page = ConfigurationManager.getProperty("path.page.user");

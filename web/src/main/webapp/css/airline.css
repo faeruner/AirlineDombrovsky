@@ -1,5 +1,6 @@
-@import '/css/bootstrap.min.css';
-
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css");
 .panel-primary > .panel-footer-custom {
-    background: #e0e0e0; color: #000;
+    background: #f5f5f5;
+    color: #000;
 }
