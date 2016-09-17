@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-4">
                             <p style="text-align: right;">
-                                Debug info - session = ${sessionScope}
+                                Debug info: session = ${sessionScope}
                                 <a href="controller?command=logout">Logout</a>
                             </p>
                         </div>

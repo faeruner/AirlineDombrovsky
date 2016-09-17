@@ -5,23 +5,37 @@
 <html>
 <head><title>Edit Airline</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <link href="css/airline.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link href="../css/airline.css" rel="stylesheet" type="text/css"/>
+    <%--<script type="text/javascript" src="../../js/bootstrap.min.js"></script>--%>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.2/jquery.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
             <form action="controller" method="post">
-
-                <div class="panel panel-primary">
+                <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3>
-                            <c:choose>
-                                <c:when test="${empty entity.id}">Insert Airline</c:when>
-                                <c:otherwise>Edit Airline</c:otherwise>
-                            </c:choose>
-                        </h3>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h3>
+                                    <c:choose>
+                                        <c:when test="${empty entity.id}">Insert </c:when>
+                                        <c:otherwise>Edit </c:otherwise>
+                                    </c:choose>
+                                    Airline
+                                </h3>
+                            </div>
+                            <div class="col-md-4">
+                                <p style="text-align: right;">
+                                    Debug info: session = ${sessionScope}
+                                    <a href="controller?command=logout">Logout</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-body">
                         <c:choose>
@@ -34,15 +48,16 @@
                             </c:otherwise>
                         </c:choose>
                         <div class="form-group row">
-                            <label for="inputId" class="col-md-1 form-control-label">Id</label>
+                            <label for="inputId" class="col-md-1 form-control-label"
+                                   style="text-align: right;">Id</label>
                             <div class="col-md-3">
                                 <input type="text" class="form-control" id="inputId"
                                        value="${entity.id}" disabled="disabled">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputName"
-                                   class="col-md-1 form-control-label text-xs-right">Name</label>
+                            <label for="inputName" class="col-md-1 form-control-label"
+                                   style="text-align: right;">Name</label>
                             <div class="col-md-11">
                                 <input type="text" class="form-control" id="inputName"
                                        name="name" value="${entity.name}">
