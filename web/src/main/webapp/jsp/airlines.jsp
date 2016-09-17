@@ -6,5 +6,6 @@
     <jsp:param name="entity_name" value="Airline"/>
     <jsp:param name="command_select" value="sel_airline"/>
     <jsp:param name="command_select" value="del_airline"/>
-    <jsp:param name="page_fields" value="/jsp/entity-tables/airline-table.jsp"/>
+    <jsp:param name="table_head" value="<th class='col-xs-1'>ID</th><th>Name</th>"/>
+    <jsp:param name="page_fields" value="/jsp/entity-tables/airline-row.jsp"/>
 </jsp:include>

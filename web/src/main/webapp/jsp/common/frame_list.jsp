@@ -7,10 +7,10 @@
     String entity_name = request.getParameter("entity_name");
     String command_select = request.getParameter("command_select");
     String command_delete = request.getParameter("command_delete");
+    String table_head = request.getParameter("table_head");
     String page_fields = request.getParameter("page_fields");
     String userAdmin = UserType.ADMINISTRATOR.name();
     String userType = ((UserType) session.getAttribute("userType")).name();
-
 %>
 <html>
 <head><title>AirlineDombrovsky: <%= entity_name %>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-4">
                             <p style="text-align: right;">
-                                Debug info - session = <%= userAdmin + userType %> ${sessionScope}
+                                Debug info - session = ${sessionScope}
                                 <a href="controller?command=logout">Logout</a>
                             </p>
                         </div>
@@ -82,10 +82,33 @@
                         </form>
                     </div>
                 </div>
-                <jsp:include page="<%= page_fields %>" flush="true">
-                    <jsp:param name="command_select" value="<%= command_select %>"/>
-                    <jsp:param name="command_delete" value="<%= command_delete %>"/>
-                </jsp:include>
+                <table class="table table-hover table-sm table-inverse">
+                    <thead class="thead-default thead-inverse">
+                    <tr bgcolor="#f5f5f5">
+                        <th style="width: 100px">Actions</th>
+                        <%= table_head %>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="item" items="${requestScope.entities}">
+                        <tr>
+                            <td>
+                                <form action="controller" method="post">
+                                    <input type="hidden" name="id" value="${item.id}">
+                                    <button type="submit" name="command" value="<%= command_select %>"
+                                            class="btn btn-default btn-xs">edit
+                                    </button>
+                                    <button type="submit" name="command" value="<%= command_delete %>"
+                                            class="btn btn-default btn-xs">delete
+                                    </button>
+                                </form>
+                            </td>
+                            <c:set var="item" value="${item}" scope="request"/>
+                            <jsp:include page="<%= page_fields %>" flush="true"/>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
                 <div class="panel-footer panel-footer-custom">
                     <div class="row">
                         <div class="col-md-1">
