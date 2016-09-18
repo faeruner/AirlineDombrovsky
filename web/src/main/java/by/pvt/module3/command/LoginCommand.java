@@ -23,7 +23,8 @@ public class LoginCommand implements ActionCommand {
 		try {
 			User user = null;
 			if (login != null) {
-				user = UserDAO.getInstance().getUserByLogin(login);
+				UserDAO dao = new UserDAO();
+				user = dao.getUserByLogin(login);
 			}
 			if (user != null && pass.equals(user.getPassword())) {
 				request.setAttribute("user", user);
