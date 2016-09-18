@@ -5,7 +5,7 @@
 <jsp:include page="/jsp/common/frame_list.jsp" flush="true">
     <jsp:param name="entity_name" value="Airline"/>
     <jsp:param name="command_select" value="sel_airline"/>
-    <jsp:param name="command_select" value="del_airline"/>
+    <jsp:param name="command_delete" value="del_airline"/>
     <jsp:param name="table_head" value="<th class='col-xs-1'>ID</th><th>Name</th>"/>
     <jsp:param name="page_fields" value="/jsp/entity-tables/airline-row.jsp"/>
 </jsp:include>

@@ -9,9 +9,9 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>Entity</module>
-        <module>DAO</module>
-        <module>Services</module>
+        <module>entity</module>
+        <module>dao</module>
+        <module>services</module>
         <module>web</module>
     </modules>
 

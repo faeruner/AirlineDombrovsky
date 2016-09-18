@@ -1,13 +1,13 @@
 package by.pvt.module3.command.airline;
 
-import by.pvt.module3.dao.CommonDAO;
-import by.pvt.module3.entity.Airline;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.*;
 
