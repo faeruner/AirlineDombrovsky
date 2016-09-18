@@ -302,14 +302,14 @@ public class SelectAirlineCommandTest extends TestCase {
 
             // TODO *many* methods to implement here
         };
-//        CommonDAO<Airline> daoAirline = new CommonDAO<Airline>(Airline.class);
+//        BaseDAO<Airline> daoAirline = new BaseDAO<Airline>(Airline.class);
 //        id = daoAirline.add(new Airline());
 //        String[] tmp = {id.toString()};
 //        request.getParameterMap().put(Airline.ID, tmp);
     }
 
     public void tearDown() throws Exception {
-//        CommonDAO<Airline> daoAirline = new CommonDAO<Airline>(Airline.class);
+//        BaseDAO<Airline> daoAirline = new BaseDAO<Airline>(Airline.class);
 //        if(id != null)
 //            daoAirline.delete(id);
     }

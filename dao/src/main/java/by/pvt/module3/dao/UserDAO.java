@@ -1,20 +1,20 @@
 package by.pvt.module3.dao;
 
-import java.sql.SQLException;
+import by.pvt.module3.dao.common.BaseDAO;
+import by.pvt.module3.dao.common.SessionUtil;
 import by.pvt.module3.entity.User;
-import by.pvt.module3.hibernate.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-public class UserDAO extends CommonDAO<User> {
+public class UserDAO extends BaseDAO<User> {
 	public UserDAO() {
-		super(User.class, HibernateUtil.getSesson());
+		super(User.class);
 	}
 
-	public User getUserByLogin(String login) throws SQLException {
-		Session session = HibernateUtil.getSesson();
+	public User getUserByLogin(String login) {
+		Session session = SessionUtil.getSesson();
 		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq(User.LOGIN, login));
 		Transaction transaction = session.beginTransaction();

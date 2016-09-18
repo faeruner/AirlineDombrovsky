@@ -1,4 +1,4 @@
-package by.pvt.module3.service;
+package by.pvt.module3.service.common;
 
 import java.util.List;
 
@@ -10,13 +10,17 @@ public interface CommonService<T> {
 
     void delete(Integer id);
 
-    void add(T entity);
+    Integer add(T entity);
 
     void update(T entity);
 
-    List<T> getPage(Integer num_page);
+    List<T> getPage(Integer pageNum);
 
     List<T> getAll();
 
     List<Integer> getPagesNums();
+
+    Integer getRecordsPerPage();
+
+    void setRecordsPerPage(Integer recordsPerPage);
 }

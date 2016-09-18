@@ -1,4 +1,4 @@
-package by.pvt.module3.hibernate;
+package by.pvt.module3.dao.common;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.persister.entity.AbstractEntityPersister;
 import org.hibernate.service.ServiceRegistry;
 
-public class HibernateUtil {
+public class SessionUtil {
 
     private static SessionFactory sessionFactory;
 

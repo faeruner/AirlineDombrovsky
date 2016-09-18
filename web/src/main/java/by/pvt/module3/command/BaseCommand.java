@@ -2,8 +2,8 @@ package by.pvt.module3.command;
 
 import by.pvt.module3.entity.User;
 import by.pvt.module3.resource.ConfigurationManager;
-import by.pvt.module3.service.CommonService;
-import by.pvt.module3.service.ServiceUser;
+import by.pvt.module3.service.UserService;
+import by.pvt.module3.service.common.CommonService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -96,7 +96,7 @@ public class BaseCommand<T> implements ActionCommand {
     protected User getSessionUser(HttpServletRequest request){
         HttpSession httpSession = request.getSession();
         Integer user_id = (Integer) httpSession.getAttribute(USER_ID);
-        CommonService<User> serviceUser = new ServiceUser();
+        CommonService<User> serviceUser = new UserService();
         return serviceUser.getById(user_id);
     }
 }

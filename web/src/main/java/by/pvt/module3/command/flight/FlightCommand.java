@@ -1,11 +1,12 @@
 package by.pvt.module3.command.flight;
 
 import by.pvt.module3.command.BaseCommand;
-import by.pvt.module3.entity.Airline;
 import by.pvt.module3.entity.Airport;
-import by.pvt.module3.entity.Crew;
 import by.pvt.module3.entity.Flight;
-import by.pvt.module3.service.*;
+import by.pvt.module3.service.AirlineService;
+import by.pvt.module3.service.AirportService;
+import by.pvt.module3.service.CrewService;
+import by.pvt.module3.service.FlightService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -23,7 +24,7 @@ public class FlightCommand extends BaseCommand<Flight> {
     private static final String LIST_CREW = "crew";
 
     public FlightCommand() {
-        super(new ServiceFlight(), "path.page.edit_flight", "path.page.flights");
+        super(new FlightService(), "path.page.edit_flight", "path.page.flights");
     }
 
     @Override
@@ -42,16 +43,16 @@ public class FlightCommand extends BaseCommand<Flight> {
 
     @Override
     protected void initEditAttributes(Flight entity, HttpServletRequest request) {
-        ServiceAirport serviceAirport = new ServiceAirport();
-        List<Airport> listAirports = serviceAirport.getAll();
+        AirportService airportService = new AirportService();
+        List<Airport> listAirports = airportService.getAll();
         request.setAttribute(LIST_DEPARTURE, listAirports);
         request.setAttribute(LIST_ARRIVAL, listAirports);
 
-        ServiceAirline serviceAirline = new ServiceAirline();
-        request.setAttribute(LIST_AIRLINE, serviceAirline.getAll());
+        AirlineService airlineService = new AirlineService();
+        request.setAttribute(LIST_AIRLINE, airlineService.getAll());
 
-        ServiceCrew serviceCrew = new ServiceCrew();
-        request.setAttribute(LIST_CREW, serviceCrew.getAll());
+        CrewService crewService = new CrewService();
+        request.setAttribute(LIST_CREW, crewService.getAll());
     }
 
     protected void updateEntity(Flight flight, HttpServletRequest request){
@@ -64,17 +65,17 @@ public class FlightCommand extends BaseCommand<Flight> {
             log.error(e);
         }
 
-        ServiceAirport serviceAirport = new ServiceAirport();
-        ServiceAirline serviceAirline = new ServiceAirline();
-        ServiceCrew serviceCrew = new ServiceCrew();
+        AirportService airportService = new AirportService();
+        AirlineService airlineService = new AirlineService();
+        CrewService crewService = new CrewService();
 
-        flight.setArrival(serviceAirport.
+        flight.setArrival(airportService.
                 getById(Integer.parseInt(request.getParameter(Flight.AIRPORT_ARV_ID).trim())));
-        flight.setDeparture(serviceAirport.
+        flight.setDeparture(airportService.
                 getById(Integer.parseInt(request.getParameter(Flight.AIRPORT_DEP_ID).trim())));
-        flight.setAirline(serviceAirline.
+        flight.setAirline(airlineService.
                 getById(Integer.parseInt(request.getParameter(Flight.AIRLINE_ID).trim())));
-        flight.setCrew(serviceCrew.
+        flight.setCrew(crewService.
                 getById(Integer.parseInt(request.getParameter(Flight.CREW_ID).trim())));
         flight.setUser(getSessionUser(request));
     }

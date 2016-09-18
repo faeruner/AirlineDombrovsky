@@ -3,9 +3,8 @@ package by.pvt.module3.command.crew;
 import by.pvt.module3.command.BaseCommand;
 import by.pvt.module3.entity.Crew;
 import by.pvt.module3.entity.Staff;
-import by.pvt.module3.service.CommonService;
-import by.pvt.module3.service.ServiceCrew;
-import by.pvt.module3.service.ServiceStaff;
+import by.pvt.module3.service.CrewService;
+import by.pvt.module3.service.StaffService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -24,7 +23,7 @@ public class CrewCommand extends BaseCommand<Crew> {
     private final static String READY_YES = "readyYes";
 
     public CrewCommand() {
-        super(new ServiceCrew(), "path.page.edit_crew", "path.page.crews");
+        super(new CrewService(), "path.page.edit_crew", "path.page.crews");
     }
 
     @Override
@@ -45,8 +44,8 @@ public class CrewCommand extends BaseCommand<Crew> {
 
     @Override
     protected void initEditAttributes(Crew crew, HttpServletRequest request) {
-        ServiceStaff serviceStaff = new ServiceStaff();
-        List<Staff> staff = serviceStaff.getAll();
+        StaffService staffService = new StaffService();
+        List<Staff> staff = staffService.getAll();
         for (Staff member : crew.getMembers()) {
             staff.remove(member);
         }
