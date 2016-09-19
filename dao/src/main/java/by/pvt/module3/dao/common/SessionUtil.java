@@ -10,6 +10,8 @@ import org.hibernate.service.ServiceRegistry;
 public class SessionUtil {
 
     private static SessionFactory sessionFactory;
+    private static String driverClass;
+    public final static String SQLITE_JDBC = "org.sqlite.JDBC";
 
     private static ThreadLocal<Session> localSession = new ThreadLocal<Session>() {
         @Override
@@ -32,9 +34,14 @@ public class SessionUtil {
 
             // builds a session factory from the service registry
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            driverClass = configuration.getProperty("hibernate.connection.driver_class");
         }
 
         return sessionFactory;
+    }
+
+    public static Boolean driverUsed(String name) {
+        return driverClass.equals(name);
     }
 
     public static void closeSession() {

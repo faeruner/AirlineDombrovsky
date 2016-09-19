@@ -88,9 +88,13 @@ public class BaseDAO<T> implements CommonDAO<T> {
         if (pageNum == null)
             pageNum = 1;
 
-        query.setFirstResult((pageNum - 1) * recordsPerPage);
-        query.setMaxResults(recordsPerPage);
-
+        if (!SessionUtil.driverUsed(SessionUtil.SQLITE_JDBC) || pageNum == 1) {
+            query.setFirstResult((pageNum - 1) * recordsPerPage);
+            query.setMaxResults(recordsPerPage);
+        } else {
+            query.setMaxResults((pageNum - 1) * recordsPerPage);
+            query.setFirstResult(recordsPerPage);
+        }
         return (List<T>) query.list();
     }
 }

@@ -1,5 +1,7 @@
 package by.pvt.module3.filter;
 
+import by.pvt.module3.service.common.ServiceUtil;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,8 @@ public class ServletSecurityFilter implements Filter {
 
 		UserType type = (UserType) session.getAttribute("userType");
 		if (type == null || UserType.GUEST.equals(type)) {
-			type = UserType.GUEST;
+            ServiceUtil.closeSession();
+            type = UserType.GUEST;
 			session.setAttribute("userType", type);
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/jsp/login.jsp");
 			dispatcher.forward(req, resp);
@@ -28,7 +31,8 @@ public class ServletSecurityFilter implements Filter {
 		}
 		// pass the request along the by.pvt.module3.filter chain
 		chain.doFilter(request, response);
-	}
+        ServiceUtil.closeSession();
+    }
 
 	public void init(FilterConfig fConfig) throws ServletException {
 	}
