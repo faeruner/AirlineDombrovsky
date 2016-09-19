@@ -23,4 +23,6 @@ public interface CommonService<T> {
     Integer getRecordsPerPage();
 
     void setRecordsPerPage(Integer recordsPerPage);
+
+    Long getInsertPageNum();
 }

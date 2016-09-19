@@ -72,6 +72,7 @@
                     <div class="panel-footer panel-footer-custom">
                         <div class="row">
                             <div class="col-md-10 btn-toolbar" role="toolbar">
+                                <input type="hidden" name="page_num" value="${requestScope.current_page}"/>
                                 <button type="submit" class="btn btn-primary">
                                     <c:choose>
                                         <c:when test="${empty entity.id}">Insert</c:when>

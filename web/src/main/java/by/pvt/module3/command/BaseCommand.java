@@ -27,6 +27,8 @@ public class BaseCommand<T> implements ActionCommand {
     protected static final String ENTITY_EDIT = "entity";
     private static final String ENTITY_LIST = "entities";
     private final static String USER_ID = "user_id";
+    private final static String INSERT_PAGE_NUM = "insertPageNum";
+
 
     protected Logger log = LogManager.getRootLogger();
 
@@ -44,12 +46,13 @@ public class BaseCommand<T> implements ActionCommand {
         Integer num_page = 1;
         if (request.getParameter(PAGE_NUM) != null)
             num_page = Integer.parseInt(request.getParameter(PAGE_NUM).trim());
+        request.setAttribute(CURRENT_PAGE, num_page);
 
         List<Integer> pages = service.getPagesNums();
 
-        request.setAttribute(CURRENT_PAGE, num_page);
         request.setAttribute(PAGES, pages);
         request.setAttribute(COUNT_PAGES, pages.size());
+        request.setAttribute(INSERT_PAGE_NUM, service.getInsertPageNum());
 
         return service.getPage(num_page);
     }
@@ -71,6 +74,10 @@ public class BaseCommand<T> implements ActionCommand {
             initEditAttributes(entity, request);
             if(entity != null)
                 request.setAttribute(ENTITY_EDIT, entity);
+            Integer num_page = 1;
+            if (request.getParameter(PAGE_NUM) != null)
+                num_page = Integer.parseInt(request.getParameter(PAGE_NUM).trim());
+            request.setAttribute(CURRENT_PAGE, num_page);
             page = ConfigurationManager.getProperty(propPathEdit);
         } else {
             page = getPage(request);

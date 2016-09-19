@@ -51,7 +51,8 @@
                 <div class="panel-body">
                     <div class="row">
                         <form class="form-inline col-md-1" action="controller" method="post">
-                            <input type="hidden" name="id" value="0" `/>
+                            <input type="hidden" name="id" value="0"/>
+                            <input type="hidden" name="page_num" value="${requestScope.insertPageNum}"/>
                             <button type="submit" class="btn btn-primary" name="command"
                                     value="<%= command_select %>">Insert
                             </button>
@@ -94,6 +95,7 @@
                             <td>
                                 <form action="controller" method="post">
                                     <input type="hidden" name="id" value="${item.id}">
+                                    <input type="hidden" name="page_num" value="${requestScope.current_page}"/>
                                     <button type="submit" name="command" value="<%= command_select %>"
                                             class="btn btn-default btn-xs">edit
                                     </button>

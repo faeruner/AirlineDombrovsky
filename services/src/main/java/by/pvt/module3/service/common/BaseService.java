@@ -66,4 +66,9 @@ public class BaseService<T> implements CommonService<T> {
     public void setRecordsPerPage(Integer recordsPerPage) {
         this.recordsPerPage = recordsPerPage;
     }
+
+    public Long getInsertPageNum() {
+        Long count = dao.getCount();
+        return count / getRecordsPerPage() + 1;
+    }
 }
