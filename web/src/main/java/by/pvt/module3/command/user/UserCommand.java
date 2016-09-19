@@ -23,6 +23,7 @@ public class UserCommand extends BaseCommand<User> {
         UserRoleService userRoleService = new UserRoleService();
         request.setAttribute(LIST_USER_ROLE, userRoleService.getAll());
     }
+
     protected void updateEntity(User user, HttpServletRequest request){
         user.setName(request.getParameter(User.NAME).trim());
         user.setSurname(request.getParameter(User.SURNAME).trim());

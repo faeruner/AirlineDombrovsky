@@ -1,7 +1,6 @@
 package by.pvt.module3.command;
 
-import by.pvt.module3.command.airline.AirlineCommand;
-import by.pvt.module3.command.crew.CrewCommand;
+import by.pvt.module3.command.client.CommandEnum;
 import by.pvt.module3.entity.User;
 import by.pvt.module3.filter.UserType;
 import by.pvt.module3.resource.ConfigurationManager;
@@ -30,10 +29,10 @@ public class LoginCommand implements ActionCommand {
             session.setAttribute("user_id", user.getId());
             if (UserType.ADMINISTRATOR.getId().equals(user.getRole().getId())) {
                 session.setAttribute("userType", UserType.ADMINISTRATOR);
-                page = (new AirlineCommand()).getPage(request);
+                page = CommandEnum.SEL_AIRLINE.getCurrentCommand().execute(request);
             } else if (UserType.DISPATCHER.getId().equals(user.getRole().getId())) {
                 session.setAttribute("userType", UserType.DISPATCHER);
-                page = (new CrewCommand()).getPage(request);
+                page = CommandEnum.SEL_CREW.getCurrentCommand().execute(request);
             } else {
                 request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
                 request.getSession().setAttribute("user_id", 0);

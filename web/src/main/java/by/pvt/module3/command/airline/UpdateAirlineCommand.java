@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 public class UpdateAirlineCommand extends AirlineCommand {
 
     public String execute(HttpServletRequest request) {
-        getService().update(new Airline(Integer.parseInt(request.getParameter(Airline.ID).trim()),
-                request.getParameter(Airline.NAME).trim()));
+        Airline airline = getService().getById(Integer.parseInt(request.getParameter(ID).trim()));
+        updateEntity(airline, request);
+        getService().update(airline);
         return getPage(request);
     }
 }
