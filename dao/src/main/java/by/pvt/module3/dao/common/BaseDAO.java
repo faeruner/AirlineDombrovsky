@@ -36,11 +36,15 @@ public class BaseDAO<T> implements CommonDAO<T> {
         return null;
     }
 
+    protected void prepareDelete(T t) {
+    }
+
     public void delete(Integer id) {
         Session session = SessionUtil.getSesson();
         Transaction transaction = session.beginTransaction();
         try {
             T t = (T) session.get(getPersistentClass(), id);
+            prepareDelete(t);
             session.delete(t);
             transaction.commit();
         } catch (HibernateException e) {

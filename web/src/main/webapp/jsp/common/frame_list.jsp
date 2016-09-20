@@ -13,7 +13,8 @@
     String userType = ((UserType) session.getAttribute("userType")).name();
 %>
 <html>
-<head><title>AirlineDombrovsky: <%= entity_name %></title>
+<head><title>AirlineDombrovsky: <%= entity_name %>
+</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <link href="../../css/airline.css" rel="stylesheet" type="text/css"/>
     <%--<script type="text/javascript" src="../../js/bootstrap.min.js"></script>--%>
@@ -137,7 +138,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>
