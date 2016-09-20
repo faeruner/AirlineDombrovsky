@@ -43,15 +43,21 @@ public class BaseCommand<T> implements ActionCommand {
     }
 
     private List<T> preparePagination(HttpServletRequest request) {
-        Integer num_page = 1;
-        if (request.getParameter(PAGE_NUM) != null)
-            num_page = Integer.parseInt(request.getParameter(PAGE_NUM).trim());
-        request.setAttribute(CURRENT_PAGE, num_page);
-
+        // set pages
         List<Integer> pages = service.getPagesNums();
-
         request.setAttribute(PAGES, pages);
         request.setAttribute(COUNT_PAGES, pages.size());
+
+        // set current page
+        Integer num_page = 1;
+        if (pages.size() > 0 && request.getParameter(PAGE_NUM) != null) {
+            num_page = Integer.parseInt(request.getParameter(PAGE_NUM).trim());
+            if (num_page > pages.size())
+                num_page = pages.size();
+        }
+        request.setAttribute(CURRENT_PAGE, num_page);
+
+        // set num page for new record
         request.setAttribute(INSERT_PAGE_NUM, service.getInsertPageNum());
 
         return service.getPage(num_page);
