@@ -3,12 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div class="form-group row">
-    <label class="col-xs-1 control-label">Id</label>
-    <div class="col-xs-5">
-        <input type="text" class="form-control" name="viewId" value="${entity.id}" disabled="disabled"/>
-    </div>
-</div>
-<div class="form-group row">
     <label class="col-xs-1 control-label">Code</label>
     <div class="col-xs-5">
         <input type="text" class="form-control" name="code" value="${entity.code}">
@@ -139,21 +133,4 @@
         <input type="text" class="form-control" name="user" value="${entity.user.login}" disabled="disabled"/>
     </div>
 </div>
-<div class="form-group row">
-    <div class="col-xs-2 col-xs-offset-1">
-        <c:choose>
-            <c:when test="${empty entity.id}">
-                <input type="hidden" name="command" value="ins_flight"/>
-                <button type="submit" class="btn btn-primary btn-block">Insert</button>
-            </c:when>
-            <c:otherwise>
-                <input type="hidden" name="id" value="${entity.id}"/>
-                <input type="hidden" name="command" value="upd_flight"/>
-                <button type="submit" class="btn btn-primary btn-block">Save</button>
-            </c:otherwise>
-        </c:choose>
-    </div>
-    <div class="col-xs-2">
-        <a class="btn btn-primary btn-block" href="controller?command=main">Main Page</a>
-    </div>
 </div>
