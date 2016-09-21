@@ -10,7 +10,6 @@ public class InsertUserCommand extends UserCommand {
     public String execute(HttpServletRequest request) {
         User user = new User();
         updateEntity(user, request);
-        getService().add(user);
-        return getPage(request);
+        return insert(user, request);
     }
 }

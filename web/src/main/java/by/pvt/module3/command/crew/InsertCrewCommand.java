@@ -10,7 +10,6 @@ public class InsertCrewCommand extends CrewCommand {
     public String execute(HttpServletRequest request) {
         Crew crew = new Crew();
         updateEntity(crew, request);
-        getService().add(crew);
-        return getPage(request);
+        return insert(crew, request);
     }
 }

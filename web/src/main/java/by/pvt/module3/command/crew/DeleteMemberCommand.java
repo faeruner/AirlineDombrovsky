@@ -1,6 +1,5 @@
 package by.pvt.module3.command.crew;
 
-import by.pvt.module3.command.crew.CrewCommand;
 import by.pvt.module3.entity.Crew;
 import by.pvt.module3.entity.Staff;
 import by.pvt.module3.resource.ConfigurationManager;
@@ -19,7 +18,12 @@ public class DeleteMemberCommand extends CrewCommand{
                 break;
             }
         }
-        getService().update(crew);
+
+        try {
+            getService().update(crew);
+        } catch (Exception e) {
+            handleException(e, request);
+        }
 
         initEditAttributes(crew, request);
         request.setAttribute(ENTITY_EDIT, crew);

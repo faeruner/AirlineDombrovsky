@@ -10,7 +10,6 @@ public class UpdateCrewCommand extends CrewCommand {
     public String execute(HttpServletRequest request) {
         Crew crew = getService().getById(Integer.parseInt(request.getParameter(ID).trim()));
         updateEntity(crew, request);
-        getService().update(crew);
-        return getPage(request);
+        return update(crew, request);
     }
 }

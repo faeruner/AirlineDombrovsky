@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 public class InsertAirlineCommand extends AirlineCommand {
 
     public String execute(HttpServletRequest request) {
-        getService().add(new Airline(request.getParameter(Airline.NAME).trim()));
-        return getPage(request);
+        return insert(new Airline(request.getParameter(Airline.NAME).trim()), request);
     }
 }

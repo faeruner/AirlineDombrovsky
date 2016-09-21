@@ -10,7 +10,6 @@ public class UpdateUserCommand extends UserCommand {
     public String execute(HttpServletRequest request) {
         User user = getService().getById(Integer.parseInt(request.getParameter(ID).trim()));
         updateEntity(user, request);
-        getService().update(user);
-        return getPage(request);
+        return update(user, request);
     }
 }

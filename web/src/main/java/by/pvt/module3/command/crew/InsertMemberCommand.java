@@ -17,7 +17,12 @@ public class InsertMemberCommand extends CrewCommand{
         StaffService staffService = new StaffService();
         Staff staff = staffService.getById(Integer.parseInt(request.getParameter(Crew.STAFF_ID).trim()));
         crew.getMembers().add(staff);
-        getService().update(crew);
+
+        try {
+            getService().update(crew);
+        } catch (Exception e) {
+            handleException(e, request);
+        }
 
         initEditAttributes(crew, request);
         request.setAttribute(ENTITY_EDIT, crew);

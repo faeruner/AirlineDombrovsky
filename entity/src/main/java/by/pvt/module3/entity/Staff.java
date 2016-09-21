@@ -1,8 +1,9 @@
 package by.pvt.module3.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public class Staff {
+public class Staff implements Serializable {
 
 	private Integer id;
 	private String name;

@@ -10,7 +10,6 @@ public class UpdateFlightCommand extends FlightCommand {
     public String execute(HttpServletRequest request) {
         Flight flight = getService().getById(Integer.parseInt(request.getParameter(ID).trim()));
         updateEntity(flight, request);
-        getService().update(flight);
-        return getPage(request);
+        return update(flight, request);
     }
 }

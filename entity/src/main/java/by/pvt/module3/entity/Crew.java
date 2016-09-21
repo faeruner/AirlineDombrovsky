@@ -1,10 +1,11 @@
 package by.pvt.module3.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-public class Crew {
-	public static final String ID = "id";
+public class Crew implements Serializable {
+    public static final String ID = "id";
 	public static final String CREATE_DATE = "create_date";
 	public static final String READY = "ready";
 	public static final String USER_ID = "users_id";

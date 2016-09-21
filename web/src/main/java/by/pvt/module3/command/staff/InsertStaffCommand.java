@@ -10,7 +10,6 @@ public class InsertStaffCommand extends StaffCommand {
     public String execute(HttpServletRequest request) {
         Staff staff = new Staff();
         updateEntity(staff, request);
-        getService().add(staff);
-        return getPage(request);
+        return insert(staff, request);
     }
 }

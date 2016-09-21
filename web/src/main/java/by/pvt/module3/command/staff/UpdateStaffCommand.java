@@ -10,7 +10,6 @@ public class UpdateStaffCommand extends StaffCommand {
     public String execute(HttpServletRequest request) {
         Staff staff = getService().getById(Integer.parseInt(request.getParameter(ID).trim()));
         updateEntity(staff, request);
-        getService().update(staff);
-        return getPage(request);
+        return update(staff, request);
     }
 }

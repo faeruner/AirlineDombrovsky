@@ -8,7 +8,6 @@ public class InsertAirportCommand extends AirportCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        getService().add(new Airport(request.getParameter(Airport.NAME).trim()));
-        return getPage(request);
+        return insert(new Airport(request.getParameter(Airport.NAME).trim()), request);
     }
 }

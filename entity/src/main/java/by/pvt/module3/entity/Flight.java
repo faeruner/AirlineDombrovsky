@@ -1,8 +1,9 @@
 package by.pvt.module3.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Flight {
+public class Flight implements Serializable {
 
 	public static final String ID = "id";
 	public static final String CODE = "code";

@@ -6,7 +6,6 @@ public class DeleteAirlineCommand extends AirlineCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        getService().delete(Integer.parseInt(request.getParameter(ID).trim()));
-        return getPage(request);
+        return delete(request);
     }
 }

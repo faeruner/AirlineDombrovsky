@@ -12,17 +12,22 @@
 <html>
 <head><title>AirlineDombrovsky: <%= entity_name %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <link href="../../css/airline.css" rel="stylesheet" type="text/css"/>
-    <%--<script type="text/javascript" src="../../js/bootstrap.min.js"></script>--%>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.2/jquery.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/ru.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.14.30/js/bootstrap-datetimepicker.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.14.30/css/bootstrap-datetimepicker.min.css">
+    <link href="../../css/airline.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../../css/bootstrap-datetimepicker.min.css">
+
+    <script type="text/javascript" src="../../js/jquery-2.1.2.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/moment.min.js"></script>
+    <script type="text/javascript" src="../../js/locale/ru.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#errorModal").modal({
+                show: ${requestScope.show_error}
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">
@@ -86,6 +91,25 @@
                 </div>
             </form>
         </div>
+    </div>
+</div>
+<div class="modal fade" id="errorModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header alert alert-danger">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Error Message</h4>
+            </div>
+            <div class="modal-body">
+                <p>${requestScope.text_error}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>

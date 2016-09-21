@@ -9,7 +9,6 @@ public class UpdateAirlineCommand extends AirlineCommand {
     public String execute(HttpServletRequest request) {
         Airline airline = getService().getById(Integer.parseInt(request.getParameter(ID).trim()));
         updateEntity(airline, request);
-        getService().update(airline);
-        return getPage(request);
+        return update(airline, request);
     }
 }

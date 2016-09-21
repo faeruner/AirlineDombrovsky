@@ -1,7 +1,9 @@
 package by.pvt.module3.entity;
 
-public class User {
-	public static final String ID = "id";
+import java.io.Serializable;
+
+public class User implements Serializable {
+    public static final String ID = "id";
 	public static final String NAME = "name";
 	public static final String SURNAME = "surname";
 	public static final String LOGIN = "login";

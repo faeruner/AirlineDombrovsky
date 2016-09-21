@@ -30,7 +30,12 @@ public class BaseService<T> implements CommonService<T> {
     }
 
     public T getById(Integer id) {
-        return dao.getById(id);
+        try {
+            return dao.getById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void delete(Integer id) {

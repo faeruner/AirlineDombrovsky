@@ -5,11 +5,8 @@
 <head><title>AirlineDombrovsky</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <link href="../css/airline.css" rel="stylesheet" type="text/css"/>
-    <%--<script type="text/javascript" src="../../js/bootstrap.min.js"></script>--%>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.2/jquery.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../js/jquery-2.1.2.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">

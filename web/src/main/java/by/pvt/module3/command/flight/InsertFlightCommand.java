@@ -10,7 +10,6 @@ public class InsertFlightCommand extends FlightCommand {
     public String execute(HttpServletRequest request) {
         Flight flight = new Flight();
         updateEntity(flight, request);
-        getService().add(flight);
-        return getPage(request);
+        return insert(flight, request);
     }
 }
