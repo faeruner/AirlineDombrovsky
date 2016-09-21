@@ -3,13 +3,18 @@ package by.pvt.module3.service.common;
 import by.pvt.module3.dao.common.CommonDAO;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by v on 06.09.2016.
  */
+
+@Service
+@Transactional
 public class BaseService<T> implements CommonService<T> {
     private static final Logger log = LogManager.getRootLogger();
 
