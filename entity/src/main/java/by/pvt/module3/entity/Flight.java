@@ -3,6 +3,7 @@ package by.pvt.module3.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 public class Flight implements Serializable {
 
 	public static final String ID = "id";
@@ -16,16 +17,32 @@ public class Flight implements Serializable {
 	public static final String CREW_ID = "crew_id";
 	public static final String USER_ID = "users_id";
 
-	private Integer id; // id
-	private String code; // code
-	private Date depDate; // departure
-	private Date returnDate; // return_date
-	private Date createDate; // create_date
-	private Airport arrival; // airport_arv_id
-	private Airport departure; // airport_dep_id
-	private Airline airline; // airline_id
-	private Crew crew; // crew_id
-	private User user; // users_id
+    @Id
+    @GeneratedValue
+    private Integer id; // id
+    @Column
+    private String code; // code
+    @Column(name = DEPARTURE_DATE)
+    private Date depDate; // departure
+    @Column(name = RETURN_DATE)
+    private Date returnDate; // return_date
+    @Column(name = CREATE_DATE)
+    private Date createDate; // create_date
+    @ManyToOne
+    @JoinColumn(name = AIRPORT_ARV_ID)
+    private Airport arrival; // airport_arv_id
+    @ManyToOne
+    @JoinColumn(name = AIRPORT_DEP_ID)
+    private Airport departure; // airport_dep_id
+    @ManyToOne
+    @JoinColumn(name = AIRLINE_ID)
+    private Airline airline; // airline_id
+    @ManyToOne
+    @JoinColumn(name = CREW_ID)
+    private Crew crew; // crew_id
+    @ManyToOne
+    @JoinColumn(name = USER_ID)
+    private User user; // users_id
 
 	public Integer getId() {
 		return id;

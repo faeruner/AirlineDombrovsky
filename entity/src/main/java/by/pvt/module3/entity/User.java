@@ -2,20 +2,29 @@ package by.pvt.module3.entity;
 
 import java.io.Serializable;
 
+@Entity
 public class User implements Serializable {
     public static final String ID = "id";
-	public static final String NAME = "name";
+    public static final String NAME = "name";
 	public static final String SURNAME = "surname";
 	public static final String LOGIN = "login";
 	public static final String PASSWORD = "password";
 	public static final String USER_ROLE_ID = "user_role_id";
 
-	private Integer id;
-	private String name;
-	private String surname;
-	private String login;
-	private String password;
-	private UserRole role;
+    @Id
+    @GeneratedValue
+    private Integer id;
+    @Column
+    private String name;
+    @Column
+    private String surname;
+    @Column
+    private String login;
+    @Column
+    private String password;
+    @ManyToOne
+    @JoinColumn(name = USER_ROLE_ID, nullable = false)
+    private UserRole role;
 
 	public Integer getId() {
 		return id;

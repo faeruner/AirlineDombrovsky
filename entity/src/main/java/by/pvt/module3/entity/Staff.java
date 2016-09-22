@@ -1,20 +1,29 @@
 package by.pvt.module3.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class Staff implements Serializable {
+    public static final String ID = "id";
+    public static final String NAME = "name";
+    public static final String SURNAME = "surname";
+    public static final String MEMBER_TYPE_ID = "member_type_id";
 
-	private Integer id;
-	private String name;
-	private String surname;
-	private MemberType member;
-	private Set<Crew> crews;
+    @Id
+    @GeneratedValue
+    private Integer id;
+    @Column
+    private String name;
+    @Column
+    private String surname;
+    @ManyToOne
+    @JoinColumn(name = MEMBER_TYPE_ID)
+    private MemberType member;
+    @ManyToMany(mappedBy = "members")
+    private Set<Crew> crews = new HashSet<Crew>();
 
-	public static final String ID = "id";
-	public static final String NAME = "name";
-	public static final String SURNAME = "surname";
-	public static final String MEMBER_TYPE_ID = "member_type_id";
 
 	public Integer getId() {
 		return id;
