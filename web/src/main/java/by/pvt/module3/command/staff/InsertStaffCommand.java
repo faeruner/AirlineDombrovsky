@@ -1,15 +1,18 @@
 package by.pvt.module3.command.staff;
 
 import by.pvt.module3.entity.Staff;
+import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
+@Component
 public class InsertStaffCommand extends StaffCommand {
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(Map<String, String> paramMap, Model model) {
         Staff staff = new Staff();
-        updateEntity(staff, request);
-        return insert(staff, request);
+        updateEntity(staff, paramMap);
+        return insert(staff, paramMap, model);
     }
 }

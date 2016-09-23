@@ -1,19 +1,24 @@
 package by.pvt.module3.command.factory;
 
-import javax.servlet.http.HttpServletRequest;
-
-import by.pvt.module3.command.ActionCommand;
-import by.pvt.module3.command.EmptyCommand;
 import by.pvt.module3.command.ActionCommand;
 import by.pvt.module3.command.EmptyCommand;
 import by.pvt.module3.command.client.CommandEnum;
 import by.pvt.module3.resource.MessageManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
+import java.util.Map;
+
+@Component
 public class ActionFactory {
-	public ActionCommand defineCommand(HttpServletRequest request) {
-		ActionCommand current = new EmptyCommand();
-		String action = request.getParameter("command");
-		if (action == null || action.isEmpty()) {
+    @Autowired
+    EmptyCommand emptyCommand;
+
+    public ActionCommand defineCommand(Map<String, String> paramMap, Model model) {
+        ActionCommand current = emptyCommand;
+        String action = paramMap.get("command");
+        if (action == null || action.isEmpty()) {
 			return current;
 		}
 		try {
@@ -21,8 +26,8 @@ public class ActionFactory {
 
 			current = currentEnum.getCurrentCommand();
 		} catch (IllegalArgumentException e) {
-			request.setAttribute("wrongAction", action + MessageManager.getProperty("message.wrongaction"));
-		}
+            model.addAttribute("wrongAction", action + MessageManager.getProperty("message.wrongaction"));
+        }
 		return current;
 	}
 }

@@ -4,28 +4,34 @@ import by.pvt.module3.entity.Crew;
 import by.pvt.module3.entity.Staff;
 import by.pvt.module3.resource.ConfigurationManager;
 import by.pvt.module3.service.StaffService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
+@Component
 public class InsertMemberCommand extends CrewCommand{
 
+    @Autowired
+    StaffService staffService;
+
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(Map<String, String> paramMap, Model model) {
 
-        Crew crew = getService().getById(Integer.parseInt(request.getParameter(ID).trim()));
+        Crew crew = crewService.getById(Integer.parseInt(paramMap.get(ID).trim()));
 
-        StaffService staffService = new StaffService();
-        Staff staff = staffService.getById(Integer.parseInt(request.getParameter(Crew.STAFF_ID).trim()));
+        Staff staff = staffService.getById(Integer.parseInt(paramMap.get(Crew.STAFF_ID).trim()));
         crew.getMembers().add(staff);
 
         try {
             getService().update(crew);
         } catch (Exception e) {
-            handleException(e, request);
+            handleException(e, model);
         }
 
-        initEditAttributes(crew, request);
-        request.setAttribute(ENTITY_EDIT, crew);
+        initEditAttributes(crew, model);
+        model.addAttribute(ENTITY_EDIT, crew);
         return ConfigurationManager.getProperty(getPropPathEdit());
     }
 }

@@ -1,5 +1,6 @@
 package by.pvt.module3.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity

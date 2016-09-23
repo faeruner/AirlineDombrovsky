@@ -7,17 +7,17 @@ public interface CommonDAO<T> {
 
     Integer add(T entity);
 
-    void delete(Integer id);
+    void delete(Class clazz, Integer id);
 
     void update(T entity);
 
-    T getById(Integer id);
+    T getById(Class clazz, Integer id);
 
-    ArrayList<T> getAll();
+    ArrayList<T> getAll(Class clazz);
 
-    Long getCount();
+    Long getCount(Class clazz);
 
-    List<T> getPage(Integer pageNum, Integer recordsPerPage);
+    List<T> getPage(Class clazz, Integer pageNum, Integer recordsPerPage);
 
-    List<T> getPage(Integer pageNum, Integer recordsPerPage, String orderBy);
+    List<T> getPage(Class clazz, Integer pageNum, Integer recordsPerPage, String orderBy);
 }

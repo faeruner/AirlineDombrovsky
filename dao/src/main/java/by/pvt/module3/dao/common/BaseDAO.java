@@ -6,22 +6,24 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class BaseDAO<T> implements CommonDAO<T> {
     protected final static Logger log = LogManager.getRootLogger();
-    private Class persistentClass;
+    //    private Class persistentClass;
     private final static String ID = "id";
 
-    public BaseDAO(Class persistentClass) {
-        this.persistentClass = persistentClass;
-    }
+//    public BaseDAO(Class persistentClass) {
+//        this.persistentClass = persistentClass;
+//    }
 
-    private Class getPersistentClass() {
-        return persistentClass;
-    }
+//    private Class getPersistentClass() {
+//        return persistentClass;
+//    }
 
     public Integer add(T entity) {
         Transaction tx = null;
@@ -41,12 +43,12 @@ public class BaseDAO<T> implements CommonDAO<T> {
 
     }
 
-    public void delete(Integer id) {
+    public void delete(Class clazz, Integer id) {
         Transaction tx = null;
         try {
             Session session = SessionUtil.getSesson();
             tx = session.beginTransaction();
-            T t = (T) session.get(getPersistentClass(), id);
+            T t = (T) session.get(clazz, id);
             prepareDelete(t);
             session.delete(t);
             tx.commit();
@@ -67,13 +69,13 @@ public class BaseDAO<T> implements CommonDAO<T> {
         }
     }
 
-    public T getById(Integer id) {
+    public T getById(Class clazz, Integer id) {
         Transaction tx = null;
         T t = null;
         try {
             Session session = SessionUtil.getSesson();
             tx = session.beginTransaction();
-            t = (T) session.load(getPersistentClass(), id);
+            t = (T) session.load(clazz, id);
             tx.commit();
         } catch (HibernateException e) {
             handleException(e, tx);
@@ -81,13 +83,13 @@ public class BaseDAO<T> implements CommonDAO<T> {
         return t;
     }
 
-    public ArrayList<T> getAll() {
+    public ArrayList<T> getAll(Class clazz) {
         Transaction tx = null;
         ArrayList<T> listT = null;
         try {
             Session session = SessionUtil.getSesson();
             tx = session.beginTransaction();
-            listT = (ArrayList<T>) session.createCriteria(getPersistentClass()).list();
+            listT = (ArrayList<T>) session.createCriteria(clazz).list();
             tx.commit();
         } catch (HibernateException e) {
             handleException(e, tx);
@@ -95,13 +97,13 @@ public class BaseDAO<T> implements CommonDAO<T> {
         return listT;
     }
 
-    public Long getCount() {
+    public Long getCount(Class clazz) {
         Transaction tx = null;
         Long count = 0L;
         try {
             Session session = SessionUtil.getSesson();
             tx = session.beginTransaction();
-            String hql = "select count(*) from " + SessionUtil.getEntityByClass(getPersistentClass());
+            String hql = "select count(*) from " + SessionUtil.getEntityByClass(clazz);
             Query queryCount = session.createQuery(hql);
             count = (Long) queryCount.uniqueResult();
             tx.commit();
@@ -111,17 +113,17 @@ public class BaseDAO<T> implements CommonDAO<T> {
         return count;
     }
 
-    public List<T> getPage(Integer pageNum, Integer recordsPerPage) {
-        return getPage(pageNum, recordsPerPage, ID);
+    public List<T> getPage(Class clazz, Integer pageNum, Integer recordsPerPage) {
+        return getPage(clazz, pageNum, recordsPerPage, ID);
     }
 
-    public List<T> getPage(Integer pageNum, Integer recordsPerPage, String orderBy) {
+    public List<T> getPage(Class clazz, Integer pageNum, Integer recordsPerPage, String orderBy) {
         Transaction tx = null;
         List<T> listT = null;
         try {
             Session session = SessionUtil.getSesson();
             tx = session.beginTransaction();
-            String hql = new StringBuilder().append("from ").append(SessionUtil.getEntityByClass(getPersistentClass())).append(" order by ").append(orderBy).toString();
+            String hql = new StringBuilder().append("from ").append(SessionUtil.getEntityByClass(clazz)).append(" order by ").append(orderBy).toString();
             Query query = session.createQuery(hql);
             if (pageNum == null)
                 pageNum = 1;

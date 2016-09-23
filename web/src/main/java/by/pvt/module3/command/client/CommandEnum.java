@@ -1,176 +1,181 @@
 package by.pvt.module3.command.client;
 
-import by.pvt.module3.command.airport.*;
-import by.pvt.module3.command.crew.*;
-import by.pvt.module3.command.flight.*;
-import by.pvt.module3.command.crew.DeleteMemberCommand;
-import by.pvt.module3.command.crew.InsertMemberCommand;
-import by.pvt.module3.command.staff.*;
-import by.pvt.module3.command.user.*;
 import by.pvt.module3.command.ActionCommand;
-import by.pvt.module3.command.AdminCommand;
-import by.pvt.module3.command.DispCommand;
 import by.pvt.module3.command.LoginCommand;
 import by.pvt.module3.command.LogoutCommand;
-import by.pvt.module3.command.airline.*;
+import by.pvt.module3.command.airline.AirlineCommand;
 import by.pvt.module3.command.airline.DeleteAirlineCommand;
 import by.pvt.module3.command.airline.InsertAirlineCommand;
 import by.pvt.module3.command.airline.UpdateAirlineCommand;
+import by.pvt.module3.command.airport.AirportCommand;
+import by.pvt.module3.command.airport.DeleteAirportCommand;
+import by.pvt.module3.command.airport.InsertAirportCommand;
+import by.pvt.module3.command.airport.UpdateAirportCommand;
+import by.pvt.module3.command.crew.*;
+import by.pvt.module3.command.flight.DeleteFlightCommand;
+import by.pvt.module3.command.flight.FlightCommand;
+import by.pvt.module3.command.flight.InsertFlightCommand;
+import by.pvt.module3.command.flight.UpdateFlightCommand;
+import by.pvt.module3.command.staff.DeleteStaffCommand;
+import by.pvt.module3.command.staff.InsertStaffCommand;
+import by.pvt.module3.command.staff.StaffCommand;
+import by.pvt.module3.command.staff.UpdateStaffCommand;
+import by.pvt.module3.command.user.DeleteUserCommand;
+import by.pvt.module3.command.user.InsertUserCommand;
+import by.pvt.module3.command.user.UpdateUserCommand;
+import by.pvt.module3.command.user.UserCommand;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public enum CommandEnum {
     LOGIN {
         {
-            this.command = new LoginCommand();
+            this.command = context.getBean(LoginCommand.class);
         }
     },
     LOGOUT {
         {
-            this.command = new LogoutCommand();
-        }
-    },
-    MAIN {
-        {
-            this.command = new AdminCommand();
-        }
-    },
-    USER {
-        {
-            this.command = new DispCommand();
+            this.command = context.getBean(LogoutCommand.class);
         }
     },
     SEL_AIRPORT {
         {
-            this.command = new AirportCommand();
+            this.command = context.getBean(AirportCommand.class);
         }
     },
     INS_AIRPORT {
         {
-            this.command = new InsertAirportCommand();
+            this.command = context.getBean(InsertAirportCommand.class);
         }
     },
     UPD_AIRPORT {
         {
-            this.command = new UpdateAirportCommand();
+            this.command = context.getBean(UpdateAirportCommand.class);
         }
     },
     DEL_AIRPORT {
         {
-            this.command = new DeleteAirportCommand();
+            this.command = context.getBean(DeleteAirportCommand.class);
         }
     },
     SEL_AIRLINE {
         {
-            this.command = new AirlineCommand();
+            this.command = context.getBean(AirlineCommand.class);
         }
     },
     INS_AIRLINE {
         {
-            this.command = new InsertAirlineCommand();
+            this.command = context.getBean(InsertAirlineCommand.class);
         }
     },
     UPD_AIRLINE {
         {
-            this.command = new UpdateAirlineCommand();
+            this.command = context.getBean(UpdateAirlineCommand.class);
         }
     },
     DEL_AIRLINE {
         {
-            this.command = new DeleteAirlineCommand();
+            this.command = context.getBean(DeleteAirlineCommand.class);
         }
     },
     SEL_USER {
         {
-            this.command = new UserCommand();
+            this.command = context.getBean(UserCommand.class);
         }
     },
     INS_USER {
         {
-            this.command = new InsertUserCommand();
+            this.command = context.getBean(InsertUserCommand.class);
         }
     },
     UPD_USER {
         {
-            this.command = new UpdateUserCommand();
+            this.command = context.getBean(UpdateUserCommand.class);
         }
     },
     DEL_USER {
         {
-            this.command = new DeleteUserCommand();
+            this.command = context.getBean(DeleteUserCommand.class);
         }
     },
     SEL_STAFF {
         {
-            this.command = new StaffCommand();
+            this.command = context.getBean(StaffCommand.class);
         }
     },
     INS_STAFF {
         {
-            this.command = new InsertStaffCommand();
+            this.command = context.getBean(InsertStaffCommand.class);
         }
     },
     UPD_STAFF {
         {
-            this.command = new UpdateStaffCommand();
+            this.command = context.getBean(UpdateStaffCommand.class);
         }
     },
     DEL_STAFF {
         {
-            this.command = new DeleteStaffCommand();
+            this.command = context.getBean(DeleteStaffCommand.class);
         }
     },
     SEL_FLIGHT {
         {
-            this.command = new FlightCommand();
+            this.command = context.getBean(FlightCommand.class);
         }
     },
     INS_FLIGHT {
         {
-            this.command = new InsertFlightCommand();
+            this.command = context.getBean(InsertFlightCommand.class);
         }
     },
     UPD_FLIGHT {
         {
-            this.command = new UpdateFlightCommand();
+            this.command = context.getBean(UpdateFlightCommand.class);
         }
     },
     DEL_FLIGHT {
         {
-            this.command = new DeleteFlightCommand();
+            this.command = context.getBean(DeleteFlightCommand.class);
         }
     },
     SEL_CREW {
         {
-            this.command = new CrewCommand();
+            this.command = context.getBean(CrewCommand.class);
         }
     },
     INS_CREW {
         {
-            this.command = new InsertCrewCommand();
+            this.command = context.getBean(InsertCrewCommand.class);
         }
     },
     UPD_CREW {
         {
-            this.command = new UpdateCrewCommand();
+            this.command = context.getBean(UpdateCrewCommand.class);
         }
     },
     DEL_CREW {
         {
-            this.command = new DeleteCrewCommand();
+            this.command = context.getBean(DeleteCrewCommand.class);
         }
     },
     INS_MEMBER {
         {
-            this.command = new InsertMemberCommand();
+            this.command = context.getBean(InsertMemberCommand.class);
         }
     },
-    DEL_MEMBER{
+    DEL_MEMBER {
         {
-            this.command = new DeleteMemberCommand();
+            this.command = context.getBean(DeleteMemberCommand.class);
         }
     };
-ActionCommand command;
+    ActionCommand command;
+    ApplicationContext context;
 
-public ActionCommand getCurrentCommand() {
-    return command;
-}
+    CommandEnum() {
+        context = new ClassPathXmlApplicationContext("classpath:spring-context.xml");
+    }
+
+    public ActionCommand getCurrentCommand() {
+        return command;
+    }
 }

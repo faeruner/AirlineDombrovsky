@@ -7,11 +7,13 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class UserDAO extends BaseDAO<User> {
-	public UserDAO() {
-		super(User.class);
-	}
+//	public UserDAO() {
+//		super(User.class);
+//	}
 
 	public User getUserByLogin(String login) {
 		Session session = SessionUtil.getSesson();

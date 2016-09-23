@@ -8,6 +8,18 @@
     <artifactId>app</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
+
+    <properties>
+        <java.home>%JAVA_HOME%</java.home>
+        <hibernate.version>4.3.6.Final</hibernate.version>
+        <spring.version>4.3.3.RELEASE</spring.version>
+        <aspectj.version>1.8.4</aspectj.version>
+    </properties>
+    <dependencies>
+
+
+    </dependencies>
+
     <modules>
         <module>entity</module>
         <module>dao</module>

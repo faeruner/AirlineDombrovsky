@@ -3,179 +3,186 @@ package by.pvt.module3.command;
 import by.pvt.module3.entity.User;
 import by.pvt.module3.resource.ConfigurationManager;
 import by.pvt.module3.service.UserService;
+import by.pvt.module3.service.common.BaseService;
 import by.pvt.module3.service.common.CommonService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by v on 08.09.2016.
  */
-public class BaseCommand<T> implements ActionCommand {
+@Component
+public abstract class BaseCommand<T> implements ActionCommand {
 
-    protected final static DateFormat DF = new SimpleDateFormat("dd.MM.yyyy");
-    public final static String ID = "id";
-    private final static String PAGE_NUM = "page_num";
-    private final static String CURRENT_PAGE = "current_page";
-    private final static String PAGES = "numPages";
-    private final static String COUNT_PAGES = "countPages";
-    protected final static String ENTITY_EDIT = "entity";
-    private final static String ENTITY_LIST = "entities";
-    private final static String USER_ID = "user_id";
-    private final static String INSERT_PAGE_NUM = "insertPageNum";
+    protected static final DateFormat DF = new SimpleDateFormat("dd.MM.yyyy");
+    public static final String ID = "id";
+    private static final String PAGE_NUM = "page_num";
+    private static final String CURRENT_PAGE = "current_page";
+    private static final String PAGES = "numPages";
+    private static final String COUNT_PAGES = "countPages";
+    protected static final String ENTITY_EDIT = "entity";
+    private static final String ENTITY_LIST = "entities";
+    public static final String USER_ID = "user_id";
+    private static final String INSERT_PAGE_NUM = "insertPageNum";
 
-    protected Logger log = LogManager.getRootLogger();
+    protected Logger log = LogManager.getLogger(BaseCommand.class);
 
-    private CommonService<T> service;
+    @Autowired
+    private BaseService<T> baseService;
+
     private String propPathEdit;
     private String propPathList;
 
-    public BaseCommand(CommonService<T> service, String propPathEdit, String propPathList) {
-        this.service = service;
+    private Class persistentClass;
+
+    public BaseCommand(Class persistentClass, String propPathEdit, String propPathList) {
+        this.persistentClass = persistentClass;
         this.propPathEdit = propPathEdit;
         this.propPathList = propPathList;
     }
 
-    private List<T> preparePagination(HttpServletRequest request) {
+    private List<T> preparePagination(Integer pageNum, Model model) {
         // set pages
         List<Integer> pages;
         try {
-            pages = service.getPagesNums();
+            pages = getService().getPagesNums(persistentClass);
         } catch (Exception e) {
-            handleException(e, request);
+            handleException(e, model);
             pages = new ArrayList<Integer>();
         }
-        request.setAttribute(PAGES, pages);
-        request.setAttribute(COUNT_PAGES, pages.size());
+        model.addAttribute(PAGES, pages);
+        model.addAttribute(COUNT_PAGES, pages.size());
 
         // set current page
-        Integer num_page = 1;
-        if (pages.size() > 0 && request.getParameter(PAGE_NUM) != null) {
-            num_page = Integer.parseInt(request.getParameter(PAGE_NUM).trim());
-            if (num_page > pages.size())
-                num_page = pages.size();
+        if (pages.size() > 0 && pageNum != null) {
+            if (pageNum > pages.size())
+                pageNum = pages.size();
+        } else {
+            pageNum = 1;
         }
-        request.setAttribute(CURRENT_PAGE, num_page);
+        model.addAttribute(CURRENT_PAGE, pageNum);
 
         // set num page for new record
         try {
-            request.setAttribute(INSERT_PAGE_NUM, service.getInsertPageNum());
+            model.addAttribute(INSERT_PAGE_NUM, getService().getInsertPageNum(persistentClass));
         } catch (Exception e) {
-            handleException(e, request);
-            request.setAttribute(INSERT_PAGE_NUM, 1);
+            handleException(e, model);
+            model.addAttribute(INSERT_PAGE_NUM, 1);
         }
 
         try {
-            return service.getPage(num_page);
+            return getService().getPage(persistentClass, pageNum);
         } catch (Exception e) {
-            handleException(e, request);
+            handleException(e, model);
         }
         return null;
     }
 
-    public String getPage(HttpServletRequest request) {
-        request.setAttribute(ENTITY_LIST, preparePagination(request));
+    public String getPage(Integer pageNum, Model model) {
+        model.addAttribute(ENTITY_LIST, preparePagination(pageNum, model));
         return ConfigurationManager.getProperty(propPathList);
     }
 
     public CommonService<T> getService() {
-        return service;
+        return baseService;
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(Map<String, String> paramMap, Model model) {
         String page;
-        if (request.getParameter(ID) != null) {
+        Integer num_page = 1;
+        if (paramMap.get(PAGE_NUM) != null)
+            num_page = Integer.parseInt(paramMap.get(PAGE_NUM).trim());
+        if (paramMap.get(ID) != null) {
             T entity = null;
             try {
-                entity = getSelectedEntity(Integer.parseInt(request.getParameter(ID).trim()), request);
+                entity = getSelectedEntity(Integer.parseInt(paramMap.get(ID).trim()), model);
             } catch (NumberFormatException e) {
-                handleException(e, request);
+                handleException(e, model);
             }
             try {
-                initEditAttributes(entity, request);
+                initEditAttributes(entity, model);
             } catch (Exception e) {
-                handleException(e, request);
+                handleException(e, model);
             }
             if (entity != null)
-                request.setAttribute(ENTITY_EDIT, entity);
-            Integer num_page = 1;
-            if (request.getParameter(PAGE_NUM) != null)
-                num_page = Integer.parseInt(request.getParameter(PAGE_NUM).trim());
-            request.setAttribute(CURRENT_PAGE, num_page);
+                model.addAttribute(ENTITY_EDIT, entity);
+            model.addAttribute(CURRENT_PAGE, num_page);
             page = ConfigurationManager.getProperty(propPathEdit);
         } else {
-            page = getPage(request);
+            page = getPage(num_page, model);
         }
         return page;
     }
 
-    protected void initEditAttributes(T entity, HttpServletRequest request) {
+    protected void initEditAttributes(T entity, Model model) {
     }
 
     protected String getPropPathEdit() {
         return propPathEdit;
     }
 
-    protected T getSelectedEntity(Integer id, HttpServletRequest request) {
+    protected T getSelectedEntity(Integer id, Model model) {
         T entity = null;
         if (id > 0) {
-            entity = getService().getById(id);
+            entity = getService().getById(persistentClass, id);
         }
         return entity;
     }
 
-    protected User getSessionUser(HttpServletRequest request) {
-        HttpSession httpSession = request.getSession();
-        Integer user_id = (Integer) httpSession.getAttribute(USER_ID);
+    protected User getSessionUser(Model model) {
+        Integer user_id = (Integer) model.asMap().get(USER_ID);
         CommonService<User> serviceUser = new UserService();
         try {
-            return serviceUser.getById(user_id);
+            return serviceUser.getById(persistentClass, user_id);
         } catch (Exception e) {
-            handleException(e, request);
+            handleException(e, model);
         }
         return null;
     }
 
-    protected String insert(T entity, HttpServletRequest request) {
+    protected String insert(T entity, Map<String, String> paramMap, Model model) {
         try {
             getService().add(entity);
         } catch (Exception e) {
-            handleException(e, request);
+            handleException(e, model);
         }
-        return getPage(request);
+        return getPage(Integer.parseInt(paramMap.get(PAGE_NUM).trim()), model);
     }
 
-    protected String update(T entity, HttpServletRequest request) {
+    protected String update(T entity, Map<String, String> paramMap, Model model) {
         try {
             getService().update(entity);
         } catch (Exception e) {
-            handleException(e, request);
+            handleException(e, model);
         }
-        return getPage(request);
+        return getPage(Integer.parseInt(paramMap.get(PAGE_NUM).trim()), model);
     }
 
-    protected String delete(HttpServletRequest request) {
+    protected String delete(Map<String, String> paramMap, Model model) {
         try {
-            getService().delete(Integer.parseInt(request.getParameter(ID).trim()));
+            getService().delete(persistentClass, Integer.parseInt(paramMap.get(ID).trim()));
         } catch (Exception e) {
-            handleException(e, request);
+            handleException(e, model);
         }
-        return getPage(request);
+        return getPage(Integer.parseInt(paramMap.get(PAGE_NUM).trim()), model);
     }
 
-    protected void handleException(Exception e, HttpServletRequest request) {
+    protected void handleException(Exception e, Model model) {
         e.printStackTrace();
-        request.setAttribute("show_error", "true");
+        model.addAttribute("show_error", "true");
         String msg = e.getMessage() + "<br/><br/>";
         if (e.getCause() != null)
             msg += e.getCause().getMessage();
-        request.setAttribute("text_error", msg);
+        model.addAttribute("text_error", msg);
     }
 }

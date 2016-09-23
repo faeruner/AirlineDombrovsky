@@ -6,23 +6,23 @@ import java.util.List;
  * Created by v on 06.09.2016.
  */
 public interface CommonService<T> {
-    T getById(Integer id);
+    T getById(Class clazz, Integer id);
 
-    void delete(Integer id);
+    void delete(Class clazz, Integer id);
 
     Integer add(T entity);
 
     void update(T entity);
 
-    List<T> getPage(Integer pageNum);
+    List<T> getPage(Class clazz, Integer pageNum);
 
-    List<T> getAll();
+    List<T> getAll(Class clazz);
 
-    List<Integer> getPagesNums();
+    List<Integer> getPagesNums(Class clazz);
 
     Integer getRecordsPerPage();
 
     void setRecordsPerPage(Integer recordsPerPage);
 
-    Long getInsertPageNum();
+    Long getInsertPageNum(Class clazz);
 }

@@ -1,14 +1,18 @@
 package by.pvt.module3.command.airport;
 
 import by.pvt.module3.entity.Airport;
+import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
+@Component
 public class UpdateAirportCommand extends AirportCommand {
 
-    public String execute(HttpServletRequest request) {
-        Airport airport = getService().getById(Integer.parseInt(request.getParameter(ID).trim()));
-        updateEntity(airport, request);
-        return update(airport, request);
+    @Override
+    public String execute(Map<String, String> paramMap, Model model) {
+        Airport airport = getService().getById(Airport.class, Integer.parseInt(paramMap.get(ID).trim()));
+        updateEntity(airport, paramMap);
+        return update(airport, paramMap, model);
     }
 }

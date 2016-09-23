@@ -3,15 +3,18 @@ package by.pvt.module3.command.crew;
 import by.pvt.module3.entity.Crew;
 import by.pvt.module3.entity.Staff;
 import by.pvt.module3.resource.ConfigurationManager;
+import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
+@Component
 public class DeleteMemberCommand extends CrewCommand{
 
     @Override
-    public String execute(HttpServletRequest request) {
-        Crew crew = getService().getById(Integer.parseInt(request.getParameter(ID).trim()));
-        Integer staff_id = Integer.parseInt(request.getParameter(Crew.STAFF_ID).trim());
+    public String execute(Map<String, String> paramMap, Model model) {
+        Crew crew = crewService.getById(Integer.parseInt(paramMap.get(ID).trim()));
+        Integer staff_id = Integer.parseInt(paramMap.get(Crew.STAFF_ID).trim());
         for (Staff staff : crew.getMembers()) {
             if (staff.getId().equals(staff_id)) {
                 crew.getMembers().remove(staff);
@@ -22,11 +25,11 @@ public class DeleteMemberCommand extends CrewCommand{
         try {
             getService().update(crew);
         } catch (Exception e) {
-            handleException(e, request);
+            handleException(e, model);
         }
 
-        initEditAttributes(crew, request);
-        request.setAttribute(ENTITY_EDIT, crew);
+        initEditAttributes(crew, model);
+        model.addAttribute(ENTITY_EDIT, crew);
         return ConfigurationManager.getProperty(getPropPathEdit());
     }
 

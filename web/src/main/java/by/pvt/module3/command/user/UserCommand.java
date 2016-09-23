@@ -3,34 +3,38 @@ package by.pvt.module3.command.user;
 import by.pvt.module3.command.BaseCommand;
 import by.pvt.module3.entity.User;
 import by.pvt.module3.service.UserRoleService;
-import by.pvt.module3.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Created by v on 08.09.2016.
  */
+@Component
 public class UserCommand extends BaseCommand<User> {
 
     private static final String LIST_USER_ROLE = "user_roles";
 
     public UserCommand() {
-        super(new UserService(), "path.page.edit_user", "path.page.users");
+        super(User.class, "path.page.edit_user", "path.page.users");
     }
 
     @Override
-    protected void initEditAttributes(User user, HttpServletRequest request) {
+    protected void initEditAttributes(User user, Model model) {
         UserRoleService userRoleService = new UserRoleService();
-        request.setAttribute(LIST_USER_ROLE, userRoleService.getAll());
+        model.addAttribute(LIST_USER_ROLE, userRoleService.getAll());
     }
 
-    protected void updateEntity(User user, HttpServletRequest request){
-        user.setName(request.getParameter(User.NAME).trim());
-        user.setSurname(request.getParameter(User.SURNAME).trim());
-        user.setLogin(request.getParameter(User.LOGIN).trim());
-        user.setPassword(request.getParameter(User.PASSWORD).trim());
+    @Autowired
+    UserRoleService userRoleService;
 
-        UserRoleService userRoleService = new UserRoleService();
-        user.setRole(userRoleService.getById(Integer.parseInt(request.getParameter(User.USER_ROLE_ID).trim())));
+    protected void updateEntity(User user, Map<String, String> paramMap) {
+        user.setName(paramMap.get(User.NAME).trim());
+        user.setSurname(paramMap.get(User.SURNAME).trim());
+        user.setLogin(paramMap.get(User.LOGIN).trim());
+        user.setPassword(paramMap.get(User.PASSWORD).trim());
+        user.setRole(userRoleService.getById(Integer.parseInt(paramMap.get(User.USER_ROLE_ID).trim())));
     }
 }

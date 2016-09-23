@@ -1,7 +1,9 @@
 package by.pvt.module3.command;
 
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.ui.Model;
+
+import java.util.Map;
 
 public interface ActionCommand {
-	String execute(HttpServletRequest request);
+    String execute(Map<String, String> paramMap, Model model);
 }
