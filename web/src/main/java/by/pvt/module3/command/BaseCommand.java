@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -97,6 +98,11 @@ public abstract class BaseCommand<T> implements ActionCommand {
     }
 
     @Override
+    public String execute(Map<String, String> paramMap, Model model, HttpSession httpSession) {
+        return execute(paramMap, model);
+    }
+
+
     public String execute(Map<String, String> paramMap, Model model) {
         String page;
         Integer num_page = 1;

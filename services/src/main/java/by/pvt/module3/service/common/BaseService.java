@@ -5,6 +5,7 @@ import by.pvt.module3.dao.common.CommonDAO;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,6 +28,7 @@ public class BaseService<T> implements CommonService<T> {
     }
 
     @Autowired
+    @Qualifier(value = "baseDAO")
     private BaseDAO<T> dao;
 
 //    public BaseService(BaseDAO<T> dao) {

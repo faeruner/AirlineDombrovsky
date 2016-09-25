@@ -1,6 +1,7 @@
 package by.pvt.module3.command;
 
 import by.pvt.module3.command.client.CommandEnum;
+import by.pvt.module3.command.factory.ActionFactory;
 import by.pvt.module3.entity.User;
 import by.pvt.module3.filter.UserType;
 import by.pvt.module3.resource.ConfigurationManager;
@@ -22,9 +23,10 @@ public class LoginCommand implements ActionCommand {
     UserService userService;
 
     @Autowired
-    HttpSession httpSession;
+    ActionFactory client;
 
-    public String execute(Map<String, String> paramMap, Model model) {
+    @Override
+    public String execute(Map<String, String> paramMap, Model model, HttpSession httpSession) {
         String page;
         String login = paramMap.get(PARAM_NAME_LOGIN);
         String pass = paramMap.get(PARAM_NAME_PASSWORD);
@@ -39,10 +41,12 @@ public class LoginCommand implements ActionCommand {
 
             if (UserType.ADMINISTRATOR.getId().equals(user.getRole().getId())) {
                 httpSession.setAttribute("userType", UserType.ADMINISTRATOR);
-                page = CommandEnum.SEL_AIRLINE.getCurrentCommand().execute(paramMap, model);
+                paramMap.put(ActionFactory.PARAM_COMMAND, CommandEnum.SEL_AIRLINE.name());
+                page = client.defineCommand(paramMap, model).execute(paramMap, model, httpSession);
             } else if (UserType.DISPATCHER.getId().equals(user.getRole().getId())) {
                 httpSession.setAttribute("userType", UserType.DISPATCHER);
-                page = CommandEnum.SEL_CREW.getCurrentCommand().execute(paramMap, model);
+                paramMap.put(ActionFactory.PARAM_COMMAND, CommandEnum.SEL_CREW.name());
+                page = client.defineCommand(paramMap, model).execute(paramMap, model, httpSession);
             } else {
                 model.addAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
                 httpSession.setAttribute("user_id", 0);

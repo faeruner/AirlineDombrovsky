@@ -22,12 +22,19 @@ public class BaseController {
     @Autowired
     ActionFactory client;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+/*
+    @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
+    private String processIndex(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
+        return ConfigurationManager.getProperty("path.page.index");
+    }
+*/
+
+    @RequestMapping(value = "/login", method = {RequestMethod.POST})
     private String processLogin(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
         return processRequest(paramMap, model, httpSession);
     }
 
-    @RequestMapping(value = "/controller", method = RequestMethod.POST)
+    @RequestMapping(value = "/controller", method = {RequestMethod.POST, RequestMethod.GET})
     private String processController(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
         return processRequest(paramMap, model, httpSession);
     }
@@ -35,7 +42,7 @@ public class BaseController {
     private String processRequest(Map<String, String> paramMap, Model model, HttpSession httpSession) {
         ActionCommand command = client.defineCommand(paramMap, model);
         model.addAttribute(BaseCommand.USER_ID, httpSession.getAttribute(BaseCommand.USER_ID));
-        String page = command.execute(paramMap, model);
+        String page = command.execute(paramMap, model, httpSession);
         if (page == null) {
             page = ConfigurationManager.getProperty("path.page.index");
             httpSession.setAttribute("nullPage", MessageManager.getProperty("message.nullpage"));
