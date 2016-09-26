@@ -2,6 +2,7 @@ package by.pvt.module3.servlet;
 
 import by.pvt.module3.command.ActionCommand;
 import by.pvt.module3.command.BaseCommand;
+import by.pvt.module3.command.client.CommandEnum;
 import by.pvt.module3.command.factory.ActionFactory;
 import by.pvt.module3.resource.ConfigurationManager;
 import by.pvt.module3.resource.MessageManager;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Map;
 
 @Controller
@@ -30,12 +33,29 @@ public class BaseController {
 */
 
     @RequestMapping(value = "/login", method = {RequestMethod.POST})
-    private String processLogin(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
+    private String processLogin(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession, HttpServletResponse response) {
+        if (CommandEnum.SEL_AIRLINE.name().equals(paramMap.get(ActionFactory.PARAM_COMMAND))) {
+            try {
+                response.sendRedirect("/controller/airline/list");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return ConfigurationManager.getProperty("path.page.airlines");
+        }
         return processRequest(paramMap, model, httpSession);
     }
 
     @RequestMapping(value = "/controller", method = {RequestMethod.POST, RequestMethod.GET})
-    private String processController(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
+    private String processController(@RequestParam Map<String, String> paramMap, Model model
+            , HttpSession httpSession, HttpServletResponse response) {
+        if (CommandEnum.SEL_AIRLINE.name().equals(paramMap.get(ActionFactory.PARAM_COMMAND).toUpperCase())) {
+            try {
+                response.sendRedirect("/controller/airline/list");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return ConfigurationManager.getProperty("path.page.airlines");
+        }
         return processRequest(paramMap, model, httpSession);
     }
 

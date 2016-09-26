@@ -5,7 +5,7 @@
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-	<display-name>AirlineDombrovsky</display-name>
+    <display-name>AirlineDombrovsky</display-name>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
@@ -37,6 +37,8 @@
     <servlet-mapping>
         <servlet-name>Spring MVC Servlet</servlet-name>
         <url-pattern>*.form</url-pattern>
+        <url-pattern>/controller/airline/*</url-pattern>
+        <url-pattern>/controller/airline/list/*</url-pattern>
         <url-pattern>/controller/*</url-pattern>
         <url-pattern>/login/*</url-pattern>
     </servlet-mapping>
@@ -68,7 +70,7 @@
             <location>/jsp/error/error.jsp</location>
         </error-page>
     -->
-	<session-config>
-		<session-timeout>5</session-timeout>
-	</session-config>
+    <session-config>
+        <session-timeout>5</session-timeout>
+    </session-config>
 </web-app>

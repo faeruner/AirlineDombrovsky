@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/controller"})
+@WebFilter(urlPatterns = {"/controller", "/controller/*"})
 public class ServletSecurityFilter implements Filter {
 	public void destroy() {
 	}
