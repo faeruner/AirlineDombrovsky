@@ -7,5 +7,5 @@
     <jsp:param name="command_select" value="sel_user"/>
     <jsp:param name="command_insert" value="ins_user"/>
     <jsp:param name="command_update" value="upd_user"/>
-    <jsp:param name="page_fields" value="/jsp/entity-edit/users-fields.jsp"/>
+    <jsp:param name="page_fields" value="/jsp/entity-edit/user-fields.jsp"/>
 </jsp:include>

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div class="form-group row">
-    <label class="col-xs-1 control-label">CreateDate</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">CreateDate</label>
     <div class="col-xs-3 date">
         <div class="input-group input-append date" id="inputCreateDate">
             <fmt:formatDate value="${entity.createDate}" pattern="dd.MM.yyyy" var="createDate"/>
@@ -20,7 +20,7 @@
     </script>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label">Ready</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">Ready</label>
     <div class="col-xs-5">
         <div class="radio-inline">
             <label><input type="radio" name="ready" id="readyNo" value="0" ${readyNo} />No</label>
@@ -31,7 +31,7 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label">User</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">User</label>
     <div class="col-xs-5">
         <input type="text" class="form-control" name="user" value="${entity.user.name} ${entity.user.surname}"
                disabled="disabled"/>

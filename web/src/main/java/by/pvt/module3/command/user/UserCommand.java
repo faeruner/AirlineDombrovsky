@@ -21,14 +21,13 @@ public class UserCommand extends BaseCommand<User> {
         super(User.class, "path.page.edit_user", "path.page.users");
     }
 
-    @Override
-    protected void initEditAttributes(User user, Model model) {
-        UserRoleService userRoleService = new UserRoleService();
-        model.addAttribute(LIST_USER_ROLE, userRoleService.getAll());
-    }
-
     @Autowired
     UserRoleService userRoleService;
+
+    @Override
+    protected void initEditAttributes(User user, Model model) {
+        model.addAttribute(LIST_USER_ROLE, userRoleService.getAll());
+    }
 
     protected void updateEntity(User user, Map<String, String> paramMap) {
         user.setName(paramMap.get(User.NAME).trim());

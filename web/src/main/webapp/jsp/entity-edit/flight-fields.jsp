@@ -3,13 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div class="form-group row">
-    <label class="col-xs-1 control-label">Code</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">Code</label>
     <div class="col-xs-5">
         <input type="text" class="form-control" name="code" value="${entity.code}">
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label">DepDate</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">DepDate</label>
     <div class="col-xs-3 date">
         <div class="input-group input-append date" id="inputDepDate">
             <fmt:formatDate value="${entity.depDate}" pattern="dd.MM.yyyy" var="depDate"/>
@@ -26,7 +26,7 @@
     </script>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label">ReturnDate</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">ReturnDate</label>
     <div class="col-xs-3 date">
         <div class="input-group input-append date" id="inputReturnDate">
             <fmt:formatDate value="${entity.returnDate}" pattern="dd.MM.yyyy" var="retDate"/>
@@ -43,7 +43,7 @@
     </script>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label">CreateDate</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">CreateDate</label>
     <div class="col-xs-3 date">
         <div class="input-group input-append date" id="inputCreateDate">
             <fmt:formatDate value="${entity.createDate}" pattern="dd.MM.yyyy" var="creDate"/>
@@ -60,7 +60,7 @@
     </script>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label">Arrival</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">Arrival</label>
     <div class="col-xs-5">
         <select class="c-select form-control" name="airport_arv_id">
             <c:forEach var="item" items="${requestScope.arrival}">
@@ -77,7 +77,7 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label">Departure</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">Departure</label>
     <div class="col-xs-5">
         <select class="c-select form-control" name="airport_dep_id">
             <c:forEach var="item" items="${requestScope.departure}">
@@ -94,7 +94,7 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label">Airline</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">Airline</label>
     <div class="col-xs-5">
         <select class="c-select form-control" name="airline_id">
             <c:forEach var="item" items="${requestScope.airline}">
@@ -111,7 +111,7 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label">CrewId</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">CrewId</label>
     <div class="col-xs-5">
         <select class="c-select form-control" name="crew_id">
             <c:forEach var="item" items="${requestScope.crew}">
@@ -128,9 +128,8 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label">User</label>
+    <label class="col-xs-1 control-label" style="text-align: right;">User</label>
     <div class="col-xs-5">
         <input type="text" class="form-control" name="user" value="${entity.user.login}" disabled="disabled"/>
     </div>
-</div>
 </div>
