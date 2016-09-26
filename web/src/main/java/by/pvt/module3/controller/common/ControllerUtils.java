@@ -1,21 +1,24 @@
-package by.pvt.module3.controller;
+package by.pvt.module3.controller.common;
 
 import by.pvt.module3.resource.ConfigurationManager;
 import by.pvt.module3.service.common.BaseService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MainController<T> {
-    protected Logger log = LogManager.getLogger(MainController.class);
+@Component
+public class ControllerUtils<T> {
+    protected Logger log = LogManager.getLogger(ControllerUtils.class);
 
     public static final String ID = "id";
     public static final String ENTITY = "entity";
     public static final String PAGE_NUM = "page_num";
+    public static final String USER_ID = "user_id";
     private static final String PAGES = "numPages";
     private static final String COUNT_PAGES = "countPages";
     private static final String CURRENT_PAGE = "current_page";
@@ -27,7 +30,7 @@ public class MainController<T> {
     private Class persistentClass;
     private BaseService<T> baseService;
 
-    public MainController(String pathPageEdit, String pathPageList, Class persistentClass, BaseService<T> baseService) {
+    public void init(String pathPageEdit, String pathPageList, Class persistentClass, BaseService<T> baseService) {
         this.pathPageEdit = pathPageEdit;
         this.pathPageList = pathPageList;
         this.persistentClass = persistentClass;
@@ -37,7 +40,7 @@ public class MainController<T> {
     public T findById(Map<String, String> paramMap, Model model) {
         T entity = null;
         try {
-            entity = baseService.getById(persistentClass, Integer.parseInt(paramMap.get(MainController.ID).trim(), -1));
+            entity = baseService.getById(persistentClass, getParamIntDef(paramMap, ControllerUtils.ID, -1));
         } catch (Exception e) {
             handleException(e, model);
         }
@@ -55,7 +58,7 @@ public class MainController<T> {
 
     public String delete(Map<String, String> paramMap, Model model) {
         try {
-            baseService.delete(persistentClass, Integer.parseInt(paramMap.get(ID).trim()));
+            baseService.delete(persistentClass, getParamIntDef(paramMap, ControllerUtils.ID, -1));
         } catch (Exception e) {
             handleException(e, model);
         }
@@ -71,8 +74,18 @@ public class MainController<T> {
         return fillModelPage(paramMap, model);
     }
 
+    private Integer getParamIntDef(Map<String, String> paramMap, String key, Integer def) {
+        Integer id = def;
+        if (paramMap.containsKey(key) && paramMap.get(key) != null)
+            try {
+                id = Integer.parseInt(paramMap.get(key).trim());
+            } catch (NumberFormatException e) {
+            }
+        return id;
+    }
+
     public String fillModelEntity(Map<String, String> paramMap, Model model) {
-        Integer id = Integer.parseInt(paramMap.get(MainController.ID).trim(), -1);
+        Integer id = getParamIntDef(paramMap, ControllerUtils.ID, -1);
         if (id > 0)
             try {
                 T entity = baseService.getById(persistentClass, id);
@@ -87,7 +100,7 @@ public class MainController<T> {
     }
 
     public String fillModelPage(Map<String, String> paramMap, Model model) {
-        model.addAttribute(ENTITY_LIST, preparePagination(Integer.parseInt(paramMap.get(MainController.PAGE_NUM).trim(), 1), model));
+        model.addAttribute(ENTITY_LIST, preparePagination(getParamIntDef(paramMap, ControllerUtils.PAGE_NUM, 1), model));
         return ConfigurationManager.getProperty(pathPageList);
     }
 

@@ -37,18 +37,6 @@ public class SessionUtil {
     }
 
     private static SessionFactory getSessionFactory() {
-//        if (sessionFactory == null) {
-//            // loads configuration and mappings
-//            Configuration configuration = new Configuration().configure();
-//            ServiceRegistry serviceRegistry
-//                    = new StandardServiceRegistryBuilder()
-//                    .applySettings(configuration.getProperties()).build();
-//
-//            // builds a session factory from the service registry
-//            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-//            driverClass = configuration.getProperty("hibernate.connection.driver_class");
-//        }
-//
         return sessionFactory;
     }
 

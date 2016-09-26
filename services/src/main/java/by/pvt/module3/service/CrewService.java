@@ -17,10 +17,6 @@ import java.util.List;
 @Transactional
 public class CrewService extends BaseService<Crew> {
 
-//    public CrewService() {
-//        super(new CrewDAO());
-//    }
-
     @Autowired
     @Qualifier("crewDAO")
     CommonDAO<Crew> dao;

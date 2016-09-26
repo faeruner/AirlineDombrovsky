@@ -11,6 +11,9 @@
     String page_fields = request.getParameter("page_fields");
     String userAdmin = UserType.ADMINISTRATOR.name();
     String userType = ((UserType) session.getAttribute("userType")).name();
+    String actionPage = "/controller/" + entity_name.toLowerCase() + "/list";
+    String actionEdit = "/controller/" + entity_name.toLowerCase() + "/edit";
+    String actionDelete = "/controller/" + entity_name.toLowerCase() + "/del";
 %>
 <html>
 <head><title>AirlineDombrovsky: <%= entity_name %>
@@ -57,7 +60,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <form class="form-inline col-md-1" action="controller" method="post">
+                        <form class="form-inline col-md-1" method="post" action="<%= actionEdit %>">
                             <input type="hidden" name="id" value="0"/>
                             <input type="hidden" name="page_num" value="${requestScope.insertPageNum}"/>
                             <button type="submit" class="btn btn-primary" name="command"
@@ -100,12 +103,16 @@
                     <c:forEach var="item" items="${requestScope.entities}">
                         <tr>
                             <td>
-                                <form action="controller" method="post">
+                                <form method="post" action="<%= actionEdit %>">
                                     <input type="hidden" name="id" value="${item.id}">
                                     <input type="hidden" name="page_num" value="${requestScope.current_page}"/>
                                     <button type="submit" name="command" value="<%= command_select %>"
                                             class="btn btn-default btn-xs">edit
                                     </button>
+                                </form>
+                                <form method="post" action="<%= actionDelete %>">
+                                    <input type="hidden" name="id" value="${item.id}">
+                                    <input type="hidden" name="page_num" value="${requestScope.current_page}"/>
                                     <button type="submit" name="command" value="<%= command_delete %>"
                                             class="btn btn-default btn-xs">delete
                                     </button>
@@ -122,7 +129,7 @@
                         <div class="col-md-1">
                             Page: ${requestScope.current_page}/${requestScope.numPages.size()}
                         </div>
-                        <form class="form-inline col-md-11" action="controller" method="post">
+                        <form class="form-inline col-md-11" action="<%= actionPage %>" method="post">
                             <input type="hidden" name="command" value="<%= command_select %>">
                             <div class="btn-group" role="group" aria-label="...">
                                 <c:forEach var="numPage" items="${requestScope.numPages}">

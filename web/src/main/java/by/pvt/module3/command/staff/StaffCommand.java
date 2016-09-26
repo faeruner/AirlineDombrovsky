@@ -1,8 +1,9 @@
 package by.pvt.module3.command.staff;
 
 import by.pvt.module3.command.BaseCommand;
+import by.pvt.module3.entity.MemberType;
 import by.pvt.module3.entity.Staff;
-import by.pvt.module3.service.MemberTypeService;
+import by.pvt.module3.service.common.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -22,17 +23,17 @@ public class StaffCommand extends BaseCommand<Staff> {
     }
 
     @Autowired
-    MemberTypeService memberTypeService;
+    CommonService<MemberType> memberTypeService;
 
     @Override
     protected void initEditAttributes(Staff staff, Model model) {
-        model.addAttribute(LIST_MEMBER_TYPE, memberTypeService.getAll());
+        model.addAttribute(LIST_MEMBER_TYPE, memberTypeService.getAll(MemberType.class));
     }
 
     protected void updateEntity(Staff staff, Map<String, String> paramMap) {
         staff.setName(paramMap.get(Staff.NAME).trim());
         staff.setSurname(paramMap.get(Staff.SURNAME).trim());
-        staff.setMember(memberTypeService.getById(Integer.parseInt(paramMap.get(Staff.MEMBER_TYPE_ID).trim())));
+        staff.setMember(memberTypeService.getById(MemberType.class, Integer.parseInt(paramMap.get(Staff.MEMBER_TYPE_ID).trim())));
     }
 
 }

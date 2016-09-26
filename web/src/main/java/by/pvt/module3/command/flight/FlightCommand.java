@@ -1,11 +1,11 @@
 package by.pvt.module3.command.flight;
 
 import by.pvt.module3.command.BaseCommand;
+import by.pvt.module3.entity.Airline;
 import by.pvt.module3.entity.Airport;
+import by.pvt.module3.entity.Crew;
 import by.pvt.module3.entity.Flight;
-import by.pvt.module3.service.AirlineService;
-import by.pvt.module3.service.AirportService;
-import by.pvt.module3.service.CrewService;
+import by.pvt.module3.service.common.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -45,19 +45,19 @@ public class FlightCommand extends BaseCommand<Flight> {
     }
 
     @Autowired
-    AirportService airportService;
+    CommonService<Airport> airportService;
     @Autowired
-    AirlineService airlineService;
+    CommonService<Airline> airlineService;
     @Autowired
-    CrewService crewService;
+    CommonService<Crew> crewService;
 
     @Override
     protected void initEditAttributes(Flight entity, Model model) {
-        List<Airport> listAirports = airportService.getAll();
+        List<Airport> listAirports = airportService.getAll(Airport.class);
         model.addAttribute(LIST_DEPARTURE, listAirports);
         model.addAttribute(LIST_ARRIVAL, listAirports);
-        model.addAttribute(LIST_AIRLINE, airlineService.getAll());
-        model.addAttribute(LIST_CREW, crewService.getAll());
+        model.addAttribute(LIST_AIRLINE, airlineService.getAll(Airline.class));
+        model.addAttribute(LIST_CREW, crewService.getAll(Crew.class));
     }
 
     protected void updateEntity(Flight flight, Map<String, String> paramMap, Model model) {
@@ -71,13 +71,13 @@ public class FlightCommand extends BaseCommand<Flight> {
         }
 
         flight.setArrival(airportService.
-                getById(Integer.parseInt(paramMap.get(Flight.AIRPORT_ARV_ID).trim())));
+                getById(Airport.class, Integer.parseInt(paramMap.get(Flight.AIRPORT_ARV_ID).trim())));
         flight.setDeparture(airportService.
-                getById(Integer.parseInt(paramMap.get(Flight.AIRPORT_DEP_ID).trim())));
+                getById(Airport.class, Integer.parseInt(paramMap.get(Flight.AIRPORT_DEP_ID).trim())));
         flight.setAirline(airlineService.
-                getById(Integer.parseInt(paramMap.get(Flight.AIRLINE_ID).trim())));
+                getById(Airline.class, Integer.parseInt(paramMap.get(Flight.AIRLINE_ID).trim())));
         flight.setCrew(crewService.
-                getById(Integer.parseInt(paramMap.get(Flight.CREW_ID).trim())));
+                getById(Crew.class, Integer.parseInt(paramMap.get(Flight.CREW_ID).trim())));
         flight.setUser(getSessionUser(model));
     }
 }

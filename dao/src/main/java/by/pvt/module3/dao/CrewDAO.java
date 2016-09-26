@@ -6,9 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class CrewDAO extends BaseDAO<Crew> {
-//    public CrewDAO() {
-//        super(Crew.class);
-//    }
 
     @Override
     protected void prepareDelete(Crew t) {

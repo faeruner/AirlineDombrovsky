@@ -32,18 +32,10 @@ public class BaseController {
     }
 */
 
-    @RequestMapping(value = "/login", method = {RequestMethod.POST})
-    private String processLogin(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession, HttpServletResponse response) {
-        if (CommandEnum.SEL_AIRLINE.name().equals(paramMap.get(ActionFactory.PARAM_COMMAND))) {
-            try {
-                response.sendRedirect("/controller/airline/list");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return ConfigurationManager.getProperty("path.page.airlines");
-        }
-        return processRequest(paramMap, model, httpSession);
-    }
+//    @RequestMapping(value = "/loginA", method = {RequestMethod.POST})
+//    private String processLogin(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession, HttpServletResponse response) {
+//        return processRequest(paramMap, model, httpSession);
+//    }
 
     @RequestMapping(value = "/controller", method = {RequestMethod.POST, RequestMethod.GET})
     private String processController(@RequestParam Map<String, String> paramMap, Model model

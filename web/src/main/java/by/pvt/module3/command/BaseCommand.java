@@ -2,12 +2,11 @@ package by.pvt.module3.command;
 
 import by.pvt.module3.entity.User;
 import by.pvt.module3.resource.ConfigurationManager;
-import by.pvt.module3.service.UserService;
-import by.pvt.module3.service.common.BaseService;
 import by.pvt.module3.service.common.CommonService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
@@ -38,10 +37,11 @@ public abstract class BaseCommand<T> implements ActionCommand {
     protected Logger log = LogManager.getLogger(BaseCommand.class);
 
     @Autowired
-    private BaseService<T> baseService;
+    private CommonService<User> userService;
 
     @Autowired
-    private UserService userService;
+    @Qualifier(value = "baseService")
+    private CommonService<T> baseService;
 
     private String propPathEdit;
     private String propPathList;

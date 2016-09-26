@@ -11,7 +11,7 @@ public class UpdateCrewCommand extends CrewCommand {
 
     @Override
     public String execute(Map<String, String> paramMap, Model model) {
-        Crew crew = crewService.getById(Integer.parseInt(paramMap.get(ID).trim()));
+        Crew crew = getService().getById(Crew.class, Integer.parseInt(paramMap.get(ID).trim()));
         updateEntity(crew, paramMap, model);
         return update(crew, paramMap, model);
     }

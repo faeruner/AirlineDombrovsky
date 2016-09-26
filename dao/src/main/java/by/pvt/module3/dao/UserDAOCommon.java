@@ -1,5 +1,6 @@
-package by.pvt.module3.dao.common;
+package by.pvt.module3.dao;
 
+import by.pvt.module3.dao.common.CommonDAO;
 import by.pvt.module3.entity.User;
 
 /**

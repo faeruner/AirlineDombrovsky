@@ -14,16 +14,7 @@ import java.util.List;
 @Repository
 public class BaseDAO<T> implements CommonDAO<T> {
     protected final static Logger log = LogManager.getRootLogger();
-    //    private Class persistentClass;
     private final static String ID = "id";
-
-//    public BaseDAO(Class persistentClass) {
-//        this.persistentClass = persistentClass;
-//    }
-
-//    private Class getPersistentClass() {
-//        return persistentClass;
-//    }
 
     public Integer add(T entity) {
         Transaction tx = null;

@@ -2,7 +2,8 @@ package by.pvt.module3.command.user;
 
 import by.pvt.module3.command.BaseCommand;
 import by.pvt.module3.entity.User;
-import by.pvt.module3.service.UserRoleService;
+import by.pvt.module3.entity.UserRole;
+import by.pvt.module3.service.common.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -22,11 +23,11 @@ public class UserCommand extends BaseCommand<User> {
     }
 
     @Autowired
-    UserRoleService userRoleService;
+    CommonService<UserRole> userRoleService;
 
     @Override
     protected void initEditAttributes(User user, Model model) {
-        model.addAttribute(LIST_USER_ROLE, userRoleService.getAll());
+        model.addAttribute(LIST_USER_ROLE, userRoleService.getAll(UserRole.class));
     }
 
     protected void updateEntity(User user, Map<String, String> paramMap) {
@@ -34,6 +35,6 @@ public class UserCommand extends BaseCommand<User> {
         user.setSurname(paramMap.get(User.SURNAME).trim());
         user.setLogin(paramMap.get(User.LOGIN).trim());
         user.setPassword(paramMap.get(User.PASSWORD).trim());
-        user.setRole(userRoleService.getById(Integer.parseInt(paramMap.get(User.USER_ROLE_ID).trim())));
+        user.setRole(userRoleService.getById(UserRole.class, Integer.parseInt(paramMap.get(User.USER_ROLE_ID).trim())));
     }
 }

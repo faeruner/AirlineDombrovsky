@@ -4,7 +4,6 @@ import by.pvt.module3.command.BaseCommand;
 import by.pvt.module3.entity.Crew;
 import by.pvt.module3.entity.Staff;
 import by.pvt.module3.service.CrewService;
-import by.pvt.module3.service.StaffService;
 import by.pvt.module3.service.common.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,6 +26,10 @@ public class CrewCommand extends BaseCommand<Crew> {
     private final static String READY_NO = "readyNo";
     private final static String READY_YES = "readyYes";
 
+    public CrewCommand() {
+        super(Crew.class, "path.page.edit_crew", "path.page.crews");
+    }
+
     @Autowired
     CrewService crewService;
 
@@ -35,15 +38,12 @@ public class CrewCommand extends BaseCommand<Crew> {
         return crewService;
     }
 
-    public CrewCommand() {
-        super(Crew.class, "path.page.edit_crew", "path.page.crews");
-    }
 
     @Override
     protected Crew getSelectedEntity(Integer id, Model model) {
         Crew entity;
         if (id > 0) {
-            entity = crewService.getById(id);
+            entity = getService().getById(Crew.class, id);
         }
         else {
             entity = new Crew();
@@ -56,11 +56,12 @@ public class CrewCommand extends BaseCommand<Crew> {
     }
 
     @Autowired
-    StaffService staffService;
+    CommonService<Staff> staffService;
 
     @Override
     protected void initEditAttributes(Crew crew, Model model) {
-        List<Staff> staff = staffService.getAll();
+
+        List<Staff> staff = staffService.getAll(Staff.class);
         for (Staff member : crew.getMembers()) {
             staff.remove(member);
         }
