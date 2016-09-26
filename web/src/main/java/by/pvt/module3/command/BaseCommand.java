@@ -26,8 +26,8 @@ public abstract class BaseCommand<T> implements ActionCommand {
 
     protected static final DateFormat DF = new SimpleDateFormat("dd.MM.yyyy");
     public static final String ID = "id";
-    private static final String PAGE_NUM = "page_num";
-    private static final String CURRENT_PAGE = "current_page";
+    protected static final String PAGE_NUM = "page_num";
+    protected static final String CURRENT_PAGE = "current_page";
     private static final String PAGES = "numPages";
     private static final String COUNT_PAGES = "countPages";
     protected static final String ENTITY_EDIT = "entity";
@@ -39,6 +39,9 @@ public abstract class BaseCommand<T> implements ActionCommand {
 
     @Autowired
     private BaseService<T> baseService;
+
+    @Autowired
+    private UserService userService;
 
     private String propPathEdit;
     private String propPathList;
@@ -145,11 +148,11 @@ public abstract class BaseCommand<T> implements ActionCommand {
         return entity;
     }
 
+
     protected User getSessionUser(Model model) {
         Integer user_id = (Integer) model.asMap().get(USER_ID);
-        CommonService<User> serviceUser = new UserService();
         try {
-            return serviceUser.getById(persistentClass, user_id);
+            return userService.getById(User.class, user_id);
         } catch (Exception e) {
             handleException(e, model);
         }

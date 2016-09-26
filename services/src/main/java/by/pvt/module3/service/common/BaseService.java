@@ -1,6 +1,5 @@
 package by.pvt.module3.service.common;
 
-import by.pvt.module3.dao.common.BaseDAO;
 import by.pvt.module3.dao.common.CommonDAO;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -29,7 +28,7 @@ public class BaseService<T> implements CommonService<T> {
 
     @Autowired
     @Qualifier(value = "baseDAO")
-    private BaseDAO<T> dao;
+    private CommonDAO<T> dao;
 
 //    public BaseService(BaseDAO<T> dao) {
 //        this.dao = dao;

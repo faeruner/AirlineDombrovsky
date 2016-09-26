@@ -2,6 +2,7 @@ package by.pvt.module3.dao;
 
 import by.pvt.module3.dao.common.BaseDAO;
 import by.pvt.module3.dao.common.SessionUtil;
+import by.pvt.module3.dao.common.UserDAOCommon;
 import by.pvt.module3.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -10,7 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDAO extends BaseDAO<User> {
+public class UserDAO extends BaseDAO<User> implements UserDAOCommon {
 //	public UserDAO() {
 //		super(User.class);
 //	}

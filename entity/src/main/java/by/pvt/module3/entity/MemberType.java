@@ -1,12 +1,10 @@
 package by.pvt.module3.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "member_type")
 public class MemberType implements Serializable {
     public static final String ID = "id";
     public static final String NAME = "name";

@@ -9,3 +9,4 @@
     <jsp:param name="command_update" value="upd_crew"/>
     <jsp:param name="page_fields" value="/jsp/entity-edit/crew-fields.jsp"/>
 </jsp:include>
+<jsp:include page="/jsp/entity-edit/member-fields.jsp" flush="true"/>

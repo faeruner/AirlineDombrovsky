@@ -6,10 +6,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.persister.entity.AbstractEntityPersister;
-import org.hibernate.service.ServiceRegistry;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 public class SessionUtil {
     protected static final Logger log = LogManager.getLogger(SessionUtil.class);
@@ -30,23 +31,34 @@ public class SessionUtil {
         return s;
     }
 
+    public static void setSessionFactory(SessionFactory sessionFactory) {
+        if (SessionUtil.sessionFactory == null)
+            SessionUtil.sessionFactory = sessionFactory;
+    }
+
     private static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            // loads configuration and mappings
-            Configuration configuration = new Configuration().configure();
-            ServiceRegistry serviceRegistry
-                    = new StandardServiceRegistryBuilder()
-                    .applySettings(configuration.getProperties()).build();
-
-            // builds a session factory from the service registry
-            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-            driverClass = configuration.getProperty("hibernate.connection.driver_class");
-        }
-
+//        if (sessionFactory == null) {
+//            // loads configuration and mappings
+//            Configuration configuration = new Configuration().configure();
+//            ServiceRegistry serviceRegistry
+//                    = new StandardServiceRegistryBuilder()
+//                    .applySettings(configuration.getProperties()).build();
+//
+//            // builds a session factory from the service registry
+//            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+//            driverClass = configuration.getProperty("hibernate.connection.driver_class");
+//        }
+//
         return sessionFactory;
     }
 
     public static Boolean driverUsed(String name) {
+        if (driverClass == null) {
+            ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-context.xml");
+            LocalSessionFactoryBean bean = (LocalSessionFactoryBean) context.getBean("&sessionFactory");
+            Configuration configuration = bean.getConfiguration();
+            driverClass = configuration.getProperty("hibernate.connection.driver_class");
+        }
         return driverClass.equals(name);
     }
 

@@ -32,6 +32,10 @@ public class InsertMemberCommand extends CrewCommand{
 
         initEditAttributes(crew, model);
         model.addAttribute(ENTITY_EDIT, crew);
+        Integer num_page = 1;
+        if (paramMap.get(PAGE_NUM) != null)
+            num_page = Integer.parseInt(paramMap.get(PAGE_NUM).trim());
+        model.addAttribute(CURRENT_PAGE, num_page);
         return ConfigurationManager.getProperty(getPropPathEdit());
     }
 }

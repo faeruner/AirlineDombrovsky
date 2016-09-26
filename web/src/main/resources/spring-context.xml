@@ -23,8 +23,8 @@
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/airline"/>
-        <property name="username" value="asd"/>
-        <property name="password" value="root"/>
+        <property name="username" value="root"/>
+        <property name="password" value="vovo"/>
         <property name="initialSize" value="5"/>
         <property name="maxActive" value="10"/>
     </bean>
@@ -44,6 +44,7 @@
                 <prop key="connection.isolation">2</prop>
                 <prop key="hibernate.hbm2ddl.auto">validate</prop>
                 <prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
             </props>
         </property>
     </bean>
@@ -53,5 +54,13 @@
                   value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value=""/>
         <property name="suffix" value=""/>
+    </bean>
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="by.pvt.module3.dao.common.SessionUtil.setSessionFactory"/>
+        <property name="arguments">
+            <list>
+                <ref bean="sessionFactory"/>
+            </list>
+        </property>
     </bean>
 </beans>

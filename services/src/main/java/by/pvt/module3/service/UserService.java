@@ -1,7 +1,7 @@
 package by.pvt.module3.service;
 
-import by.pvt.module3.dao.UserDAO;
 import by.pvt.module3.dao.common.CommonDAO;
+import by.pvt.module3.dao.common.UserDAOCommon;
 import by.pvt.module3.entity.User;
 import by.pvt.module3.service.common.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class UserService extends BaseService<User> {
 //    }
 
     @Autowired
-    UserDAO dao;
+    UserDAOCommon dao;
 
     @Override
     protected CommonDAO<User> getDao() {
@@ -29,7 +29,7 @@ public class UserService extends BaseService<User> {
     }
 
     public User getUserByLogin(String login) {
-        UserDAO dao = (UserDAO) getDao();
+//        UserDAOCommon dao = getDao();
         return dao.getUserByLogin(login);
     }
 }
