@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User implements Serializable, Fact {
     public static final String ID = "id";
     public static final String NAME = "name";
 	public static final String SURNAME = "surname";

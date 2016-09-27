@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-public class Airport implements Serializable {
+public class Airport implements Serializable, Fact {
     public static final String ID = "id";
     public static final String NAME = "name";
 

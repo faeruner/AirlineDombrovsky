@@ -1,23 +1,39 @@
 package by.pvt.module3.controller.common;
 
+import by.pvt.module3.entity.Fact;
+import by.pvt.module3.entity.User;
 import by.pvt.module3.resource.ConfigurationManager;
-import by.pvt.module3.service.common.BaseService;
+import by.pvt.module3.service.common.CommonService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Component
-public class ControllerUtils<T> {
+@Scope("prototype")
+public class ControllerUtils<T extends Fact> {
     protected Logger log = LogManager.getLogger(ControllerUtils.class);
 
+    public static final DateFormat DF = new SimpleDateFormat("dd.MM.yyyy");
+
+    private static final String COMMAND = "command";
+    public static final String COMMAND_LIST = "list";
+    private static final String COMMAND_EDIT = "edit";
+    public static final String COMMAND_DEL = "del";
+    public static final String COMMAND_ADD = "add";
+    private static final String COMMAND_UPD = "upd";
     public static final String ID = "id";
     public static final String ENTITY = "entity";
-    public static final String PAGE_NUM = "page_num";
+    private static final String PAGE_NUM = "page_num";
     public static final String USER_ID = "user_id";
     private static final String PAGES = "numPages";
     private static final String COUNT_PAGES = "countPages";
@@ -28,53 +44,94 @@ public class ControllerUtils<T> {
     private String pathPageEdit;
     private String pathPageList;
     private Class persistentClass;
-    private BaseService<T> baseService;
 
-    public void init(String pathPageEdit, String pathPageList, Class persistentClass, BaseService<T> baseService) {
+    private CommonService<T> commonService;
+
+    @Autowired
+    private CommonService<User> userService;
+
+    public void init(String pathPageEdit, String pathPageList, Class persistentClass, CommonService<T> commonService) {
         this.pathPageEdit = pathPageEdit;
         this.pathPageList = pathPageList;
         this.persistentClass = persistentClass;
-        this.baseService = baseService;
+        this.commonService = commonService;
+    }
+
+    public User getSessionUser(HttpSession httpSession, Model model) {
+        Integer user_id = (Integer) httpSession.getAttribute(USER_ID);
+        if (user_id != null)
+            try {
+                return userService.getById(User.class, user_id);
+            } catch (Exception e) {
+                handleException(e, model);
+            }
+        return null;
+    }
+
+    public String getPage(Map<String, String> paramMap, Model model) {
+        String command = paramMap.get(COMMAND);
+        if (command != null)
+            switch (command) {
+                case COMMAND_ADD:
+                    return insert(paramMap, model);
+                case COMMAND_DEL:
+                    return delete(paramMap, model);
+                case COMMAND_EDIT:
+                    return getEditPage(paramMap, model);
+                case COMMAND_UPD:
+                    return update(paramMap, model);
+            }
+        return fillModelPage(paramMap, model);
     }
 
     public T findById(Map<String, String> paramMap, Model model) {
         T entity = null;
-        try {
-            entity = baseService.getById(persistentClass, getParamIntDef(paramMap, ControllerUtils.ID, -1));
-        } catch (Exception e) {
-            handleException(e, model);
-        }
+        Integer id = getParamIntDef(paramMap, ID, -1);
+        if (id > 0)
+            try {
+                entity = commonService.getById(persistentClass, id);
+            } catch (Exception e) {
+                handleException(e, model);
+            }
         return entity;
     }
 
-    public String insert(T entity, Map<String, String> paramMap, Model model) {
-        try {
-            baseService.add(entity);
-        } catch (Exception e) {
-            handleException(e, model);
-        }
+    public String insert(Map<String, String> paramMap, Model model) {
+        T entity = (T) model.asMap().get(ENTITY);
+        if (entity != null)
+            try {
+                commonService.add(entity);
+            } catch (Exception e) {
+                handleException(e, model);
+            }
         return fillModelPage(paramMap, model);
     }
 
     public String delete(Map<String, String> paramMap, Model model) {
         try {
-            baseService.delete(persistentClass, getParamIntDef(paramMap, ControllerUtils.ID, -1));
+            commonService.delete(persistentClass, getParamIntDef(paramMap, ID, -1));
         } catch (Exception e) {
             handleException(e, model);
         }
         return fillModelPage(paramMap, model);
     }
 
-    public String update(T entity, Map<String, String> paramMap, Model model) {
-        try {
-            baseService.update(entity);
-        } catch (Exception e) {
-            handleException(e, model);
-        }
+    public T update(T entity, Model model) {
+        if (entity != null)
+            try {
+                entity = commonService.update(persistentClass, entity);
+            } catch (Exception e) {
+                handleException(e, model);
+            }
+        return entity;
+    }
+
+    public String update(Map<String, String> paramMap, Model model) {
+        update((T) model.asMap().get(ENTITY), model);
         return fillModelPage(paramMap, model);
     }
 
-    private Integer getParamIntDef(Map<String, String> paramMap, String key, Integer def) {
+    public Integer getParamIntDef(Map<String, String> paramMap, String key, Integer def) {
         Integer id = def;
         if (paramMap.containsKey(key) && paramMap.get(key) != null)
             try {
@@ -84,23 +141,13 @@ public class ControllerUtils<T> {
         return id;
     }
 
-    public String fillModelEntity(Map<String, String> paramMap, Model model) {
-        Integer id = getParamIntDef(paramMap, ControllerUtils.ID, -1);
-        if (id > 0)
-            try {
-                T entity = baseService.getById(persistentClass, id);
-                if (entity != null)
-                    model.addAttribute(ENTITY, entity);
-            } catch (NumberFormatException e) {
-                handleException(e, model);
-            } catch (Exception e) {
-                handleException(e, model);
-            }
+    public String getEditPage(Map<String, String> paramMap, Model model) {
+        model.addAttribute(CURRENT_PAGE, getParamIntDef(paramMap, PAGE_NUM, 1));
         return ConfigurationManager.getProperty(pathPageEdit);
     }
 
     public String fillModelPage(Map<String, String> paramMap, Model model) {
-        model.addAttribute(ENTITY_LIST, preparePagination(getParamIntDef(paramMap, ControllerUtils.PAGE_NUM, 1), model));
+        model.addAttribute(ENTITY_LIST, preparePagination(getParamIntDef(paramMap, PAGE_NUM, 1), model));
         return ConfigurationManager.getProperty(pathPageList);
     }
 
@@ -108,10 +155,10 @@ public class ControllerUtils<T> {
         // set pages
         List<Integer> pages;
         try {
-            pages = baseService.getPagesNums(persistentClass);
+            pages = commonService.getPagesNums(persistentClass);
         } catch (Exception e) {
             handleException(e, model);
-            pages = new ArrayList<Integer>();
+            pages = new ArrayList<>();
         }
         model.addAttribute(PAGES, pages);
         model.addAttribute(COUNT_PAGES, pages.size());
@@ -127,14 +174,14 @@ public class ControllerUtils<T> {
 
         // set num page for new record
         try {
-            model.addAttribute(INSERT_PAGE_NUM, baseService.getInsertPageNum(persistentClass));
+            model.addAttribute(INSERT_PAGE_NUM, commonService.getInsertPageNum(persistentClass));
         } catch (Exception e) {
             handleException(e, model);
             model.addAttribute(INSERT_PAGE_NUM, 1);
         }
 
         try {
-            return baseService.getPage(persistentClass, pageNum);
+            return commonService.getPage(persistentClass, pageNum);
         } catch (Exception e) {
             handleException(e, model);
         }

@@ -1,6 +1,7 @@
 package by.pvt.module3.service.common;
 
 import by.pvt.module3.dao.common.CommonDAO;
+import by.pvt.module3.entity.Fact;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class BaseService<T> implements CommonService<T> {
+public class BaseService<T extends Fact> implements CommonService<T> {
     private static final Logger log = LogManager.getLogger(BaseService.class);
 
     private Integer recordsPerPage = 3;
@@ -39,12 +40,7 @@ public class BaseService<T> implements CommonService<T> {
     }
 
     public T getById(Class clazz, Integer id) {
-        try {
-            return getDao().getById(clazz, id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return getDao().getById(clazz, id);
     }
 
     public void delete(Class clazz, Integer id) {
@@ -55,8 +51,8 @@ public class BaseService<T> implements CommonService<T> {
         return getDao().add(entity);
     }
 
-    public void update(T entity) {
-        getDao().update(entity);
+    public T update(Class clazz, T entity) {
+        return getDao().update(clazz, entity);
     }
 
     public List<Integer> getPagesNums(Class clazz) {

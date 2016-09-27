@@ -1,5 +1,6 @@
 package by.pvt.module3.command.airline;
 
+import by.pvt.module3.controller.AirlineController;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
@@ -25,7 +26,7 @@ public class SelectAirlineCommandTest {
 //    private Integer id;
 
     @Autowired
-    AirlineCommand airlineCommand;
+    AirlineController airlineController;
 
     @Before
     public void setUp() throws Exception {
@@ -46,7 +47,7 @@ public class SelectAirlineCommandTest {
 
     @Test
     public void testExecute(){
-        String pageExist = (airlineCommand.execute(paramMap, model));
+        String pageExist = (airlineController.perform(paramMap, model));
         String pageWaiting = "/jsp/airlines.jsp";
         Assert.assertEquals(pageExist, pageWaiting);
     }

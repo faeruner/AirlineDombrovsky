@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 /**
  * Created by v on 08.09.2016.
@@ -26,11 +25,11 @@ public class CrewService extends BaseService<Crew> {
         return dao;
     }
 
-    public Crew getById(Integer id) {
-        return getById(Crew.class, id);
-    }
-
-    public List<Crew> getAll() {
-        return getAll(Crew.class);
-    }
+//    public Crew getById(Integer id) {
+//        return getById(Crew.class, id);
+//    }
+//
+//    public List<Crew> getAll() {
+//        return getAll(Crew.class);
+//    }
 }

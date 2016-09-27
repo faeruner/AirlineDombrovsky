@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form name="loginForm" method="POST" action="login">
+            <form name="loginForm" method="POST" action="/login">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row">

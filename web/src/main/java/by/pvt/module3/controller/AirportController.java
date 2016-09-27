@@ -1,7 +1,7 @@
 package by.pvt.module3.controller;
 
 import by.pvt.module3.controller.common.ControllerUtils;
-import by.pvt.module3.entity.Airline;
+import by.pvt.module3.entity.Airport;
 import by.pvt.module3.service.common.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,18 +14,18 @@ import javax.annotation.PostConstruct;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value = "/controller/airline", method = {RequestMethod.GET, RequestMethod.POST})
-public class AirlineController {
+@RequestMapping(value = "/controller/airport", method = {RequestMethod.GET, RequestMethod.POST})
+public class AirportController {
 
     @Autowired
-    private ControllerUtils<Airline> utils;
+    private ControllerUtils<Airport> utils;
 
     @Autowired
-    private CommonService<Airline> airlineService;
+    private CommonService<Airport> airportService;
 
     @PostConstruct
     public void init() {
-        utils.init("path.page.edit_airline", "path.page.airlines", Airline.class, airlineService);
+        utils.init("path.page.edit_airport", "path.page.airports", Airport.class, airportService);
     }
 
     @RequestMapping
@@ -34,11 +34,11 @@ public class AirlineController {
         return utils.getPage(paramMap, model);
     }
 
-    protected Airline updateEntity(Airline airline, Map<String, String> paramMap) {
-        if (airline == null)
-            airline = new Airline();
-        if (paramMap.containsKey(Airline.NAME))
-            airline.setName(paramMap.get(Airline.NAME).trim());
-        return airline;
+    protected Airport updateEntity(Airport airport, Map<String, String> paramMap) {
+        if (airport == null)
+            airport = new Airport();
+        if (paramMap.containsKey(Airport.NAME))
+            airport.setName(paramMap.get(Airport.NAME).trim());
+        return airport;
     }
 }

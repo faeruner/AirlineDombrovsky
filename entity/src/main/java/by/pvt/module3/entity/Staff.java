@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Staff implements Serializable {
+public class Staff implements Serializable, Fact {
     public static final String ID = "id";
     public static final String NAME = "name";
     public static final String SURNAME = "surname";

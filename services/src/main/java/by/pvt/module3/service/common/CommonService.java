@@ -1,18 +1,20 @@
 package by.pvt.module3.service.common;
 
+import by.pvt.module3.entity.Fact;
+
 import java.util.List;
 
 /**
  * Created by v on 06.09.2016.
  */
-public interface CommonService<T> {
+public interface CommonService<T extends Fact> {
     T getById(Class clazz, Integer id);
 
     void delete(Class clazz, Integer id);
 
     Integer add(T entity);
 
-    void update(T entity);
+    T update(Class clazz, T entity);
 
     List<T> getPage(Class clazz, Integer pageNum);
 

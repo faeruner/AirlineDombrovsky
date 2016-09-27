@@ -1,15 +1,17 @@
 package by.pvt.module3.dao.common;
 
+import by.pvt.module3.entity.Fact;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public interface CommonDAO<T> {
+public interface CommonDAO<T extends Fact> {
 
     Integer add(T entity);
 
     void delete(Class clazz, Integer id);
 
-    void update(T entity);
+    T update(Class clazz, T entity);
 
     T getById(Class clazz, Integer id);
 

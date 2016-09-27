@@ -4,10 +4,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
     String entity_name = request.getParameter("entity_name");
-    String command_select = request.getParameter("command_select");
-    String command_insert = request.getParameter("command_insert");
-    String command_update = request.getParameter("command_update");
     String page_fields = request.getParameter("page_fields");
+    String action = "/controller/" + entity_name.toLowerCase();
 %>
 <html>
 <head><title>AirlineDombrovsky: <%= entity_name %></title>
@@ -33,7 +31,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form action="controller" method="post">
+            <form action="<%= action %>" method="post">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
@@ -49,21 +47,12 @@
                             <div class="col-md-4">
                                 <p style="text-align: right;">
                                     Debug info: session = ${sessionScope}
-                                    <a href="controller?command=logout">Logout</a>
+                                    <a href="/logout">Logout</a>
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <c:choose>
-                            <c:when test="${empty entity.id}">
-                                <input type="hidden" name="command" value="<%= command_insert %>"/>
-                            </c:when>
-                            <c:otherwise>
-                                <input type="hidden" name="command" value="<%= command_update %>"/>
-                                <input type="hidden" name="id" value="${entity.id}"/>
-                            </c:otherwise>
-                        </c:choose>
                         <div class="form-group row">
                             <label for="inputId" class="col-md-1 form-control-label"
                                    style="text-align: right;">Id</label>
@@ -78,13 +67,19 @@
                         <div class="row">
                             <div class="col-md-10 btn-toolbar" role="toolbar">
                                 <input type="hidden" name="page_num" value="${requestScope.current_page}"/>
-                                <button type="submit" class="btn btn-primary">
-                                    <c:choose>
-                                        <c:when test="${empty entity.id}">Insert</c:when>
-                                        <c:otherwise>Save</c:otherwise>
-                                    </c:choose>
-                                </button>
-                                <a class="btn btn-default" href="controller?command=<%= command_select %>">Close</a>
+                                <c:choose>
+                                    <c:when test="${empty entity.id}">
+                                        <button type="submit" class="btn btn-primary" name="command" value="add">
+                                            Insert
+                                        </button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="hidden" name="id" value="${entity.id}"/>
+                                        <button type="submit" class="btn btn-primary" name="command" value="upd">Save
+                                        </button>
+                                    </c:otherwise>
+                                </c:choose>
+                                <button type="submit" class="btn btn-default" name="command" value="list">Close</button>
                             </div>
                         </div>
                     </div>

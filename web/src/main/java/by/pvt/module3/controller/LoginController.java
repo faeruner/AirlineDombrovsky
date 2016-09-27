@@ -1,7 +1,5 @@
 package by.pvt.module3.controller;
 
-import by.pvt.module3.command.client.CommandEnum;
-import by.pvt.module3.command.factory.ActionFactory;
 import by.pvt.module3.controller.common.ControllerUtils;
 import by.pvt.module3.entity.User;
 import by.pvt.module3.filter.UserType;
@@ -22,22 +20,27 @@ import java.util.Map;
  * Created by asd on 26.09.2016.
  */
 @Controller
-@RequestMapping(value = "login", method = RequestMethod.POST)
 public class LoginController {
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    ActionFactory client;
-
+    private AirlineController airlineController;
     @Autowired
-    AirlineController airlineController;
+    private CrewController crewController;
 
-    @RequestMapping
-    private String loginUser(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
+    @RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
+    public String logout(HttpSession httpSession) {
+        String page = ConfigurationManager.getProperty("path.page.index");
+        httpSession.invalidate();
+        return page;
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    private String login(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
         String page;
         String login = paramMap.get(PARAM_NAME_LOGIN);
         String pass = paramMap.get(PARAM_NAME_PASSWORD);
@@ -52,11 +55,10 @@ public class LoginController {
 
             if (UserType.ADMINISTRATOR.getId().equals(user.getRole().getId())) {
                 httpSession.setAttribute("userType", UserType.ADMINISTRATOR);
-                paramMap.put(ActionFactory.PARAM_COMMAND, CommandEnum.SEL_AIRLINE.name());
-                page = airlineController.showList(paramMap, model);
+                page = airlineController.perform(paramMap, model);
             } else if (UserType.DISPATCHER.getId().equals(user.getRole().getId())) {
                 httpSession.setAttribute("userType", UserType.DISPATCHER);
-                page = airlineController.showList(paramMap, model);
+                page = crewController.perform(paramMap, model, httpSession);
             } else {
                 model.addAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
                 httpSession.setAttribute("user_id", 0);

@@ -1,5 +1,6 @@
 package by.pvt.module3.dao.common;
 
+import by.pvt.module3.entity.Fact;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class BaseDAO<T> implements CommonDAO<T> {
+public class BaseDAO<T extends Fact> implements CommonDAO<T> {
     protected final static Logger log = LogManager.getRootLogger();
     private final static String ID = "id";
 
@@ -48,16 +49,18 @@ public class BaseDAO<T> implements CommonDAO<T> {
         }
     }
 
-    public void update(T entity) {
+    public T update(Class clazz, T entity) {
         Transaction tx = null;
         try {
             Session session = SessionUtil.getSesson();
             tx = session.beginTransaction();
             session.update(entity);
+            entity = (T) session.get(clazz, entity.getId());
             tx.commit();
         } catch (HibernateException e) {
             handleException(e, tx);
         }
+        return entity;
     }
 
     public T getById(Class clazz, Integer id) {

@@ -36,14 +36,14 @@
 
     <servlet-mapping>
         <servlet-name>Spring MVC Servlet</servlet-name>
-        <url-pattern>*.form</url-pattern>
-        <url-pattern>/controller/*</url-pattern>
-        <url-pattern>/controller/airline/list/*</url-pattern>
-        <url-pattern>/controller/airline/edit/*</url-pattern>
-        <url-pattern>/controller/airline/del/*</url-pattern>
-        <url-pattern>/controller/airline/upd/*</url-pattern>
-        <url-pattern>/controller/airline/add/*</url-pattern>
+        <url-pattern>/controller/airline/*</url-pattern>
+        <url-pattern>/controller/airport/*</url-pattern>
+        <url-pattern>/controller/crew/*</url-pattern>
+        <url-pattern>/controller/flight/*</url-pattern>
+        <url-pattern>/controller/staff/*</url-pattern>
+        <url-pattern>/controller/user/*</url-pattern>
         <url-pattern>/login/*</url-pattern>
+        <url-pattern>/logout/*</url-pattern>
     </servlet-mapping>
 
     <!--

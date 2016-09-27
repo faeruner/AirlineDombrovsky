@@ -21,10 +21,11 @@
     </bean>
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/airline"/>
-        <property name="username" value="asd"/>
-        <property name="password" value="root"/>
+        <property name="driverClassName" value="org.sqlite.JDBC"/>
+        <property name="url"
+                  value="jdbc:sqlite:C:/Users/SBT-Dombrovsky-AE/IdeaProjects/AirlineDombrovsky/db/identifier.sqlite"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
         <property name="initialSize" value="5"/>
         <property name="maxActive" value="10"/>
     </bean>
@@ -38,13 +39,13 @@
         </property>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="debug">true</prop>
                 <prop key="connection.isolation">2</prop>
-                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
-                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+                <prop key="hibernate.connection.driver_class">org.sqlite.JDBC</prop>
             </props>
         </property>
     </bean>

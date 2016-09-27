@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Flight implements Serializable {
+public class Flight implements Serializable, Fact {
 
 	public static final String ID = "id";
 	public static final String CODE = "code";

@@ -4,8 +4,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="/jsp/common/frame_list.jsp" flush="true">
 	<jsp:param name="entity_name" value="Airport"/>
-	<jsp:param name="command_select" value="sel_airport"/>
-	<jsp:param name="command_delete" value="del_airport"/>
 	<jsp:param name="table_head" value="<th class='col-xs-1'>ID</th><th>Name</th>"/>
 	<jsp:param name="page_fields" value="/jsp/entity-tables/airport-row.jsp"/>
 </jsp:include>

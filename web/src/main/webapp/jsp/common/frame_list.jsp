@@ -2,18 +2,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
     String entity_name = request.getParameter("entity_name");
-    String command_select = request.getParameter("command_select");
-    String command_delete = request.getParameter("command_delete");
     String table_head = request.getParameter("table_head");
     String page_fields = request.getParameter("page_fields");
     String userAdmin = UserType.ADMINISTRATOR.name();
     String userType = ((UserType) session.getAttribute("userType")).name();
-    String actionPage = "/controller/" + entity_name.toLowerCase() + "/list";
-    String actionEdit = "/controller/" + entity_name.toLowerCase() + "/edit";
-    String actionDelete = "/controller/" + entity_name.toLowerCase() + "/del";
+    String action = "/controller/" + entity_name.toLowerCase();
 %>
 <html>
 <head><title>AirlineDombrovsky: <%= entity_name %>
@@ -53,43 +50,56 @@
                         <div class="col-md-4">
                             <p style="text-align: right;">
                                 Debug info: session = ${sessionScope}
-                                <a href="controller?command=logout">Logout</a>
+                                <a href="/logout">Logout</a>
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <form class="form-inline col-md-1" method="post" action="<%= actionEdit %>">
+                        <form class="form-inline col-md-1" method="post" action="<%= action %>">
                             <input type="hidden" name="id" value="0"/>
                             <input type="hidden" name="page_num" value="${requestScope.insertPageNum}"/>
                             <button type="submit" class="btn btn-primary" name="command"
-                                    value="<%= command_select %>">Insert
+                                    value="edit">Insert
                             </button>
                         </form>
-                        <form class="form-inline col-md-10" action="controller" method="post">
+                        <div class="col-md-10">
                             <% if (userAdmin.equals(userType)) {%>
-                            <button class="btn btn-default" type="submit" name="command" value="sel_flight">
-                                Flights
-                            </button>
-                            <button class="btn btn-default" type="submit" name="command" value="sel_airport">
-                                Airports
-                            </button>
-                            <button class="btn btn-default" type="submit" name="command" value="sel_airline">
-                                Airlines
-                            </button>
-                            <button class="btn btn-default" type="submit" name="command" value="sel_user">
-                                Users
-                            </button>
+                            <a class="btn btn-default" href="/controller/flight">Flights</a>
+                            <a class="btn btn-default" href="/controller/airport">Airports</a>
+                            <a class="btn btn-default" href="/controller/airline">Airlines</a>
+                            <a class="btn btn-default" href="/controller/user">Users</a>
                             <% } else { %>
-                            <button class="btn btn-default" type="submit" name="command" value="sel_crew">
-                                Crew
-                            </button>
-                            <button class="btn btn-default" type="submit" name="command" value="sel_staff">
-                                Staff
-                            </button>
+                            <a class="btn btn-default" href="/controller/crew">Crew</a>
+                            <a class="btn btn-default" href="/controller/staff">Staff</a>
                             <% } %>
-                        </form>
+                        </div>
+                        <%--
+                                                <form class="form-inline col-md-10" action="controller" method="post">
+                                                    <% if (userAdmin.equals(userType)) {%>
+                                                    <button class="btn btn-default" type="submit" name="command" value="sel_flight">
+                                                        Flights
+                                                    </button>
+                                                    <button class="btn btn-default" type="submit" name="command" value="sel_airport">
+                                                        Airports
+                                                    </button>
+                                                    <button class="btn btn-default" type="submit" name="command" value="sel_airline">
+                                                        Airlines
+                                                    </button>
+                                                    <button class="btn btn-default" type="submit" name="command" value="sel_user">
+                                                        Users
+                                                    </button>
+                                                    <% } else { %>
+                                                    <button class="btn btn-default" type="submit" name="command" value="sel_crew">
+                                                        Crew
+                                                    </button>
+                                                    <button class="btn btn-default" type="submit" name="command" value="sel_staff">
+                                                        Staff
+                                                    </button>
+                                                    <% } %>
+                                                </form>
+                        --%>
                     </div>
                 </div>
                 <table class="table table-hover table-sm table-inverse">
@@ -103,17 +113,15 @@
                     <c:forEach var="item" items="${requestScope.entities}">
                         <tr>
                             <td>
-                                <form method="post" action="<%= actionEdit %>">
+                                <form method="post" action="<%= action %>">
                                     <input type="hidden" name="id" value="${item.id}">
                                     <input type="hidden" name="page_num" value="${requestScope.current_page}"/>
-                                    <button type="submit" name="command" value="<%= command_select %>"
+                                    <button type="submit" name="command" value="edit"
                                             class="btn btn-default btn-xs">edit
                                     </button>
-                                </form>
-                                <form method="post" action="<%= actionDelete %>">
                                     <input type="hidden" name="id" value="${item.id}">
                                     <input type="hidden" name="page_num" value="${requestScope.current_page}"/>
-                                    <button type="submit" name="command" value="<%= command_delete %>"
+                                    <button type="submit" name="command" value="del"
                                             class="btn btn-default btn-xs">delete
                                     </button>
                                 </form>
@@ -129,8 +137,8 @@
                         <div class="col-md-1">
                             Page: ${requestScope.current_page}/${requestScope.numPages.size()}
                         </div>
-                        <form class="form-inline col-md-11" action="<%= actionPage %>" method="post">
-                            <input type="hidden" name="command" value="<%= command_select %>">
+                        <form class="form-inline col-md-11" action="<%= action %>" method="post">
+                            <input type="hidden" name="command" value="list">
                             <div class="btn-group" role="group" aria-label="...">
                                 <c:forEach var="numPage" items="${requestScope.numPages}">
                                     <c:choose>

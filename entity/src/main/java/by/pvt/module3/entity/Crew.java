@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-public class Crew implements Serializable {
+public class Crew implements Serializable, Fact {
     public static final String ID = "id";
     public static final String CREATE_DATE = "create_date";
 	public static final String READY = "ready";
