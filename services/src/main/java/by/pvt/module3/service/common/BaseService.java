@@ -7,8 +7,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  */
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class BaseService<T extends Fact> implements CommonService<T> {
     private static final Logger log = LogManager.getLogger(BaseService.class);
 
@@ -31,10 +32,6 @@ public class BaseService<T extends Fact> implements CommonService<T> {
     @Qualifier(value = "baseDAO")
     private CommonDAO<T> dao;
 
-//    public BaseService(BaseDAO<T> dao) {
-//        this.dao = dao;
-//    }
-
     public Integer getRecordsPerPage() {
         return recordsPerPage;
     }
@@ -43,14 +40,17 @@ public class BaseService<T extends Fact> implements CommonService<T> {
         return getDao().getById(clazz, id);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void delete(Class clazz, Integer id) {
         getDao().delete(clazz, id);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public Integer add(T entity) {
         return getDao().add(entity);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public T update(Class clazz, T entity) {
         return getDao().update(clazz, entity);
     }

@@ -75,31 +75,6 @@
                             <a class="btn btn-default" href="/controller/staff">Staff</a>
                             <% } %>
                         </div>
-                        <%--
-                                                <form class="form-inline col-md-10" action="controller" method="post">
-                                                    <% if (userAdmin.equals(userType)) {%>
-                                                    <button class="btn btn-default" type="submit" name="command" value="sel_flight">
-                                                        Flights
-                                                    </button>
-                                                    <button class="btn btn-default" type="submit" name="command" value="sel_airport">
-                                                        Airports
-                                                    </button>
-                                                    <button class="btn btn-default" type="submit" name="command" value="sel_airline">
-                                                        Airlines
-                                                    </button>
-                                                    <button class="btn btn-default" type="submit" name="command" value="sel_user">
-                                                        Users
-                                                    </button>
-                                                    <% } else { %>
-                                                    <button class="btn btn-default" type="submit" name="command" value="sel_crew">
-                                                        Crew
-                                                    </button>
-                                                    <button class="btn btn-default" type="submit" name="command" value="sel_staff">
-                                                        Staff
-                                                    </button>
-                                                    <% } %>
-                                                </form>
-                        --%>
                     </div>
                 </div>
                 <table class="table table-hover table-sm table-inverse">
@@ -119,8 +94,6 @@
                                     <button type="submit" name="command" value="edit"
                                             class="btn btn-default btn-xs">edit
                                     </button>
-                                    <input type="hidden" name="id" value="${item.id}">
-                                    <input type="hidden" name="page_num" value="${requestScope.current_page}"/>
                                     <button type="submit" name="command" value="del"
                                             class="btn btn-default btn-xs">delete
                                     </button>

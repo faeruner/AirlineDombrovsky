@@ -7,13 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 /**
  * Created by v on 08.09.2016.
  */
 @Service
-@Transactional
 public class CrewService extends BaseService<Crew> {
 
     @Autowired
