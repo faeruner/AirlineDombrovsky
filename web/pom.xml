@@ -106,7 +106,10 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration><source>1.6</source><target>1.6</target></configuration>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
@@ -122,5 +125,20 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <!--
+                <filters>
+                    <filter>filter-values.properties</filter>
+                </filters>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>**/*spring-context.xml</include>
+                        </includes>
+                    </resource>
+                </resources>
+        -->
     </build>
 </project>
