@@ -32,7 +32,7 @@ public class SessionUtil {
     }
 
     public static void setSessionFactory(SessionFactory sessionFactory) {
-        if (SessionUtil.sessionFactory == null)
+//        if (SessionUtil.sessionFactory == null)
             SessionUtil.sessionFactory = sessionFactory;
     }
 

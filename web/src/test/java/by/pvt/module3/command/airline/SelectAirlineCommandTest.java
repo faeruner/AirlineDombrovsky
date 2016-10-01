@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 
@@ -20,12 +19,12 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ContextConfiguration(locations = {"classpath:spring-context.xml"})
-@Transactional
 public class SelectAirlineCommandTest {
 
     Map<String, String> paramMap;
     Model model;
 //    private Integer id;
+
 
     @Autowired
     AirlineController airlineController;
@@ -49,10 +48,8 @@ public class SelectAirlineCommandTest {
     }
 
     @Test
-    @Autowired
     public void testExecute(){
-        if (paramMap == null) return;
-        String pageExist = (airlineController.perform(paramMap, model));
+        String pageExist = airlineController.perform(paramMap, model);
         String pageWaiting = "/jsp/airlines.jsp";
         Assert.assertEquals(pageExist, pageWaiting);
     }
