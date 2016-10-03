@@ -1,10 +1,7 @@
 package by.pvt.module3.command.airline;
 
 import by.pvt.module3.controller.AirlineController;
-import junit.framework.Assert;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -21,37 +18,32 @@ import java.util.Map;
 @ContextConfiguration(locations = {"classpath:spring-context.xml"})
 public class SelectAirlineCommandTest {
 
-    Map<String, String> paramMap;
-    Model model;
-//    private Integer id;
-
+    Map<String, String> paramMap = new HashMap<String, String>();
+    Model model = new ExtendedModelMap();
 
     @Autowired
     AirlineController airlineController;
 
+    @BeforeClass
+    public static void setUpClass() {
+    }
+
     @Before
     public void setUp() throws Exception {
-        paramMap = new HashMap<String, String>();
-        model = new ExtendedModelMap();
         paramMap.put("id", "1");
-//        BaseDAO<Airline> daoAirline = new BaseDAO<Airline>(Airline.class);
-//        id = daoAirline.add(new Airline());
-//        String[] tmp = {id.toString()};
-//        request.getParameterMap().put(Airline.ID, tmp);
     }
 
     @After
     public void tearDown() {
-//        BaseDAO<Airline> daoAirline = new BaseDAO<Airline>(Airline.class);
-//        if(id != null)
-//            daoAirline.delete(id);
+        paramMap.clear();
+        model.asMap().clear();
     }
 
     @Test
     public void testExecute(){
-        String pageExist = airlineController.perform(paramMap, model);
-        String pageWaiting = "/jsp/airlines.jsp";
-        Assert.assertEquals(pageExist, pageWaiting);
+        String pageActual = airlineController.perform(paramMap, model);
+        String pageExpected = "/jsp/airlines.jsp";
+        Assert.assertEquals("AirlineController don't get the expected page", pageExpected, pageActual);
     }
 
 
