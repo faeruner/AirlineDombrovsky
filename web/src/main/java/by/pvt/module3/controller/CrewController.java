@@ -1,10 +1,9 @@
 package by.pvt.module3.controller;
 
-import by.pvt.module3.controller.common.ControllerUtils;
+import by.pvt.module3.controller.common.CommonController;
 import by.pvt.module3.entity.Crew;
 import by.pvt.module3.entity.Staff;
 import by.pvt.module3.entity.User;
-import by.pvt.module3.service.CrewService;
 import by.pvt.module3.service.common.CommonService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.Date;
@@ -25,7 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/controller/crew", method = {RequestMethod.GET, RequestMethod.POST})
-public class CrewController {
+public class CrewController extends CommonController<Crew> {
     private Logger log = LogManager.getLogger(CrewController.class);
     private final static String CHECKED = "checked";
     private final static String STAFF = "staff";
@@ -33,30 +31,25 @@ public class CrewController {
     private final static String READY_YES = "readyYes";
     private static final String MEMBER = "member";
 
-    @Autowired
-    private ControllerUtils<Crew> utils;
-    @Autowired
-    private CrewService crewService;
-    @Autowired
-    CommonService<Staff> staffService;
-
-    @PostConstruct
-    public void init() {
-        utils.init("path.page.edit_crew", "path.page.crews", Crew.class, crewService);
+    public CrewController() {
+        super("path.page.edit_crew", "path.page.crews");
     }
+
+    @Autowired
+    private CommonService<Staff> staffService;
 
     @RequestMapping
     public String perform(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
-        Crew crew = updateEntity(utils.findById(paramMap, model), paramMap, utils.getSessionUser(httpSession, model));
+        Crew crew = updateEntity(findById(paramMap, model), paramMap, getSessionUser(httpSession, model));
 
         String memberCommand = paramMap.get(MEMBER);
         if (memberCommand != null) {
             switch (memberCommand) {
-                case ControllerUtils.COMMAND_ADD:
-                    Staff staff = staffService.getById(Staff.class, Integer.parseInt(paramMap.get(Crew.STAFF_ID).trim()));
+                case CommonController.COMMAND_ADD:
+                    Staff staff = staffService.getById(Integer.parseInt(paramMap.get(Crew.STAFF_ID).trim()));
                     crew.getMembers().add(staff);
                     break;
-                case ControllerUtils.COMMAND_DEL:
+                case CommonController.COMMAND_DEL:
                     Integer staff_id = Integer.parseInt(paramMap.get(Crew.STAFF_ID).trim());
                     for (Staff item : crew.getMembers()) {
                         if (item.getId().equals(staff_id)) {
@@ -66,9 +59,9 @@ public class CrewController {
                     }
                     break;
             }
-            utils.update(crew, model);
+            update(crew, model);
         }
-        List<Staff> staff = staffService.getAll(Staff.class);
+        List<Staff> staff = staffService.getAll();
         for (Staff member : crew.getMembers()) {
             staff.removeIf(s -> s.getId().equals(member.getId()));
         }
@@ -83,11 +76,11 @@ public class CrewController {
         model.addAttribute(READY_NO, readyNo);
         model.addAttribute(READY_YES, readyYes);
 
-        model.addAttribute(ControllerUtils.ENTITY, crew);
+        model.addAttribute(CommonController.ENTITY, crew);
         if (memberCommand != null) {
-            return utils.getEditPage(paramMap, model);
+            return getEditPage(paramMap, model);
         } else {
-            return utils.getPage(paramMap, model);
+            return getPage(paramMap, model);
         }
 
     }
@@ -100,11 +93,11 @@ public class CrewController {
         }
         try {
             if (paramMap.containsKey(Crew.CREATE_DATE))
-                crew.setCreateDate(utils.DF.parse(paramMap.get(Crew.CREATE_DATE).trim()));
+                crew.setCreateDate(DF.parse(paramMap.get(Crew.CREATE_DATE).trim()));
         } catch (ParseException e) {
             log.error(e);
         }
-        crew.setReady(utils.getParamIntDef(paramMap, Crew.READY, 0));
+        crew.setReady(getParamIntDef(paramMap, Crew.READY, 0));
         crew.setUser(user);
         return crew;
     }

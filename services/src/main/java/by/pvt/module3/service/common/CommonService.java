@@ -8,23 +8,23 @@ import java.util.List;
  * Created by v on 06.09.2016.
  */
 public interface CommonService<T extends Fact> {
-    T getById(Class clazz, Integer id);
+    T getById(Integer id);
 
-    void delete(Class clazz, Integer id);
+    void delete(Integer id);
 
     Integer add(T entity);
 
-    T update(Class clazz, T entity);
+    T update(T entity);
 
-    List<T> getPage(Class clazz, Integer pageNum);
+    List<T> getPage(Integer pageNum);
 
-    List<T> getAll(Class clazz);
+    List<T> getAll();
 
-    List<Integer> getPagesNums(Class clazz);
+    List<Integer> getPagesNums();
 
     Integer getRecordsPerPage();
 
     void setRecordsPerPage(Integer recordsPerPage);
 
-    Long getInsertPageNum(Class clazz);
+    Long getInsertPageNum();
 }

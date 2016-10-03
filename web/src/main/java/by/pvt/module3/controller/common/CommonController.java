@@ -3,12 +3,11 @@ package by.pvt.module3.controller.common;
 import by.pvt.module3.entity.Fact;
 import by.pvt.module3.entity.User;
 import by.pvt.module3.resource.ConfigurationManager;
+import by.pvt.module3.service.UserService;
 import by.pvt.module3.service.common.CommonService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
@@ -18,10 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Component
-@Scope("prototype")
-public class ControllerUtils<T extends Fact> {
-    protected Logger log = LogManager.getLogger(ControllerUtils.class);
+public class CommonController<T extends Fact> {
+    protected Logger log = LogManager.getLogger(CommonController.class);
 
     public static final DateFormat DF = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -43,25 +40,23 @@ public class ControllerUtils<T extends Fact> {
 
     private String pathPageEdit;
     private String pathPageList;
-    private Class persistentClass;
 
+    @Autowired
     private CommonService<T> commonService;
 
     @Autowired
-    private CommonService<User> userService;
+    private UserService userService;
 
-    public void init(String pathPageEdit, String pathPageList, Class persistentClass, CommonService<T> commonService) {
+    public CommonController(String pathPageEdit, String pathPageList) {
         this.pathPageEdit = pathPageEdit;
         this.pathPageList = pathPageList;
-        this.persistentClass = persistentClass;
-        this.commonService = commonService;
     }
 
     public User getSessionUser(HttpSession httpSession, Model model) {
         Integer user_id = (Integer) httpSession.getAttribute(USER_ID);
         if (user_id != null)
             try {
-                return userService.getById(User.class, user_id);
+                return userService.getById(user_id);
             } catch (Exception e) {
                 handleException(e, model);
             }
@@ -89,7 +84,7 @@ public class ControllerUtils<T extends Fact> {
         Integer id = getParamIntDef(paramMap, ID, -1);
         if (id > 0)
             try {
-                entity = commonService.getById(persistentClass, id);
+                entity = commonService.getById(id);
             } catch (Exception e) {
                 handleException(e, model);
             }
@@ -109,7 +104,7 @@ public class ControllerUtils<T extends Fact> {
 
     public String delete(Map<String, String> paramMap, Model model) {
         try {
-            commonService.delete(persistentClass, getParamIntDef(paramMap, ID, -1));
+            commonService.delete(getParamIntDef(paramMap, ID, -1));
         } catch (Exception e) {
             handleException(e, model);
         }
@@ -119,7 +114,7 @@ public class ControllerUtils<T extends Fact> {
     public T update(T entity, Model model) {
         if (entity != null)
             try {
-                entity = commonService.update(persistentClass, entity);
+                entity = commonService.update(entity);
             } catch (Exception e) {
                 handleException(e, model);
             }
@@ -155,7 +150,7 @@ public class ControllerUtils<T extends Fact> {
         // set pages
         List<Integer> pages;
         try {
-            pages = commonService.getPagesNums(persistentClass);
+            pages = commonService.getPagesNums();
         } catch (Exception e) {
             handleException(e, model);
             pages = new ArrayList<>();
@@ -174,14 +169,14 @@ public class ControllerUtils<T extends Fact> {
 
         // set num page for new record
         try {
-            model.addAttribute(INSERT_PAGE_NUM, commonService.getInsertPageNum(persistentClass));
+            model.addAttribute(INSERT_PAGE_NUM, commonService.getInsertPageNum());
         } catch (Exception e) {
             handleException(e, model);
             model.addAttribute(INSERT_PAGE_NUM, 1);
         }
 
         try {
-            return commonService.getPage(persistentClass, pageNum);
+            return commonService.getPage(pageNum);
         } catch (Exception e) {
             handleException(e, model);
         }

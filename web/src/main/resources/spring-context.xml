@@ -52,7 +52,6 @@
                 <prop key="connection.isolation">2</prop>
                 <prop key="hibernate.hbm2ddl.auto">validate</prop>
                 <prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
-                <prop key="hibernate.connection.driver_class">${driverClassName}</prop>
                 <prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
             </props>
         </property>

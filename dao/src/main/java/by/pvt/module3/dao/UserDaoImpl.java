@@ -1,6 +1,6 @@
 package by.pvt.module3.dao;
 
-import by.pvt.module3.dao.common.BaseDAO;
+import by.pvt.module3.dao.common.BaseDao;
 import by.pvt.module3.dao.common.SessionUtil;
 import by.pvt.module3.entity.User;
 import org.hibernate.Criteria;
@@ -8,8 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class UserDAO extends BaseDAO<User> implements UserDAOCommon {
+@Repository("userDao")
+public class UserDaoImpl extends BaseDao<User> implements UserDao {
 
     public User getUserByLogin(String login) {
         Session session = SessionUtil.getSesson();

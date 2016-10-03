@@ -1,12 +1,10 @@
 package by.pvt.module3.service.common;
 
-import by.pvt.module3.dao.common.CommonDAO;
+import by.pvt.module3.dao.common.CommonDao;
 import by.pvt.module3.entity.Fact;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,32 +15,30 @@ import java.util.List;
  * Created by v on 06.09.2016.
  */
 
-@Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-public class BaseService<T extends Fact> implements CommonService<T> {
+public abstract class BaseService<T extends Fact> implements CommonService<T> {
     private static final Logger log = LogManager.getLogger(BaseService.class);
 
     private Integer recordsPerPage = 3;
 
-    protected CommonDAO<T> getDao() {
+    @Autowired
+    private CommonDao<T> dao;
+
+    protected CommonDao<T> getDao() {
         return dao;
     }
-
-    @Autowired
-    @Qualifier(value = "baseDAO")
-    private CommonDAO<T> dao;
 
     public Integer getRecordsPerPage() {
         return recordsPerPage;
     }
 
-    public T getById(Class clazz, Integer id) {
-        return getDao().getById(clazz, id);
+    public T getById(Integer id) {
+        return getDao().getById(id);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void delete(Class clazz, Integer id) {
-        getDao().delete(clazz, id);
+    public void delete(Integer id) {
+        getDao().delete(id);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -51,12 +47,12 @@ public class BaseService<T extends Fact> implements CommonService<T> {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public T update(Class clazz, T entity) {
-        return getDao().update(clazz, entity);
+    public T update(T entity) {
+        return getDao().update(entity);
     }
 
-    public List<Integer> getPagesNums(Class clazz) {
-        Long count = getDao().getCount(clazz);
+    public List<Integer> getPagesNums() {
+        Long count = getDao().getCount();
         List<Integer> listPages = new ArrayList<Integer>();
         for (int i = 1; count > 0; i++) {
             listPages.add(i);
@@ -65,20 +61,20 @@ public class BaseService<T extends Fact> implements CommonService<T> {
         return listPages;
     }
 
-    public List<T> getAll(Class clazz) {
-        return getDao().getAll(clazz);
+    public List<T> getAll() {
+        return getDao().getAll();
     }
 
-    public List<T> getPage(Class clazz, Integer numPage) {
-        return getDao().getPage(clazz, numPage, getRecordsPerPage());
+    public List<T> getPage(Integer numPage) {
+        return getDao().getPage(numPage, getRecordsPerPage());
     }
 
     public void setRecordsPerPage(Integer recordsPerPage) {
         this.recordsPerPage = recordsPerPage;
     }
 
-    public Long getInsertPageNum(Class clazz) {
-        Long count = getDao().getCount(clazz);
+    public Long getInsertPageNum() {
+        Long count = getDao().getCount();
         return count / getRecordsPerPage() + 1;
     }
 }

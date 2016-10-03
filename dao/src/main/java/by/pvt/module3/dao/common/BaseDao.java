@@ -5,15 +5,19 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.springframework.stereotype.Repository;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class BaseDAO<T extends Fact> implements CommonDAO<T> {
+public class BaseDao<T extends Fact> implements CommonDao<T> {
     protected final static Logger log = LogManager.getRootLogger();
     private final static String ID = "id";
+    private final Class<T> clazz;
+
+    public BaseDao() {
+        this.clazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
 
     public Integer add(T entity) {
         Session session = SessionUtil.getSesson();
@@ -26,7 +30,7 @@ public class BaseDAO<T extends Fact> implements CommonDAO<T> {
 
     }
 
-    public void delete(Class clazz, Integer id) {
+    public void delete(Integer id) {
         Session session = SessionUtil.getSesson();
         T t = (T) session.get(clazz, id);
         prepareDelete(t);
@@ -34,7 +38,7 @@ public class BaseDAO<T extends Fact> implements CommonDAO<T> {
         session.flush();
     }
 
-    public T update(Class clazz, T entity) {
+    public T update(T entity) {
         Session session = SessionUtil.getSesson();
         session.update(entity);
         session.flush();
@@ -42,19 +46,19 @@ public class BaseDAO<T extends Fact> implements CommonDAO<T> {
         return entity;
     }
 
-    public T getById(Class clazz, Integer id) {
+    public T getById(Integer id) {
         Session session = SessionUtil.getSesson();
         T t = (T) session.load(clazz, id);
         return t;
     }
 
-    public ArrayList<T> getAll(Class clazz) {
+    public ArrayList<T> getAll() {
         Session session = SessionUtil.getSesson();
         ArrayList<T> listT = (ArrayList<T>) session.createCriteria(clazz).list();
         return listT;
     }
 
-    public Long getCount(Class clazz) {
+    public Long getCount() {
         Session session = SessionUtil.getSesson();
         String hql = "select count(*) from " + SessionUtil.getEntityByClass(clazz);
         Query queryCount = session.createQuery(hql);
@@ -62,23 +66,18 @@ public class BaseDAO<T extends Fact> implements CommonDAO<T> {
         return count;
     }
 
-    public List<T> getPage(Class clazz, Integer pageNum, Integer recordsPerPage) {
-        return getPage(clazz, pageNum, recordsPerPage, ID);
+    public List<T> getPage(Integer pageNum, Integer recordsPerPage) {
+        return getPage(pageNum, recordsPerPage, ID);
     }
 
-    public List<T> getPage(Class clazz, Integer pageNum, Integer recordsPerPage, String orderBy) {
+    public List<T> getPage(Integer pageNum, Integer recordsPerPage, String orderBy) {
         Session session = SessionUtil.getSesson();
         String hql = new StringBuilder().append("from ").append(SessionUtil.getEntityByClass(clazz)).append(" order by ").append(orderBy).toString();
         Query query = session.createQuery(hql);
         if (pageNum == null)
             pageNum = 1;
-        if (!SessionUtil.driverUsed(SessionUtil.SQLITE_JDBC) || pageNum == 1) {
-            query.setFirstResult((pageNum - 1) * recordsPerPage);
-            query.setMaxResults(recordsPerPage);
-        } else {
-            query.setMaxResults((pageNum - 1) * recordsPerPage);
-            query.setFirstResult(recordsPerPage);
-        }
+        query.setMaxResults(recordsPerPage);
+        query.setFirstResult((pageNum - 1) * recordsPerPage);
         List<T> listT = (List<T>) query.list();
         return listT;
     }

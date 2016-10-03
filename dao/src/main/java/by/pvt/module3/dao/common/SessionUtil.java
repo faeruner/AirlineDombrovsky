@@ -6,17 +6,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.persister.entity.AbstractEntityPersister;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 public class SessionUtil {
     protected static final Logger log = LogManager.getLogger(SessionUtil.class);
     private static SessionFactory sessionFactory;
-    private static String driverClass;
-    public final static String SQLITE_JDBC = "org.sqlite.JDBC";
 
     private static ThreadLocal<Session> localSession = new ThreadLocal<Session>();
 
@@ -32,22 +26,11 @@ public class SessionUtil {
     }
 
     public static void setSessionFactory(SessionFactory sessionFactory) {
-//        if (SessionUtil.sessionFactory == null)
             SessionUtil.sessionFactory = sessionFactory;
     }
 
     private static SessionFactory getSessionFactory() {
         return sessionFactory;
-    }
-
-    public static Boolean driverUsed(String name) {
-        if (driverClass == null) {
-            ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-context.xml");
-            LocalSessionFactoryBean bean = (LocalSessionFactoryBean) context.getBean("&sessionFactory");
-            Configuration configuration = bean.getConfiguration();
-            driverClass = configuration.getProperty("hibernate.connection.driver_class");
-        }
-        return driverClass.equals(name);
     }
 
     public static void closeSession() {

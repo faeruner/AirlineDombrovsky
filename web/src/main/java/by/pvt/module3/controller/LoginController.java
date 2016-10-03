@@ -1,6 +1,6 @@
 package by.pvt.module3.controller;
 
-import by.pvt.module3.controller.common.ControllerUtils;
+import by.pvt.module3.controller.common.CommonController;
 import by.pvt.module3.entity.User;
 import by.pvt.module3.filter.UserType;
 import by.pvt.module3.resource.ConfigurationManager;
@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
-/**
- * Created by asd on 26.09.2016.
- */
 @Controller
 public class LoginController {
     private static final String PARAM_NAME_LOGIN = "login";
@@ -51,7 +48,7 @@ public class LoginController {
         if (user != null && pass.equals(user.getPassword())) {
             model.addAttribute("user", user);
 
-            httpSession.setAttribute(ControllerUtils.USER_ID, user.getId());
+            httpSession.setAttribute(CommonController.USER_ID, user.getId());
 
             if (UserType.ADMINISTRATOR.getId().equals(user.getRole().getId())) {
                 httpSession.setAttribute("userType", UserType.ADMINISTRATOR);
