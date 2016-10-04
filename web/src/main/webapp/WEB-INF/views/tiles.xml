@@ -3,20 +3,20 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-    <definition name="frame-list" template="/WEB-INF/views/pages/frame_list.jsp">
+    <definition name="frame-list" template="/WEB-INF/views/tiles/template/frame-list.jsp">
         <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp"/>
         <put-attribute name="params" value=""/>
-        <put-attribute name="page_fields" value=""/>
+        <put-attribute name="page-fields" value=""/>
         <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp"/>
     </definition>
-    <!--
-        <definition name="frame-edit" extends="base-definition">
-            <put-attribute name="title" value="Edit" />
-            <put-attribute name="body" value="/WEB-INF/views/pages/frame-edit.jsp" />
-        </definition>
-    -->
+    <definition name="frame-edit" template="/WEB-INF/views/tiles/template/frame-edit.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp"/>
+        <put-attribute name="params" value=""/>
+        <put-attribute name="page-fields" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp"/>
+    </definition>
 
-    <definition name="login" template="/jsp/content/login.jsp"/>
+    <definition name="login" template="/WEB-INF/views/pages/login.jsp"/>
 
     <!--
         <definition name="airports" extends="default">
@@ -27,53 +27,61 @@
         </definition>
     -->
 
-    <definition name="airlines" extends="frame-list">
-        <put-attribute name="params" value="/WEB-INF/views/pages/airline-list-params.jsp"/>
-        <put-attribute name="page_fields" value="/WEB-INF/views/pages/airline-row.jsp"/>
+    <definition name="airline-list" extends="frame-list">
+        <put-attribute name="params" value="/WEB-INF/views/pages/airline-params.jsp"/>
+        <put-attribute name="page-fields" value="/WEB-INF/views/pages/airline-fields-list.jsp"/>
     </definition>
+    <definition name="airline-edit" extends="frame-edit">
+        <put-attribute name="params" value="/WEB-INF/views/pages/airline-params.jsp"/>
+        <put-attribute name="page-fields" value="/WEB-INF/views/pages/airline-fields-edit.jsp"/>
+    </definition>
+
+
     <!--
-        <definition name="edit_airline" extends="frame-edit">
-            <put-attribute name="body" value="/jsp/content/entity-edit/airline-edit.jsp"/>
-        </definition>
-    -->
-
-
-        <definition name="users" extends="default">
+        <definition name="user-list" extends="frame-list">
             <put-attribute name="params" value="/WEB-INF/views/pages/user-list-params.jsp"/>
             <put-attribute name="page_fields" value="/WEB-INF/views/pages/user-row.jsp"/>
         </definition>
-
+    -->
     <!--
         <definition name="edit_user" extends="default">
             <put-attribute name="body" value="/jsp/content/entity-edit/user-edit.jsp"/>
         </definition>
     -->
+    <!--
         <definition name="crews" extends="default">
             <put-attribute name="params" value="/WEB-INF/views/pages/crew-list-params.jsp"/>
             <put-attribute name="page_fields" value="/WEB-INF/views/pages/crew-row.jsp"/>
         </definition>
+    -->
     <!-- <definition name="edit_crew" extends="default">
          <put-attribute name="body" value="/jsp/content/entity-edit/crew-edit.jsp"/>
      </definition>-->
 
+    <!--
         <definition name="staff" extends="default">
             <put-attribute name="params" value="/WEB-INF/views/pages/staff-list-params.jsp"/>
             <put-attribute name="page_fields" value="/WEB-INF/views/pages/staff-row.jsp"/>
         </definition>
+    -->
     <!--<definition name="edit_staff" extends="default">-->
     <!--<put-attribute name="body" value="/jsp/content/entity-edit/staff-edit.jsp"/>-->
     <!--</definition>-->
 
+    <!--
         <definition name="flights" extends="default">
             <put-attribute name="params" value="/WEB-INF/views/pages/flight-list-params.jsp"/>
             <put-attribute name="page_fields" value="/WEB-INF/views/pages/flights-row.jsp"/>
         </definition>
+    -->
     <!--<definition name="edit_flight" extends="default">-->
     <!--<put-attribute name="body" value="/jsp/content/entity-edit/flight-edit.jsp"/>-->
     <!--</definition>-->
 
+    <!--
         <definition name="error" extends="default">
             <put-attribute name="params" value="/WEB-INF/views/pages/error-list-params.jsp"/>
             <put-attribute name="page_fields" value="/WEB-INF/views/pages/error-row.jsp"/>
         </definition>
+    -->
 </tiles-definitions>
