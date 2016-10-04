@@ -1,14 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%
-    String entity_name = request.getParameter("entity_name");
-    String page_fields = request.getParameter("page_fields");
-    String action = "/controller/" + entity_name.toLowerCase();
-%>
+<tiles:insertAttribute name="params"/>
 <html>
-<head><title>AirlineDombrovsky: <%= entity_name %>
+<head><title>AirlineDombrovsky: ${entity_name}
 </title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
@@ -29,10 +26,14 @@
     </script>
 </head>
 <body>
+<header>
+    <tiles:insertAttribute name="header"/>
+</header>
+<section id="main_list">
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form action="<%= action %>" method="post">
+            <form action="${action}" method="post">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
@@ -42,7 +43,7 @@
                                         <c:when test="${empty entity.id}">Insert </c:when>
                                         <c:otherwise>Edit </c:otherwise>
                                     </c:choose>
-                                    <%= entity_name %>
+                                    ${entity_name}
                                 </h3>
                             </div>
                             <div class="col-md-4">
@@ -62,7 +63,7 @@
                                        value="${entity.id}" disabled="disabled">
                             </div>
                         </div>
-                        <jsp:include page="<%= page_fields %>" flush="true"/>
+                        <tiles:insertAttribute name="page-fields"/>
                     </div>
                     <div class="panel-footer panel-footer-custom">
                         <div class="row">
@@ -89,24 +90,9 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="errorModal" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header alert alert-danger">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Error Message</h4>
-            </div>
-            <div class="modal-body">
-                <p>${requestScope.text_error}</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
+</section>
+<footer id="footer">
+    <tiles:insertAttribute name="footer"/>
+</footer>
 </body>
 </html>
