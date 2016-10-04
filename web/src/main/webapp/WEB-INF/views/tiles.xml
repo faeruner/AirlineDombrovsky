@@ -12,7 +12,7 @@
     <!--
         <definition name="frame-edit" extends="base-definition">
             <put-attribute name="title" value="Edit" />
-            <put-attribute name="body" value="/WEB-INF/views/pages/frame_edit.jsp" />
+            <put-attribute name="body" value="/WEB-INF/views/pages/frame-edit.jsp" />
         </definition>
     -->
 
@@ -37,37 +37,43 @@
         </definition>
     -->
 
-    <!--
+
         <definition name="users" extends="default">
-            <put-attribute name="body" value="/jsp/content/users.jsp"/>
+            <put-attribute name="params" value="/WEB-INF/views/pages/user-list-params.jsp"/>
+            <put-attribute name="page_fields" value="/WEB-INF/views/pages/user-row.jsp"/>
         </definition>
+
+    <!--
         <definition name="edit_user" extends="default">
             <put-attribute name="body" value="/jsp/content/entity-edit/user-edit.jsp"/>
         </definition>
-
+    -->
         <definition name="crews" extends="default">
-            <put-attribute name="body" value="/jsp/content/crews.jsp"/>
+            <put-attribute name="params" value="/WEB-INF/views/pages/crew-list-params.jsp"/>
+            <put-attribute name="page_fields" value="/WEB-INF/views/pages/crew-row.jsp"/>
         </definition>
-        <definition name="edit_crew" extends="default">
-            <put-attribute name="body" value="/jsp/content/entity-edit/crew-edit.jsp"/>
-        </definition>
+    <!-- <definition name="edit_crew" extends="default">
+         <put-attribute name="body" value="/jsp/content/entity-edit/crew-edit.jsp"/>
+     </definition>-->
 
         <definition name="staff" extends="default">
-            <put-attribute name="body" value="/jsp/content/staff.jsp"/>
+            <put-attribute name="params" value="/WEB-INF/views/pages/staff-list-params.jsp"/>
+            <put-attribute name="page_fields" value="/WEB-INF/views/pages/staff-row.jsp"/>
         </definition>
-        <definition name="edit_staff" extends="default">
-            <put-attribute name="body" value="/jsp/content/entity-edit/staff-edit.jsp"/>
-        </definition>
+    <!--<definition name="edit_staff" extends="default">-->
+    <!--<put-attribute name="body" value="/jsp/content/entity-edit/staff-edit.jsp"/>-->
+    <!--</definition>-->
 
         <definition name="flights" extends="default">
-            <put-attribute name="body" value="/jsp/content/flights.jsp"/>
+            <put-attribute name="params" value="/WEB-INF/views/pages/flight-list-params.jsp"/>
+            <put-attribute name="page_fields" value="/WEB-INF/views/pages/flights-row.jsp"/>
         </definition>
-        <definition name="edit_flight" extends="default">
-            <put-attribute name="body" value="/jsp/content/entity-edit/flight-edit.jsp"/>
-        </definition>
+    <!--<definition name="edit_flight" extends="default">-->
+    <!--<put-attribute name="body" value="/jsp/content/entity-edit/flight-edit.jsp"/>-->
+    <!--</definition>-->
 
         <definition name="error" extends="default">
-            <put-attribute name="body" value="/jsp/content/error/error.jsp"/>
+            <put-attribute name="params" value="/WEB-INF/views/pages/error-list-params.jsp"/>
+            <put-attribute name="page_fields" value="/WEB-INF/views/pages/error-row.jsp"/>
         </definition>
-    -->
 </tiles-definitions>
