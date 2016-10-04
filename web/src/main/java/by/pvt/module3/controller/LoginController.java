@@ -36,7 +36,7 @@ public class LoginController {
         return page;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
     private String login(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
         String page;
         String login = paramMap.get(PARAM_NAME_LOGIN);

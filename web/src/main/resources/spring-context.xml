@@ -60,10 +60,16 @@
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <bean id="viewResolver"
+    <bean id="tilesConfigurer"
+          class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <value>/WEB-INF/tiles.xml</value>
+        </property>
+    </bean>
+    <bean id="tilesviewResolver"
           class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass"
-                  value="org.springframework.web.servlet.view.JstlView"/>
+                  value="org.springframework.web.servlet.view.tiles3.TilesView"/>
         <property name="prefix" value=""/>
         <property name="suffix" value=""/>
     </bean>
