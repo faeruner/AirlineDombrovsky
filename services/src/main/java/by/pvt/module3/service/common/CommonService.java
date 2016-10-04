@@ -4,9 +4,6 @@ import by.pvt.module3.entity.Fact;
 
 import java.util.List;
 
-/**
- * Created by v on 06.09.2016.
- */
 public interface CommonService<T extends Fact> {
     T getById(Integer id);
 
@@ -20,7 +17,7 @@ public interface CommonService<T extends Fact> {
 
     List<T> getAll();
 
-    List<Integer> getPagesNums();
+    List<Integer> getPagesNum();
 
     Integer getRecordsPerPage();
 

@@ -14,7 +14,7 @@ public class SessionUtil {
 
     private static ThreadLocal<Session> localSession = new ThreadLocal<Session>();
 
-    public static Session getSesson() {
+    public static Session getSession() {
         Session s = localSession.get();
         // Open a new Session, if this thread has none yet
         if (s == null) {
@@ -50,7 +50,7 @@ public class SessionUtil {
         }
     }
 
-    public static String getEntityByClass(Class clazz) {
+    static String getEntityByClass(Class clazz) {
         AbstractEntityPersister aep = (AbstractEntityPersister) getSessionFactory().getClassMetadata(clazz);
         return aep.getEntityName();
     }

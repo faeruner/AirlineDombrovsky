@@ -16,7 +16,7 @@ public class Flight implements Serializable, Fact {
 	public static final String AIRPORT_DEP_ID = "airport_dep_id";
 	public static final String AIRLINE_ID = "airline_id";
 	public static final String CREW_ID = "crew_id";
-	public static final String USER_ID = "users_id";
+    private static final String USER_ID = "users_id";
 
     @Id
     @GeneratedValue

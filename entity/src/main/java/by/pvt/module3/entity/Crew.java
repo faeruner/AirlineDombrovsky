@@ -10,9 +10,9 @@ public class Crew implements Serializable, Fact {
     public static final String ID = "id";
     public static final String CREATE_DATE = "create_date";
 	public static final String READY = "ready";
-	public static final String USER_ID = "users_id";
-	public static final String CREW_ID = "crew_id";
-	public static final String STAFF_ID = "staff_id";
+    private static final String USER_ID = "users_id";
+    private static final String CREW_ID = "crew_id";
+    public static final String STAFF_ID = "staff_id";
 
     @Id
     @GeneratedValue

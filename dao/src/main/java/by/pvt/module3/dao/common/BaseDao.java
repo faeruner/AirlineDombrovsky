@@ -20,7 +20,7 @@ public class BaseDao<T extends Fact> implements CommonDao<T> {
     }
 
     public Integer add(T entity) {
-        Session session = SessionUtil.getSesson();
+        Session session = SessionUtil.getSession();
         Integer id = (Integer) session.save(entity);
         session.flush();
         return id;
@@ -31,7 +31,7 @@ public class BaseDao<T extends Fact> implements CommonDao<T> {
     }
 
     public void delete(Integer id) {
-        Session session = SessionUtil.getSesson();
+        Session session = SessionUtil.getSession();
         T t = (T) session.get(clazz, id);
         prepareDelete(t);
         session.delete(t);
@@ -39,7 +39,7 @@ public class BaseDao<T extends Fact> implements CommonDao<T> {
     }
 
     public T update(T entity) {
-        Session session = SessionUtil.getSesson();
+        Session session = SessionUtil.getSession();
         session.update(entity);
         session.flush();
         entity = (T) session.get(clazz, entity.getId());
@@ -47,23 +47,22 @@ public class BaseDao<T extends Fact> implements CommonDao<T> {
     }
 
     public T getById(Integer id) {
-        Session session = SessionUtil.getSesson();
+        Session session = SessionUtil.getSession();
         T t = (T) session.load(clazz, id);
         return t;
     }
 
     public ArrayList<T> getAll() {
-        Session session = SessionUtil.getSesson();
+        Session session = SessionUtil.getSession();
         ArrayList<T> listT = (ArrayList<T>) session.createCriteria(clazz).list();
         return listT;
     }
 
     public Long getCount() {
-        Session session = SessionUtil.getSesson();
+        Session session = SessionUtil.getSession();
         String hql = "select count(*) from " + SessionUtil.getEntityByClass(clazz);
         Query queryCount = session.createQuery(hql);
-        Long count = (Long) queryCount.uniqueResult();
-        return count;
+        return (Long) queryCount.uniqueResult();
     }
 
     public List<T> getPage(Integer pageNum, Integer recordsPerPage) {
@@ -71,14 +70,16 @@ public class BaseDao<T extends Fact> implements CommonDao<T> {
     }
 
     public List<T> getPage(Integer pageNum, Integer recordsPerPage, String orderBy) {
-        Session session = SessionUtil.getSesson();
-        String hql = new StringBuilder().append("from ").append(SessionUtil.getEntityByClass(clazz)).append(" order by ").append(orderBy).toString();
+        Session session = SessionUtil.getSession();
+        String hql = new StringBuilder()
+                .append("from ")
+                .append(SessionUtil.getEntityByClass(clazz))
+                .append(" order by ").append(orderBy).toString();
         Query query = session.createQuery(hql);
         if (pageNum == null)
             pageNum = 1;
         query.setMaxResults(recordsPerPage);
         query.setFirstResult((pageNum - 1) * recordsPerPage);
-        List<T> listT = (List<T>) query.list();
-        return listT;
+        return (List<T>) query.list();
     }
 }

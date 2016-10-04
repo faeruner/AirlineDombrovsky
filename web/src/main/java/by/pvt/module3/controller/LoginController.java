@@ -9,6 +9,7 @@ import by.pvt.module3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,13 +22,19 @@ public class LoginController {
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final AirlineController airlineController;
+    private final CrewController crewController;
 
     @Autowired
-    private AirlineController airlineController;
-    @Autowired
-    private CrewController crewController;
+    public LoginController(CrewController crewController, AirlineController airlineController, UserService userService) {
+        Assert.notNull(crewController, "crewService must not be Null!");
+        this.crewController = crewController;
+        Assert.notNull(airlineController, "airlineService must not be Null!");
+        this.airlineController = airlineController;
+        Assert.notNull(userService, "userService must not be Null!");
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
     public String logout(HttpSession httpSession) {

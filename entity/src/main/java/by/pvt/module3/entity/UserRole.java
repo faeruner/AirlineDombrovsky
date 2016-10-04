@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Table(name = "user_role")
 public class UserRole implements Serializable, Fact {
 	public static final String ID = "id";
-    public static final String NAME = "name";
+
     @Id
     @GeneratedValue
     private Integer id;

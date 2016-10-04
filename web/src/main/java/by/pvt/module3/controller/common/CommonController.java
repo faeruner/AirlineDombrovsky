@@ -7,8 +7,8 @@ import by.pvt.module3.service.UserService;
 import by.pvt.module3.service.common.CommonService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
@@ -17,19 +17,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CommonController<T extends Fact> {
-    protected Logger log = LogManager.getLogger(CommonController.class);
+public abstract class CommonController<T extends Fact> {
+    private Logger log = LogManager.getLogger(CommonController.class);
 
-    public static final DateFormat DF = new SimpleDateFormat("dd.MM.yyyy");
+    protected static final DateFormat DF = new SimpleDateFormat("dd.MM.yyyy");
 
     private static final String COMMAND = "command";
-    public static final String COMMAND_LIST = "list";
     private static final String COMMAND_EDIT = "edit";
-    public static final String COMMAND_DEL = "del";
-    public static final String COMMAND_ADD = "add";
+    protected static final String COMMAND_DEL = "del";
+    protected static final String COMMAND_ADD = "add";
     private static final String COMMAND_UPD = "upd";
-    public static final String ID = "id";
-    public static final String ENTITY = "entity";
+    private static final String ID = "id";
+    protected static final String ENTITY = "entity";
     private static final String PAGE_NUM = "page_num";
     public static final String USER_ID = "user_id";
     private static final String PAGES = "numPages";
@@ -41,18 +40,20 @@ public class CommonController<T extends Fact> {
     private String pathPageEdit;
     private String pathPageList;
 
-    @Autowired
-    private CommonService<T> commonService;
+    private final CommonService<T> commonService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    public CommonController(String pathPageEdit, String pathPageList) {
+    public CommonController(String pathPageEdit, String pathPageList, UserService userService, CommonService<T> commonService) {
         this.pathPageEdit = pathPageEdit;
         this.pathPageList = pathPageList;
+        Assert.notNull(userService, "userService must not be Null!");
+        this.userService = userService;
+        Assert.notNull(commonService, "commonService must not be Null!");
+        this.commonService = commonService;
     }
 
-    public User getSessionUser(HttpSession httpSession, Model model) {
+    protected User getSessionUser(HttpSession httpSession, Model model) {
         Integer user_id = (Integer) httpSession.getAttribute(USER_ID);
         if (user_id != null)
             try {
@@ -63,7 +64,7 @@ public class CommonController<T extends Fact> {
         return null;
     }
 
-    public String getPage(Map<String, String> paramMap, Model model) {
+    protected String getPage(Map<String, String> paramMap, Model model) {
         String command = paramMap.get(COMMAND);
         if (command != null)
             switch (command) {
@@ -79,7 +80,7 @@ public class CommonController<T extends Fact> {
         return fillModelPage(paramMap, model);
     }
 
-    public T findById(Map<String, String> paramMap, Model model) {
+    protected T findById(Map<String, String> paramMap, Model model) {
         T entity = null;
         Integer id = getParamIntDef(paramMap, ID, -1);
         if (id > 0)
@@ -91,18 +92,18 @@ public class CommonController<T extends Fact> {
         return entity;
     }
 
-    public String insert(Map<String, String> paramMap, Model model) {
-        T entity = (T) model.asMap().get(ENTITY);
+    private String insert(Map<String, String> paramMap, Model model) {
+        Object entity = model.asMap().get(ENTITY);
         if (entity != null)
             try {
-                commonService.add(entity);
+                commonService.add((T) entity);
             } catch (Exception e) {
                 handleException(e, model);
             }
         return fillModelPage(paramMap, model);
     }
 
-    public String delete(Map<String, String> paramMap, Model model) {
+    private String delete(Map<String, String> paramMap, Model model) {
         try {
             commonService.delete(getParamIntDef(paramMap, ID, -1));
         } catch (Exception e) {
@@ -111,7 +112,7 @@ public class CommonController<T extends Fact> {
         return fillModelPage(paramMap, model);
     }
 
-    public T update(T entity, Model model) {
+    protected T update(T entity, Model model) {
         if (entity != null)
             try {
                 entity = commonService.update(entity);
@@ -121,27 +122,28 @@ public class CommonController<T extends Fact> {
         return entity;
     }
 
-    public String update(Map<String, String> paramMap, Model model) {
+    private String update(Map<String, String> paramMap, Model model) {
         update((T) model.asMap().get(ENTITY), model);
         return fillModelPage(paramMap, model);
     }
 
-    public Integer getParamIntDef(Map<String, String> paramMap, String key, Integer def) {
-        Integer id = def;
+    protected Integer getParamIntDef(Map<String, String> paramMap, String key, Integer def) {
+        Integer value = def;
         if (paramMap.containsKey(key) && paramMap.get(key) != null)
             try {
-                id = Integer.parseInt(paramMap.get(key).trim());
+                value = Integer.parseInt(paramMap.get(key).trim());
             } catch (NumberFormatException e) {
+                log.error(e);
             }
-        return id;
+        return value;
     }
 
-    public String getEditPage(Map<String, String> paramMap, Model model) {
+    protected String getEditPage(Map<String, String> paramMap, Model model) {
         model.addAttribute(CURRENT_PAGE, getParamIntDef(paramMap, PAGE_NUM, 1));
         return ConfigurationManager.getProperty(pathPageEdit);
     }
 
-    public String fillModelPage(Map<String, String> paramMap, Model model) {
+    private String fillModelPage(Map<String, String> paramMap, Model model) {
         model.addAttribute(ENTITY_LIST, preparePagination(getParamIntDef(paramMap, PAGE_NUM, 1), model));
         return ConfigurationManager.getProperty(pathPageList);
     }
@@ -150,7 +152,7 @@ public class CommonController<T extends Fact> {
         // set pages
         List<Integer> pages;
         try {
-            pages = commonService.getPagesNums();
+            pages = commonService.getPagesNum();
         } catch (Exception e) {
             handleException(e, model);
             pages = new ArrayList<>();

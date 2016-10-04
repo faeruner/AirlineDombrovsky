@@ -3,10 +3,12 @@ package by.pvt.module3.controller;
 import by.pvt.module3.controller.common.CommonController;
 import by.pvt.module3.entity.MemberType;
 import by.pvt.module3.entity.Staff;
+import by.pvt.module3.service.UserService;
 import by.pvt.module3.service.common.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,11 +21,13 @@ public class StaffController extends CommonController<Staff> {
 
     private static final String LIST_MEMBER_TYPE = "member_type";
 
-    @Autowired
-    private CommonService<MemberType> memberTypeService;
+    private final CommonService<MemberType> memberTypeService;
 
-    public StaffController() {
-        super("path.page.edit_staff", "path.page.staff");
+    @Autowired
+    public StaffController(UserService userService, CommonService<Staff> commonService, CommonService<MemberType> memberTypeService) {
+        super("path.page.edit_staff", "path.page.staff", userService, commonService);
+        Assert.notNull(memberTypeService, "memberTypeService must not be Null!");
+        this.memberTypeService = memberTypeService;
     }
 
     @RequestMapping
@@ -33,7 +37,7 @@ public class StaffController extends CommonController<Staff> {
         return getPage(paramMap, model);
     }
 
-    protected Staff updateEntity(Staff staff, Map<String, String> paramMap) {
+    private Staff updateEntity(Staff staff, Map<String, String> paramMap) {
         if (staff == null)
             staff = new Staff();
         if (paramMap.containsKey(Staff.NAME)) staff.setName(paramMap.get(Staff.NAME).trim());

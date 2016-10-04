@@ -2,12 +2,14 @@ package by.pvt.module3.controller;
 
 import by.pvt.module3.controller.common.CommonController;
 import by.pvt.module3.entity.*;
+import by.pvt.module3.service.UserService;
 import by.pvt.module3.service.common.CommonService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,15 +29,19 @@ public class FlightController extends CommonController<Flight> {
     private static final String LIST_AIRLINE = "airline";
     private static final String LIST_CREW = "crew";
 
-    @Autowired
-    private CommonService<Airport> airportService;
-    @Autowired
-    private CommonService<Airline> airlineService;
-    @Autowired
-    private CommonService<Crew> crewService;
+    private final CommonService<Airport> airportService;
+    private final CommonService<Airline> airlineService;
+    private final CommonService<Crew> crewService;
 
-    public FlightController() {
-        super("path.page.edit_flight", "path.page.flights");
+    @Autowired
+    public FlightController(UserService userService, CommonService<Flight> commonService, CommonService<Crew> crewService, CommonService<Airline> airlineService, CommonService<Airport> airportService) {
+        super("path.page.edit_flight", "path.page.flights", userService, commonService);
+        Assert.notNull(crewService, "crewService must not be Null!");
+        this.crewService = crewService;
+        Assert.notNull(airlineService, "airlineService must not be Null!");
+        this.airlineService = airlineService;
+        Assert.notNull(airportService, "airportService must not be Null!");
+        this.airportService = airportService;
     }
 
     @RequestMapping
@@ -49,7 +55,7 @@ public class FlightController extends CommonController<Flight> {
         return getPage(paramMap, model);
     }
 
-    protected Flight updateEntity(Flight flight, Map<String, String> paramMap, User user) {
+    private Flight updateEntity(Flight flight, Map<String, String> paramMap, User user) {
         if (flight == null)
             flight = new Flight();
 

@@ -7,7 +7,6 @@ import java.io.Serializable;
 @Table(name = "member_type")
 public class MemberType implements Serializable, Fact {
     public static final String ID = "id";
-    public static final String NAME = "name";
 
     @Id
     @GeneratedValue

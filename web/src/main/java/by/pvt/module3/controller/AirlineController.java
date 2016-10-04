@@ -2,6 +2,9 @@ package by.pvt.module3.controller;
 
 import by.pvt.module3.controller.common.CommonController;
 import by.pvt.module3.entity.Airline;
+import by.pvt.module3.service.UserService;
+import by.pvt.module3.service.common.CommonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,17 +17,18 @@ import java.util.Map;
 @RequestMapping(value = "/controller/airline", method = {RequestMethod.GET, RequestMethod.POST})
 public class AirlineController extends CommonController<Airline> {
 
-    public AirlineController() {
-        super("path.page.edit_airline", "path.page.airlines");
+    @Autowired
+    public AirlineController(UserService userService, CommonService<Airline> commonService) {
+        super("path.page.edit_airline", "path.page.airlines", userService, commonService);
     }
 
     @RequestMapping
     public String perform(@RequestParam Map<String, String> paramMap, Model model) {
-        model.addAttribute(CommonController.ENTITY, updateEntity(findById(paramMap, model), paramMap));
+        model.addAttribute(ENTITY, updateEntity(findById(paramMap, model), paramMap));
         return getPage(paramMap, model);
     }
 
-    protected Airline updateEntity(Airline airline, Map<String, String> paramMap) {
+    private Airline updateEntity(Airline airline, Map<String, String> paramMap) {
         if (airline == null)
             airline = new Airline();
         if (paramMap.containsKey(Airline.NAME))

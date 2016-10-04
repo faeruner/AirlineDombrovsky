@@ -12,10 +12,9 @@ import org.springframework.stereotype.Repository;
 public class UserDaoImpl extends BaseDao<User> implements UserDao {
 
     public User getUserByLogin(String login) {
-        Session session = SessionUtil.getSesson();
+        Session session = SessionUtil.getSession();
         Criteria criteria = session.createCriteria(User.class);
         criteria.add(Restrictions.eq(User.LOGIN, login));
-        User entity = (User) criteria.uniqueResult();
-        return entity;
+        return (User) criteria.uniqueResult();
     }
 }

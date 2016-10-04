@@ -4,12 +4,14 @@ import by.pvt.module3.controller.common.CommonController;
 import by.pvt.module3.entity.Crew;
 import by.pvt.module3.entity.Staff;
 import by.pvt.module3.entity.User;
+import by.pvt.module3.service.UserService;
 import by.pvt.module3.service.common.CommonService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +26,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/controller/crew", method = {RequestMethod.GET, RequestMethod.POST})
 public class CrewController extends CommonController<Crew> {
+
     private Logger log = LogManager.getLogger(CrewController.class);
     private final static String CHECKED = "checked";
     private final static String STAFF = "staff";
@@ -31,25 +34,27 @@ public class CrewController extends CommonController<Crew> {
     private final static String READY_YES = "readyYes";
     private static final String MEMBER = "member";
 
-    public CrewController() {
-        super("path.page.edit_crew", "path.page.crews");
-    }
+    private final CommonService<Staff> staffService;
 
     @Autowired
-    private CommonService<Staff> staffService;
+    public CrewController(UserService userService, CommonService<Crew> commonService, CommonService<Staff> staffService) {
+        super("path.page.edit_crew", "path.page.crews", userService, commonService);
+        Assert.notNull(staffService, "staffService must not be Null!");
+        this.staffService = staffService;
+    }
 
     @RequestMapping
-    public String perform(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
+    String perform(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
         Crew crew = updateEntity(findById(paramMap, model), paramMap, getSessionUser(httpSession, model));
 
         String memberCommand = paramMap.get(MEMBER);
         if (memberCommand != null) {
             switch (memberCommand) {
-                case CommonController.COMMAND_ADD:
+                case COMMAND_ADD:
                     Staff staff = staffService.getById(Integer.parseInt(paramMap.get(Crew.STAFF_ID).trim()));
                     crew.getMembers().add(staff);
                     break;
-                case CommonController.COMMAND_DEL:
+                case COMMAND_DEL:
                     Integer staff_id = Integer.parseInt(paramMap.get(Crew.STAFF_ID).trim());
                     for (Staff item : crew.getMembers()) {
                         if (item.getId().equals(staff_id)) {
@@ -76,7 +81,7 @@ public class CrewController extends CommonController<Crew> {
         model.addAttribute(READY_NO, readyNo);
         model.addAttribute(READY_YES, readyYes);
 
-        model.addAttribute(CommonController.ENTITY, crew);
+        model.addAttribute(ENTITY, crew);
         if (memberCommand != null) {
             return getEditPage(paramMap, model);
         } else {
@@ -85,10 +90,10 @@ public class CrewController extends CommonController<Crew> {
 
     }
 
-    protected Crew updateEntity(Crew crew, Map<String, String> paramMap, User user) {
+    private Crew updateEntity(Crew crew, Map<String, String> paramMap, User user) {
         if (crew == null) {
             crew = new Crew();
-            crew.setMembers(new HashSet<Staff>());
+            crew.setMembers(new HashSet<>());
             crew.setCreateDate(new Date());
         }
         try {

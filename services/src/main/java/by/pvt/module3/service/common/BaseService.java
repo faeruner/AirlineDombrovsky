@@ -2,27 +2,24 @@ package by.pvt.module3.service.common;
 
 import by.pvt.module3.dao.common.CommonDao;
 import by.pvt.module3.entity.Fact;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by v on 06.09.2016.
- */
-
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public abstract class BaseService<T extends Fact> implements CommonService<T> {
-    private static final Logger log = LogManager.getLogger(BaseService.class);
 
     private Integer recordsPerPage = 3;
 
-    @Autowired
-    private CommonDao<T> dao;
+    private final CommonDao<T> dao;
+
+    public BaseService(CommonDao<T> dao) {
+        Assert.notNull(dao, "Dao must not be null!");
+        this.dao = dao;
+    }
 
     protected CommonDao<T> getDao() {
         return dao;
@@ -51,7 +48,7 @@ public abstract class BaseService<T extends Fact> implements CommonService<T> {
         return getDao().update(entity);
     }
 
-    public List<Integer> getPagesNums() {
+    public List<Integer> getPagesNum() {
         Long count = getDao().getCount();
         List<Integer> listPages = new ArrayList<Integer>();
         for (int i = 1; count > 0; i++) {
