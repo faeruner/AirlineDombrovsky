@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="frame-list" template="/WEB-INF/views/pages/frame_list.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp"/>
+        <put-attribute name="params" value=""/>
+        <put-attribute name="page_fields" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp"/>
+    </definition>
+    <!--
+        <definition name="frame-edit" extends="base-definition">
+            <put-attribute name="title" value="Edit" />
+            <put-attribute name="body" value="/WEB-INF/views/pages/frame_edit.jsp" />
+        </definition>
+    -->
+
+    <definition name="login" template="/jsp/content/login.jsp"/>
+
+    <!--
+        <definition name="airports" extends="default">
+            <put-attribute name="body" value="/jsp/content/airports.jsp"/>
+        </definition>
+        <definition name="edit_airport" extends="default">
+            <put-attribute name="body" value="/jsp/content/entity-edit/airport-edit.jsp"/>
+        </definition>
+    -->
+
+    <definition name="airlines" extends="frame-list">
+        <put-attribute name="params" value="/WEB-INF/views/pages/airline-list-params.jsp"/>
+        <put-attribute name="page_fields" value="/WEB-INF/views/pages/airline-row.jsp"/>
+    </definition>
+    <!--
+        <definition name="edit_airline" extends="frame-edit">
+            <put-attribute name="body" value="/jsp/content/entity-edit/airline-edit.jsp"/>
+        </definition>
+    -->
+
+    <!--
+        <definition name="users" extends="default">
+            <put-attribute name="body" value="/jsp/content/users.jsp"/>
+        </definition>
+        <definition name="edit_user" extends="default">
+            <put-attribute name="body" value="/jsp/content/entity-edit/user-edit.jsp"/>
+        </definition>
+
+        <definition name="crews" extends="default">
+            <put-attribute name="body" value="/jsp/content/crews.jsp"/>
+        </definition>
+        <definition name="edit_crew" extends="default">
+            <put-attribute name="body" value="/jsp/content/entity-edit/crew-edit.jsp"/>
+        </definition>
+
+        <definition name="staff" extends="default">
+            <put-attribute name="body" value="/jsp/content/staff.jsp"/>
+        </definition>
+        <definition name="edit_staff" extends="default">
+            <put-attribute name="body" value="/jsp/content/entity-edit/staff-edit.jsp"/>
+        </definition>
+
+        <definition name="flights" extends="default">
+            <put-attribute name="body" value="/jsp/content/flights.jsp"/>
+        </definition>
+        <definition name="edit_flight" extends="default">
+            <put-attribute name="body" value="/jsp/content/entity-edit/flight-edit.jsp"/>
+        </definition>
+
+        <definition name="error" extends="default">
+            <put-attribute name="body" value="/jsp/content/error/error.jsp"/>
+        </definition>
+    -->
+</tiles-definitions>

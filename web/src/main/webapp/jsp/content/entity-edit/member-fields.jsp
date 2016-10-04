@@ -1,3 +1,4 @@
+<jsp:useBean id="entity" scope="request" type="by.pvt.module3.entity.Crew"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -11,9 +12,9 @@
                     <div class="panel-body">
                         <form id="memberForm" method="post" class="form-horizontal" action="/controller/crew">
                             <div class="form-group row">
-                                <label class="col-xs-1 control-label">Staff</label>
+                                <label for="entity-staff" class="col-xs-1 control-label">Staff</label>
                                 <div class="col-xs-5 dropdown">
-                                    <select class="c-select form-control" name="staff_id">
+                                    <select id="entity-staff" class="c-select form-control" name="staff_id">
                                         <c:forEach var="item" items="${requestScope.staff}">
                                             <option value="${item.id}">${item.member.name}: ${item.name} ${item.surname}</option>
                                         </c:forEach>

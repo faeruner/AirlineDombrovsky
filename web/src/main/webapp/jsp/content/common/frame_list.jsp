@@ -17,10 +17,10 @@
 </title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-    <link href="../../css/airline.css" rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.request.contextPath}/css/airline.css" rel="stylesheet" type="text/css"/>
 
-    <script type="text/javascript" src="../../js/jquery-2.1.2.min.js"></script>
-    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-2.1.2.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#errorModal").modal({
@@ -149,7 +149,6 @@
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>
 </body>

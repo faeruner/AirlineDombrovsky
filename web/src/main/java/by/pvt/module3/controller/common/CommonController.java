@@ -65,6 +65,7 @@ public abstract class CommonController<T extends Fact> {
     }
 
     protected String getPage(Map<String, String> paramMap, Model model) {
+        model.addAttribute("show_error", "false");
         String command = paramMap.get(COMMAND);
         if (command != null)
             switch (command) {

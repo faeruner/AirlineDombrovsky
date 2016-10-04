@@ -1,19 +1,20 @@
+<jsp:useBean id="entity" scope="request" type="by.pvt.module3.entity.Flight"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div class="form-group row">
-    <label class="col-xs-1 control-label" style="text-align: right;">Code</label>
+    <label for="entity-code" class="col-xs-1 control-label" style="text-align: right;">Code</label>
     <div class="col-xs-5">
-        <input type="text" class="form-control" name="code" value="${entity.code}">
+        <input id="entity-code" type="text" class="form-control" name="code" value="${entity.code}">
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label" style="text-align: right;">DepDate</label>
+    <label for="entity-dep-date" class="col-xs-1 control-label" style="text-align: right;">DepDate</label>
     <div class="col-xs-3 date">
         <div class="input-group input-append date" id="inputDepDate">
             <fmt:formatDate value="${entity.depDate}" pattern="dd.MM.yyyy" var="depDate"/>
-            <input type='text' class="form-control" name="departure" value="${depDate}"/>
+            <input id="entity-dep-date" type='text' class="form-control" name="departure" value="${depDate}"/>
             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
     </div>
@@ -26,11 +27,11 @@
     </script>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label" style="text-align: right;">ReturnDate</label>
+    <label for="entity-ret-date" class="col-xs-1 control-label" style="text-align: right;">ReturnDate</label>
     <div class="col-xs-3 date">
         <div class="input-group input-append date" id="inputReturnDate">
             <fmt:formatDate value="${entity.returnDate}" pattern="dd.MM.yyyy" var="retDate"/>
-            <input type='text' class="form-control" name="return_date" value="${retDate}"/>
+            <input id="entity-ret-date" type='text' class="form-control" name="return_date" value="${retDate}"/>
             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
     </div>
@@ -43,11 +44,11 @@
     </script>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label" style="text-align: right;">CreateDate</label>
+    <label for="entity-cre-date" class="col-xs-1 control-label" style="text-align: right;">CreateDate</label>
     <div class="col-xs-3 date">
         <div class="input-group input-append date" id="inputCreateDate">
             <fmt:formatDate value="${entity.createDate}" pattern="dd.MM.yyyy" var="creDate"/>
-            <input type='text' class="form-control" name="create_date" value="${creDate}"/>
+            <input id="entity-cre-date" type='text' class="form-control" name="create_date" value="${creDate}"/>
             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
     </div>
@@ -60,9 +61,9 @@
     </script>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label" style="text-align: right;">Arrival</label>
+    <label for="entity-arrival" class="col-xs-1 control-label" style="text-align: right;">Arrival</label>
     <div class="col-xs-5">
-        <select class="c-select form-control" name="airport_arv_id">
+        <select id="entity-arrival" class="c-select form-control" name="airport_arv_id">
             <c:forEach var="item" items="${requestScope.arrival}">
                 <c:choose>
                     <c:when test="${entity.arrival.id eq item.id}">
@@ -77,9 +78,9 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label" style="text-align: right;">Departure</label>
+    <label for="entity-departure" class="col-xs-1 control-label" style="text-align: right;">Departure</label>
     <div class="col-xs-5">
-        <select class="c-select form-control" name="airport_dep_id">
+        <select id="entity-departure" class="c-select form-control" name="airport_dep_id">
             <c:forEach var="item" items="${requestScope.departure}">
                 <c:choose>
                     <c:when test="${entity.departure.id eq item.id}">
@@ -94,9 +95,9 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label" style="text-align: right;">Airline</label>
+    <label for="entity-airline" class="col-xs-1 control-label" style="text-align: right;">Airline</label>
     <div class="col-xs-5">
-        <select class="c-select form-control" name="airline_id">
+        <select id="entity-airline" class="c-select form-control" name="airline_id">
             <c:forEach var="item" items="${requestScope.airline}">
                 <c:choose>
                     <c:when test="${entity.airline.id eq item.id}">
@@ -111,9 +112,9 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label" style="text-align: right;">CrewId</label>
+    <label for="entity-crew" class="col-xs-1 control-label" style="text-align: right;">CrewId</label>
     <div class="col-xs-5">
-        <select class="c-select form-control" name="crew_id">
+        <select id="entity-crew" class="c-select form-control" name="crew_id">
             <c:forEach var="item" items="${requestScope.crew}">
                 <c:choose>
                     <c:when test="${entity.crew.id eq item.id}">
@@ -128,8 +129,9 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-xs-1 control-label" style="text-align: right;">User</label>
+    <label for="entity-user" class="col-xs-1 control-label" style="text-align: right;">User</label>
     <div class="col-xs-5">
-        <input type="text" class="form-control" name="user" value="${entity.user.login}" disabled="disabled"/>
+        <input id="entity-user" type="text" class="form-control" name="user" value="${entity.user.login}"
+               disabled="disabled"/>
     </div>
 </div>

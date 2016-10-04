@@ -8,7 +8,8 @@
     String action = "/controller/" + entity_name.toLowerCase();
 %>
 <html>
-<head><title>AirlineDombrovsky: <%= entity_name %></title>
+<head><title>AirlineDombrovsky: <%= entity_name %>
+</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
     <link href="${pageContext.request.contextPath}/css/airline.css" rel="stylesheet" type="text/css"/>
