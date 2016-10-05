@@ -91,6 +91,9 @@
     </div>
 </div>
 </section>
+<section>
+    <tiles:insertAttribute name="advanced-edit"/>
+</section>
 <footer id="footer">
     <tiles:insertAttribute name="footer"/>
 </footer>

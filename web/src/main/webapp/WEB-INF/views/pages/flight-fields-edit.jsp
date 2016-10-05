@@ -1,4 +1,5 @@
 <jsp:useBean id="entity" scope="request" type="by.pvt.module3.entity.Flight"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="form-group row">
     <label for="entity-code" class="col-xs-1 control-label" style="text-align: right;">Code</label>
     <div class="col-xs-5">

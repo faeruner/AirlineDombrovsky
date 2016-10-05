@@ -13,6 +13,7 @@
         <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp"/>
         <put-attribute name="params" value=""/>
         <put-attribute name="page-fields" value=""/>
+        <put-attribute name="advanced-edit" value=""/>
         <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp"/>
     </definition>
 
@@ -42,13 +43,23 @@
     </definition>
     <definition name="crew-edit" extends="frame-edit">
         <put-attribute name="params" value="/WEB-INF/views/pages/crew-params.jsp"/>
+        <put-attribute name="advanced-edit" value="/WEB-INF/views/pages/member-fields-edit.jsp"/>
         <put-attribute name="page-fields" value="/WEB-INF/views/pages/crew-fields-edit.jsp"/>
+    </definition>
+
+    <definition name="user-list" extends="frame-list">
+        <put-attribute name="params" value="/WEB-INF/views/pages/user-params.jsp"/>
+        <put-attribute name="page-fields" value="/WEB-INF/views/pages/user-fields-list.jsp"/>
+    </definition>
+    <definition name="user-edit" extends="frame-edit">
+        <put-attribute name="params" value="/WEB-INF/views/pages/user-params.jsp"/>
+        <put-attribute name="page-fields" value="/WEB-INF/views/pages/user-fields-edit.jsp"/>
     </definition>
 
     <!--
         <definition name="user-list" extends="frame-list">
             <put-attribute name="params" value="/WEB-INF/views/pages/user-list-params.jsp"/>
-            <put-attribute name="page_fields" value="/WEB-INF/views/pages/user-row.jsp"/>
+            <put-attribute name="page_fields" value="/WEB-INF/views/pages/user-fields-list.jsp"/>
         </definition>
     -->
     <!--
