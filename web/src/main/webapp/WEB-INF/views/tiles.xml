@@ -36,6 +36,15 @@
         <put-attribute name="page-fields" value="/WEB-INF/views/pages/airport-fields-edit.jsp"/>
     </definition>
 
+    <definition name="crew-list" extends="frame-list">
+        <put-attribute name="params" value="/WEB-INF/views/pages/crew-params.jsp"/>
+        <put-attribute name="page-fields" value="/WEB-INF/views/pages/crew-fields-list.jsp"/>
+    </definition>
+    <definition name="crew-edit" extends="frame-edit">
+        <put-attribute name="params" value="/WEB-INF/views/pages/crew-params.jsp"/>
+        <put-attribute name="page-fields" value="/WEB-INF/views/pages/crew-fields-edit.jsp"/>
+    </definition>
+
     <!--
         <definition name="user-list" extends="frame-list">
             <put-attribute name="params" value="/WEB-INF/views/pages/user-list-params.jsp"/>
@@ -50,7 +59,7 @@
     <!--
         <definition name="crews" extends="default">
             <put-attribute name="params" value="/WEB-INF/views/pages/crew-list-params.jsp"/>
-            <put-attribute name="page_fields" value="/WEB-INF/views/pages/crew-row.jsp"/>
+            <put-attribute name="page_fields" value="/WEB-INF/views/pages/crew-fields-list.jsp"/>
         </definition>
     -->
     <!-- <definition name="edit_crew" extends="default">
