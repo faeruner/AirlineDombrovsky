@@ -1,4 +1,6 @@
 <jsp:useBean id="entity" scope="request" type="by.pvt.module3.entity.Crew"/>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:if test="${not empty entity.id}">
     <div class="container">
@@ -7,8 +9,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><h3 class="panel-title">Member List</h3></div>
                     <div class="panel-body">
-                        <form id="memberForm" method="post" class="form-horizontal" action="/controller/crew">
-                            <div class="form-group row">
+                        <div class="row">
+                            <form id="memberForm" method="post" class="form-horizontal" action="/controller/crew">
                                 <label for="entity-staff" class="col-xs-1 control-label">Staff</label>
                                 <div class="col-xs-5 dropdown">
                                     <select id="entity-staff" class="c-select form-control" name="staff_id">
@@ -27,12 +29,12 @@
                                         </button>
                                     </c:if>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                     <table class="table">
                         <thead>
-                        <tr>
+                        <tr bgcolor="#f5f5f5">
                             <th style="width: 60px">Actions</th>
                             <th style="width: 60px">id</th>
                             <th>Member Type</th>

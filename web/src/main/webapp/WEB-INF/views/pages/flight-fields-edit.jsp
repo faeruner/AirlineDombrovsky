@@ -10,7 +10,7 @@
 </div>
 <div class="form-group row">
     <label for="entity-dep-date" class="col-xs-1 control-label" style="text-align: right;">DepDate</label>
-    <div class="col-xs-4 date">
+    <div class="col-xs-3 date">
         <div class="input-group input-append date" id="inputDepDate">
             <fmt:formatDate value="${entity.depDate}" pattern="dd.MM.yyyy" var="depDate"/>
             <input id="entity-dep-date" type='text' class="form-control" name="departure" value="${depDate}"/>
@@ -27,10 +27,10 @@
 </div>
 <div class="form-group row">
     <label for="inputReturnDate" class="col-xs-1 control-label" style="text-align: right;">ReturnDate</label>
-    <div class="col-xs-4 date">
+    <div class="col-xs-3 date">
         <div class="input-group input-append date" id="inputReturnDate">
             <fmt:formatDate value="${entity.returnDate}" pattern="dd.MM.yyyy" var="retDate"/>
-            <input type='text' class="form-control" name="return_date"/>
+            <input type='text' class="form-control" name="return_date" value="${retDate}"/>
             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
     </div>
@@ -44,7 +44,7 @@
 </div>
 <div class="form-group row">
     <label for="entity-cre-date" class="col-xs-1 control-label" style="text-align: right;">CreateDate</label>
-    <div class="col-xs-5 date">
+    <div class="col-xs-3 date">
         <div class="input-group input-append date" id="inputCreateDate">
             <fmt:formatDate value="${entity.createDate}" pattern="dd.MM.yyyy" var="creDate"/>
             <input id="entity-cre-date" type='text' class="form-control" name="create_date" value="${creDate}"/>

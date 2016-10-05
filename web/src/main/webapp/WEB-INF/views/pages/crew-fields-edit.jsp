@@ -1,4 +1,7 @@
 <jsp:useBean id="entity" scope="request" type="by.pvt.module3.entity.Crew"/>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="form-group row">
     <label for="entity-create-date" class="col-xs-1 control-label" style="text-align: right;">CreateDate</label>
     <div class="col-xs-3 date">
