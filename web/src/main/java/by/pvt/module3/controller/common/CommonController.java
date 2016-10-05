@@ -7,10 +7,11 @@ import by.pvt.module3.service.UserService;
 import by.pvt.module3.service.common.CommonService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 
-import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,15 +54,27 @@ public abstract class CommonController<T extends Fact> {
         this.commonService = commonService;
     }
 
-    protected User getSessionUser(HttpSession httpSession, Model model) {
-        Integer user_id = (Integer) httpSession.getAttribute(USER_ID);
-        if (user_id != null)
+    protected User getSecurityUser(Model model) {
+
+        String userLogin = getPrincipal();
+        if (userLogin != null)
             try {
-                return userService.getById(user_id);
+                return userService.getUserByLogin(userLogin);
             } catch (Exception e) {
                 handleException(e, model);
             }
         return null;
+    }
+
+    protected String getPrincipal() {
+        String userName;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
     }
 
     protected String getPage(Map<String, String> paramMap, Model model) {

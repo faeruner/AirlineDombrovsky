@@ -30,4 +30,11 @@ public class UserRole implements Serializable, Fact {
 		this.id = id;
 	}
 
+    @Override
+    public String toString() {
+        return "UserRole{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

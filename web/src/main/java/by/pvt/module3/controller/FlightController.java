@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -45,13 +44,13 @@ public class FlightController extends CommonController<Flight> {
     }
 
     @RequestMapping
-    public String perform(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
+    public String perform(@RequestParam Map<String, String> paramMap, Model model) {
         List<Airport> listAirports = airportService.getAll();
         model.addAttribute(LIST_DEPARTURE, listAirports);
         model.addAttribute(LIST_ARRIVAL, listAirports);
         model.addAttribute(LIST_AIRLINE, airlineService.getAll());
         model.addAttribute(LIST_CREW, crewService.getAll());
-        model.addAttribute(CommonController.ENTITY, updateEntity(findById(paramMap, model), paramMap, getSessionUser(httpSession, model)));
+        model.addAttribute(CommonController.ENTITY, updateEntity(findById(paramMap, model), paramMap, getSecurityUser(model)));
         return getPage(paramMap, model);
     }
 

@@ -65,6 +65,7 @@
                                 <button type="submit" class="btn btn-primary" name="command"
                                         value="edit">Insert
                                 </button>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                             <div class="col-md-10">
                                 <% if (userAdmin.equals(userType)) {%>
@@ -99,6 +100,7 @@
                                         <button type="submit" name="command" value="del"
                                                 class="btn btn-default btn-xs">delete
                                         </button>
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                     </form>
                                 </td>
                                 <c:set var="item" value="${item}" scope="request"/>
@@ -128,6 +130,7 @@
                                         </c:choose>
                                     </c:forEach>
                                 </div>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                         </div>
                     </div>

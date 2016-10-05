@@ -75,4 +75,15 @@ public class User implements Serializable, Fact {
 	public void setRole(UserRole role) {
 		this.role = role;
 	}
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", login='" + login + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

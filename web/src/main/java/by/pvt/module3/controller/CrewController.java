@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
@@ -44,8 +43,8 @@ public class CrewController extends CommonController<Crew> {
     }
 
     @RequestMapping
-    String perform(@RequestParam Map<String, String> paramMap, Model model, HttpSession httpSession) {
-        Crew crew = updateEntity(findById(paramMap, model), paramMap, getSessionUser(httpSession, model));
+    String perform(@RequestParam Map<String, String> paramMap, Model model) {
+        Crew crew = updateEntity(findById(paramMap, model), paramMap, getSecurityUser(model));
 
         String memberCommand = paramMap.get(MEMBER);
         if (memberCommand != null) {

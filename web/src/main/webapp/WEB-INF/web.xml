@@ -10,16 +10,14 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-    <!--
-        <filter>
-            <filter-name>securityHandlerFilter</filter-name>
-            <filter-class>by.pvt.module3.filter.ServletSecurityFilter</filter-class>
-        </filter>
-        <filter-mapping>
-            <filter-name>securityHandlerFilter</filter-name>
-            <url-pattern>/*</url-pattern>
-        </filter-mapping>
-    -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <!--
         SPRING MVC
     -->
@@ -44,6 +42,7 @@
         <url-pattern>/controller/user/*</url-pattern>
         <url-pattern>/login/*</url-pattern>
         <url-pattern>/logout/*</url-pattern>
+        <url-pattern>/access_denied/*</url-pattern>
     </servlet-mapping>
 
     <!--
@@ -52,7 +51,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring-context.xml</param-value>
+        <param-value>classpath:spring-context.xml, classpath:security-context.xml</param-value>
     </context-param>
 
     <listener>

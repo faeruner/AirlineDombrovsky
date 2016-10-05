@@ -18,6 +18,7 @@
     </definition>
 
     <definition name="login" template="/WEB-INF/views/pages/login.jsp"/>
+    <definition name="access_denied" template="/WEB-INF/views/pages/login.jsp"/>
 
     <definition name="airline-list" extends="frame-list">
         <put-attribute name="params" value="/WEB-INF/views/pages/airline-params.jsp"/>
