@@ -47,6 +47,24 @@
         <put-attribute name="page-fields" value="/WEB-INF/views/pages/crew-fields-edit.jsp"/>
     </definition>
 
+    <definition name="flight-list" extends="frame-list">
+        <put-attribute name="params" value="/WEB-INF/views/pages/flight-params.jsp"/>
+        <put-attribute name="page-fields" value="/WEB-INF/views/pages/flight-fields-list.jsp"/>
+    </definition>
+    <definition name="flight-edit" extends="frame-edit">
+        <put-attribute name="params" value="/WEB-INF/views/pages/flight-params.jsp"/>
+        <put-attribute name="page-fields" value="/WEB-INF/views/pages/flight-fields-edit.jsp"/>
+    </definition>
+
+    <definition name="staff-list" extends="frame-list">
+        <put-attribute name="params" value="/WEB-INF/views/pages/staff-params.jsp"/>
+        <put-attribute name="page-fields" value="/WEB-INF/views/pages/staff-fields-list.jsp"/>
+    </definition>
+    <definition name="staff-edit" extends="frame-edit">
+        <put-attribute name="params" value="/WEB-INF/views/pages/staff-params.jsp"/>
+        <put-attribute name="page-fields" value="/WEB-INF/views/pages/staff-fields-edit.jsp"/>
+    </definition>
+
     <definition name="user-list" extends="frame-list">
         <put-attribute name="params" value="/WEB-INF/views/pages/user-params.jsp"/>
         <put-attribute name="page-fields" value="/WEB-INF/views/pages/user-fields-list.jsp"/>
@@ -58,7 +76,7 @@
 
     <!--
         <definition name="user-list" extends="frame-list">
-            <put-attribute name="params" value="/WEB-INF/views/pages/user-list-params.jsp"/>
+            <put-attribute name="params" value="/WEB-INF/views/pages/user-params.jsp"/>
             <put-attribute name="page_fields" value="/WEB-INF/views/pages/user-fields-list.jsp"/>
         </definition>
     -->
