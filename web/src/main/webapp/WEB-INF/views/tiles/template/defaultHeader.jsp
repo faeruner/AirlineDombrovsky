@@ -1,3 +1,3 @@
-<div>
-    <h1>Tiles Demo</h1>
+<div class="page-header">
+    <h1 class="text-center">AirlineDombrovsky</h1>
 </div>
