@@ -33,11 +33,11 @@
 <section id="main_list">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-xs-8">
                                 <c:choose>
                                     <c:when test="${empty user}">
                                         <h3>${entity_name} List</h3>
@@ -48,7 +48,7 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-xs-4">
                                 <p style="text-align: right;">
                                     <a class="btn btn-link btn-default" href="/logout">Logout</a>
                                 </p>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <form class="form-inline col-md-1" method="post" action="${action}">
+                            <form class="form-inline col-xs-1" method="post" action="${action}">
                                 <input type="hidden" name="id" value="0"/>
                                 <input type="hidden" name="page_num" value="${requestScope.insertPageNum}"/>
                                 <button type="submit" class="btn btn-primary" name="command"
@@ -65,7 +65,7 @@
                                 </button>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
-                            <div class="col-md-10">
+                            <div class="col-xs-10">
                                 <security:authorize access="hasRole('ROLE_ADMINISTRATOR')">
                                     <a class="btn btn-default" href="/controller/flight">Flights</a>
                                     <a class="btn btn-default" href="/controller/airport">Airports</a>
@@ -110,10 +110,10 @@
                     </table>
                     <div class="panel-footer panel-footer-custom">
                         <div class="row">
-                            <div class="col-md-1">
+                            <div class="col-xs-1">
                                 Page: ${requestScope.current_page}/${requestScope.numPages.size()}
                             </div>
-                            <form class="form-inline col-md-11" action="${action}" method="post">
+                            <form class="form-inline col-xs-11" action="${action}" method="post">
                                 <input type="hidden" name="command" value="list">
                                 <div class="btn-group" role="group" aria-label="...">
                                     <c:forEach var="numPage" items="${requestScope.numPages}">

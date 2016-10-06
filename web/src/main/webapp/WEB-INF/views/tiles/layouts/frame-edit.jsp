@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-2.1.2.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/moment.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/locale/ru.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
@@ -36,66 +36,70 @@
     <tiles:insertAttribute name="header"/>
 </header>
 <section id="main_list">
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <form action="${action}" method="post" name="entityForm" role="form" data-toggle="validator">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <form action="${action}" method="post" name="entityForm" role="form" data-toggle="validator">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <h3>
+                                        <c:choose>
+                                            <c:when test="${empty entity.id}">Insert </c:when>
+                                            <c:otherwise>Edit </c:otherwise>
+                                        </c:choose>
+                                        ${entity_name}
+                                    </h3>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p style="text-align: right;">
+                                        <a class="btn btn-link btn-default" href="/logout">Logout</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label for="inputId" class="form-control-label">Id</label>
+                                        <input type="text" class="form-control text-right" id="inputId"
+                                               value="${entity.id}"
+                                               disabled="disabled">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <tiles:insertAttribute name="page-fields"/>
+                        </div>
+                        <div class="panel-footer panel-footer-custom">
+                            <div class="row">
+                                <div class="col-xs-10 btn-toolbar" role="toolbar">
+                                    <input type="hidden" name="page_num" value="${requestScope.current_page}"/>
                                     <c:choose>
-                                        <c:when test="${empty entity.id}">Insert </c:when>
-                                        <c:otherwise>Edit </c:otherwise>
+                                        <c:when test="${empty entity.id}">
+                                            <button type="submit" class="btn btn-primary" name="command" value="add">
+                                                Insert
+                                            </button>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="hidden" name="id" value="${entity.id}"/>
+                                            <button type="submit" class="btn btn-primary" name="command" value="upd">
+                                                Save
+                                            </button>
+                                        </c:otherwise>
                                     </c:choose>
-                                    ${entity_name}
-                                </h3>
-                            </div>
-                            <div class="col-md-4">
-                                <p style="text-align: right;">
-                                    <a class="btn btn-link btn-default" href="/logout">Logout</a>
-                                </p>
+                                    <a class="btn btn-default" href="${action}?command=list">Close</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="form-group row">
-                            <label for="inputId" class="col-md-1 form-control-label"
-                                   style="text-align: right;">Id</label>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="inputId"
-                                       value="${entity.id}" disabled="disabled"/>
-                            </div>
-                        </div>
-                        <tiles:insertAttribute name="page-fields"/>
-                    </div>
-                    <div class="panel-footer panel-footer-custom">
-                        <div class="row">
-                            <div class="col-md-10 btn-toolbar" role="toolbar">
-                                <input type="hidden" name="page_num" value="${requestScope.current_page}"/>
-                                <c:choose>
-                                    <c:when test="${empty entity.id}">
-                                        <button type="submit" class="btn btn-primary" name="command" value="add">
-                                            Insert
-                                        </button>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input type="hidden" name="id" value="${entity.id}"/>
-                                        <button type="submit" class="btn btn-primary" name="command" value="upd">Save
-                                        </button>
-                                    </c:otherwise>
-                                </c:choose>
-                                <a class="btn btn-default" href="${action}?command=list">Close</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </form>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </section>
 <section>
     <tiles:insertAttribute name="advanced-edit" ignore="true"/>

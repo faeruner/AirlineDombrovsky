@@ -5,7 +5,7 @@
 <c:if test="${not empty entity.id}">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading"><h3 class="panel-title">Member List</h3></div>
                     <div class="panel-body">
@@ -29,6 +29,7 @@
                                         </button>
                                     </c:if>
                                 </div>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                         </div>
                     </div>
@@ -54,6 +55,7 @@
                                         <button type="submit" class="btn btn-default btn-xs" name="member"
                                                 value="del">delete
                                         </button>
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                     </form>
                                 </td>
                                 <td>${staff.id}</td>

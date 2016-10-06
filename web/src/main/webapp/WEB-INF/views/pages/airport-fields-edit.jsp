@@ -1,10 +1,12 @@
 <jsp:useBean id="entity" scope="request" type="by.pvt.module3.entity.Airport"/>
-<div class="form-group has-feedback row">
-    <label for="inputName" class="col-md-1 form-control-label"
-           style="text-align: right;">Name</label>
-    <div class="col-md-11">
-        <input type="text" class="form-control" id="inputName" maxlength="25"
-               name="name" value="${entity.name}" required>
-        <div class="help-block with-errors"></div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="form-group has-feedback">
+            <label for="inputName" class="control-label">Name</label>
+            <input type="text" class="form-control" id="inputName" maxlength="100" name="name" value="${entity.name}"
+                   required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="help-block with-errors"></div>
+        </div>
     </div>
 </div>
