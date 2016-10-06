@@ -17,12 +17,16 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/moment.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/locale/ru.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/validator.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#errorModal").modal({
                 show: ${requestScope.show_error}
             });
         });
+    </script>
+    <script type="text/javascript">
+        $('#entityForm').validator();
     </script>
 </head>
 <body>
@@ -35,7 +39,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form action="${action}" method="post">
+            <form action="${action}" method="post" name="entityForm" role="form" data-toggle="validator">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
@@ -61,7 +65,7 @@
                                    style="text-align: right;">Id</label>
                             <div class="col-md-3">
                                 <input type="text" class="form-control" id="inputId"
-                                       value="${entity.id}" disabled="disabled">
+                                       value="${entity.id}" disabled="disabled"/>
                             </div>
                         </div>
                         <tiles:insertAttribute name="page-fields"/>
@@ -82,7 +86,7 @@
                                         </button>
                                     </c:otherwise>
                                 </c:choose>
-                                <button type="submit" class="btn btn-default" name="command" value="list">Close</button>
+                                <a class="btn btn-default" href="${action}?command=list">Close</a>
                             </div>
                         </div>
                     </div>

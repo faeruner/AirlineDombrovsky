@@ -5,12 +5,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<tiles:importAttribute name="title" toName="apptitle" scope="request"/>
-<tiles:importAttribute name="subtitle" scope="request"/>
-
 <tiles:insertAttribute name="params"/>
 <html>
 <head><title>AirlineDombrovsky: ${entity_name}
@@ -31,6 +26,8 @@
 </head>
 <body>
 <header>
+    <tiles:importAttribute name="title" toName="apptitle" scope="request"/>
+    <tiles:importAttribute name="subtitle" scope="request"/>
     <tiles:insertAttribute name="header"/>
 </header>
 <section id="main_list">
