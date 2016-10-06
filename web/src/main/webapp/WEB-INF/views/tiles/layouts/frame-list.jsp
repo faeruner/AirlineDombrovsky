@@ -29,6 +29,7 @@
 </head>
 <body>
 <header>
+    <tiles:importAttribute name="title" toName="apptitle" scope="request"/>
     <tiles:insertAttribute name="header"/>
 </header>
 <section id="main_list">
