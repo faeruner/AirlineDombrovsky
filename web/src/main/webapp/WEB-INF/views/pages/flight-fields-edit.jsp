@@ -2,10 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<div class="form-group row">
+<div class="form-group has-feedback row">
     <label for="entity-code" class="col-xs-1 control-label" style="text-align: right;">Code</label>
     <div class="col-xs-5">
-        <input id="entity-code" type="text" class="form-control" name="code" value="${entity.code}">
+        <input id="entity-code" type="text" class="form-control" maxlength="45" name="code" value="${entity.code}"
+               required>
     </div>
 </div>
 <div class="form-group row">

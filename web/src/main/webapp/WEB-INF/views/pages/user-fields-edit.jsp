@@ -16,20 +16,20 @@
                name="surname" value="${entity.surname}">
     </div>
 </div>
-<div class="form-group row">
+<div class="form-group has-feedback row">
     <label for="inputLogin"
            class="col-xs-1 form-control-label" style="text-align: right;">Login</label>
     <div class="col-xs-3">
-        <input type="text" class="form-control" id="inputLogin"
-               name="login" value="${entity.login}">
+        <input type="text" class="form-control" id="inputLogin" maxlength="16"
+               name="login" value="${entity.login}" required>
     </div>
 </div>
-<div class="form-group row">
+<div class="form-group has-feedback row">
     <label for="inputPassword"
            class="col-xs-1 form-control-label" style="text-align: right;">Password</label>
     <div class="col-xs-3">
-        <input type="text" class="form-control" id="inputPassword"
-               name="password" value="${entity.password}">
+        <input type="text" class="form-control" id="inputPassword" maxlength="16"
+               name="password" value="${entity.password}" required>
     </div>
 </div>
 <div class="form-group row">
