@@ -1,5 +1,10 @@
+<div class="text-info">
+    <hr/>
+    <p style="text-align: left;">
+        Debug info: session = ${sessionScope}
+    </p>
+</div>
 <div>
-    Made in this world.
     <div class="modal fade" id="errorModal" role="dialog">
         <div class="modal-dialog">
 

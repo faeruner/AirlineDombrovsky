@@ -5,6 +5,7 @@
 <tiles-definitions>
     <definition name="default">
         <put-attribute name="title" value="The Manager of Schedule Flights (c)"/>
+        <put-attribute name="subtitle" value="V.Dombrovsky, ПВТ, 2016"/>
         <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp"/>
         <put-attribute name="params" value=""/>
         <put-attribute name="page-fields" value=""/>
@@ -12,8 +13,8 @@
     </definition>
 
     <definition name="frame-list" extends="default" template="/WEB-INF/views/tiles/layouts/frame-list.jsp"/>
-    <definition name="frame-edit" template="/WEB-INF/views/tiles/layouts/frame-edit.jsp"/>
-    <definition name="login" extends="default" template="/WEB-INF/views/pages/login.jsp"/>
+    <definition name="frame-edit" extends="default" template="/WEB-INF/views/tiles/layouts/frame-edit.jsp"/>
+    <definition name="login" extends="default" template="/WEB-INF/views/tiles/layouts/login.jsp"/>
     <definition name="access_denied" extends="login"/>
 
     <definition name="airline-list" extends="frame-list">

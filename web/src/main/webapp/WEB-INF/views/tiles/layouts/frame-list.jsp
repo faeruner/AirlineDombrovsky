@@ -30,6 +30,7 @@
 <body>
 <header>
     <tiles:importAttribute name="title" toName="apptitle" scope="request"/>
+    <tiles:importAttribute name="subtitle" scope="request"/>
     <tiles:insertAttribute name="header"/>
 </header>
 <section id="main_list">
@@ -52,8 +53,7 @@
                             </div>
                             <div class="col-md-4">
                                 <p style="text-align: right;">
-                                    Debug info: session = ${sessionScope}
-                                    <a href="/logout">Logout</a>
+                                    <a class="btn btn-link btn-default" href="/logout">Logout</a>
                                 </p>
                             </div>
                         </div>
