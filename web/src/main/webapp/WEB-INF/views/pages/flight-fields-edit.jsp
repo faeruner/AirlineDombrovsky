@@ -130,7 +130,8 @@
 <div class="form-group row">
     <label for="entity-user" class="col-xs-1 control-label" style="text-align: right;">User</label>
     <div class="col-xs-5">
-        <input id="entity-user" type="text" class="form-control" name="user" value="${entity.user.login}"
+        <input id="entity-user" type="text" class="form-control" name="user"
+               value="${entity.user.name} ${entity.user.surname}"
                disabled="disabled"/>
     </div>
 </div>

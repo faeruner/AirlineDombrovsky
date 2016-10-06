@@ -13,20 +13,6 @@ public class ServletSecurityFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-//		HttpServletRequest req = (HttpServletRequest) request;
-//		HttpServletResponse resp = (HttpServletResponse) response;
-//		HttpSession session = req.getSession();
-
-//		UserType type = (UserType) session.getAttribute("userType");
-//		if (type == null || UserType.GUEST.equals(type)) {
-//            ServiceUtil.closeSession();
-//            type = UserType.GUEST;
-//			session.setAttribute("userType", type);
-//			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/jsp/login.jsp");
-//			dispatcher.forward(req, resp);
-//			return;
-//		}
-		// pass the request along the by.pvt.module3.filter chain
 		chain.doFilter(request, response);
         ServiceUtil.closeSession();
     }

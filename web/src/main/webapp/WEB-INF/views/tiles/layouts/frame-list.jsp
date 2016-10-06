@@ -1,15 +1,17 @@
-<%@ page import="by.pvt.module3.filter.UserType" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<tiles:importAttribute name="title" toName="apptitle" scope="request"/>
+<tiles:importAttribute name="subtitle" scope="request"/>
+
 <tiles:insertAttribute name="params"/>
-<%
-    String userAdmin = UserType.ADMINISTRATOR.name();
-    String userType = ((UserType) session.getAttribute("userType")).name();
-%>
 <html>
 <head><title>AirlineDombrovsky: ${entity_name}
 </title>
@@ -29,8 +31,6 @@
 </head>
 <body>
 <header>
-    <tiles:importAttribute name="title" toName="apptitle" scope="request"/>
-    <tiles:importAttribute name="subtitle" scope="request"/>
     <tiles:insertAttribute name="header"/>
 </header>
 <section id="main_list">
@@ -69,15 +69,16 @@
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                             <div class="col-md-10">
-                                <% if (userAdmin.equals(userType)) {%>
-                                <a class="btn btn-default" href="/controller/flight">Flights</a>
-                                <a class="btn btn-default" href="/controller/airport">Airports</a>
-                                <a class="btn btn-default" href="/controller/airline">Airlines</a>
-                                <a class="btn btn-default" href="/controller/user">Users</a>
-                                <% } else { %>
-                                <a class="btn btn-default" href="/controller/crew">Crew</a>
-                                <a class="btn btn-default" href="/controller/staff">Staff</a>
-                                <% } %>
+                                <security:authorize access="hasRole('ROLE_ADMINISTRATOR')">
+                                    <a class="btn btn-default" href="/controller/flight">Flights</a>
+                                    <a class="btn btn-default" href="/controller/airport">Airports</a>
+                                    <a class="btn btn-default" href="/controller/airline">Airlines</a>
+                                    <a class="btn btn-default" href="/controller/user">Users</a>
+                                </security:authorize>
+                                <security:authorize access="hasRole('ROLE_DISPATCHER')">
+                                    <a class="btn btn-default" href="/controller/crew">Crew</a>
+                                    <a class="btn btn-default" href="/controller/staff">Staff</a>
+                                </security:authorize>
                             </div>
                         </div>
                     </div>
