@@ -1,21 +1,20 @@
-package by.pvt.module3.service.common;
+package by.pvt.module3.webservice.common;
 
 import by.pvt.module3.entity.Fact;
+import by.pvt.module3.webservice.schema.FactType;
 
 import java.util.List;
 
-public interface CommonService<T extends Fact> {
+public interface CommonRepository<T extends FactType, F extends Fact> {
     T getById(Integer id);
 
     void delete(Integer id);
 
-    Integer add(T entity);
+    Integer add(T model);
 
-    T update(T entity);
+    T update(T model);
 
     List<T> getPage(Integer page, Integer size);
-
-    List<T> getAll();
 
     List<Integer> getPageNumbers(Integer size);
 

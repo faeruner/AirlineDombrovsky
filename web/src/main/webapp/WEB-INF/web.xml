@@ -35,6 +35,7 @@
     <servlet-mapping>
         <servlet-name>Spring MVC Servlet</servlet-name>
         <url-pattern>/controller/airline/*</url-pattern>
+        <url-pattern>/controller/airline/validate/*</url-pattern>
         <url-pattern>/controller/airport/*</url-pattern>
         <url-pattern>/controller/crew/*</url-pattern>
         <url-pattern>/controller/flight/*</url-pattern>

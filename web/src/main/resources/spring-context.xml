@@ -102,4 +102,11 @@
         </property>
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean class="by.pvt.module3.resource.SystemPropertiesInitializingBean">
+        <property name="systemProperties">
+            <map>
+                <entry key="org.apache.coyote.USE_CUSTOM_STATUS_MSG_IN_HEADER" value="true"/>
+            </map>
+        </property>
+    </bean>
 </beans>

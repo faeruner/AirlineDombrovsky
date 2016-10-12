@@ -1,0 +1,10 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://module3.pvt.by/airlines/webservice">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:getAllAirlinesRequest>
+            <gs:page>1</gs:page>
+            <gs:size>3</gs:size>
+        </gs:getAllAirlinesRequest>
+    </soapenv:Body>
+</soapenv:Envelope>

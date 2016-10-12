@@ -12,8 +12,6 @@ import java.util.List;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public abstract class BaseService<T extends Fact> implements CommonService<T> {
 
-    private Integer recordsPerPage = 3;
-
     private final CommonDao<T> dao;
 
     public BaseService(CommonDao<T> dao) {
@@ -23,10 +21,6 @@ public abstract class BaseService<T extends Fact> implements CommonService<T> {
 
     protected CommonDao<T> getDao() {
         return dao;
-    }
-
-    public Integer getRecordsPerPage() {
-        return recordsPerPage;
     }
 
     public T getById(Integer id) {
@@ -48,12 +42,12 @@ public abstract class BaseService<T extends Fact> implements CommonService<T> {
         return getDao().update(entity);
     }
 
-    public List<Integer> getPagesNum() {
+    public List<Integer> getPageNumbers(Integer size) {
         Long count = getDao().getCount();
         List<Integer> listPages = new ArrayList<Integer>();
         for (int i = 1; count > 0; i++) {
             listPages.add(i);
-            count -= getRecordsPerPage();
+            count -= size;
         }
         return listPages;
     }
@@ -62,16 +56,12 @@ public abstract class BaseService<T extends Fact> implements CommonService<T> {
         return getDao().getAll();
     }
 
-    public List<T> getPage(Integer numPage) {
-        return getDao().getPage(numPage, getRecordsPerPage());
+    public List<T> getPage(Integer page, Integer size) {
+        return getDao().getPage(page, size);
     }
 
-    public void setRecordsPerPage(Integer recordsPerPage) {
-        this.recordsPerPage = recordsPerPage;
-    }
-
-    public Long getInsertPageNum() {
+    public Long getInsertPageNum(Integer size) {
         Long count = getDao().getCount();
-        return count / getRecordsPerPage() + 1;
+        return count / size + 1;
     }
 }

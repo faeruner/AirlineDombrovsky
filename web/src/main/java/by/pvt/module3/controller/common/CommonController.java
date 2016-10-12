@@ -23,6 +23,7 @@ public abstract class CommonController<T extends Fact> {
     private Logger log = LogManager.getLogger(CommonController.class);
 
     protected static final DateFormat DF = new SimpleDateFormat("dd.MM.yyyy");
+    private static final Integer PAGE_SIZE = 3;
 
     private static final String COMMAND = "command";
     private static final String COMMAND_EDIT = "edit";
@@ -166,11 +167,11 @@ public abstract class CommonController<T extends Fact> {
         return ConfigurationManager.getProperty(pathPageList);
     }
 
-    private List<T> preparePagination(Integer pageNum, Model model) {
+    private List<T> preparePagination(Integer page, Model model) {
         // set pages
         List<Integer> pages;
         try {
-            pages = commonService.getPagesNum();
+            pages = commonService.getPageNumbers(PAGE_SIZE);
         } catch (Exception e) {
             handleException(e, model);
             pages = new ArrayList<>();
@@ -179,24 +180,24 @@ public abstract class CommonController<T extends Fact> {
         model.addAttribute(COUNT_PAGES, pages.size());
 
         // set current page
-        if (pages.size() > 0 && pageNum != null) {
-            if (pageNum > pages.size())
-                pageNum = pages.size();
+        if (pages.size() > 0 && page != null) {
+            if (page > pages.size())
+                page = pages.size();
         } else {
-            pageNum = 1;
+            page = 1;
         }
-        model.addAttribute(CURRENT_PAGE, pageNum);
+        model.addAttribute(CURRENT_PAGE, page);
 
         // set num page for new record
         try {
-            model.addAttribute(INSERT_PAGE_NUM, commonService.getInsertPageNum());
+            model.addAttribute(INSERT_PAGE_NUM, commonService.getInsertPageNum(PAGE_SIZE));
         } catch (Exception e) {
             handleException(e, model);
             model.addAttribute(INSERT_PAGE_NUM, 1);
         }
 
         try {
-            return commonService.getPage(pageNum);
+            return commonService.getPage(page, PAGE_SIZE);
         } catch (Exception e) {
             handleException(e, model);
         }

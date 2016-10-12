@@ -25,9 +25,6 @@
             });
         });
     </script>
-    <script type="text/javascript">
-        $('#entityForm').validator();
-    </script>
 </head>
 <body>
 <header>
@@ -39,7 +36,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <form action="${action}" method="post" name="entityForm" role="form" data-toggle="validator">
+                <form action="${action}" method="post" id="entityForm" role="form" data-toggle="validator">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
@@ -75,7 +72,7 @@
                         </div>
                         <div class="panel-footer panel-footer-custom">
                             <div class="row">
-                                <div class="col-xs-10 btn-toolbar" role="toolbar">
+                                <div class="col-xs-10 form-action">
                                     <input type="hidden" name="page_num" value="${requestScope.current_page}"/>
                                     <c:choose>
                                         <c:when test="${empty entity.id}">
